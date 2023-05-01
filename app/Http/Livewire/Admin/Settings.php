@@ -35,33 +35,13 @@ class Settings extends Component
             'address' => 'string|min:10|max:200',
             'address_ar' => 'string|min:10|max:200',
             'mobile' => 'numeric',
-            'lat' => 'numeric',
-            'lng' => 'numeric',
+//            'lat' => 'numeric',
+//            'lng' => 'numeric',
             'facebook' => 'string|min:10|max:1000',
             'instagram' => 'string|min:10|max:1000',
             'twitter' => 'string|min:10|max:1000',
-            'campaign_min_Duration' => 'integer',
-
-            'ad_min_budget' => 'integer',
-            'ad_click_price' => 'numeric',
-            'soldier_ad_click_price' => 'numeric',
+            'snap_chat' => 'string|min:10|max:255',
             'taxes' => 'integer',
-
-            'min_ad_view_duration' => 'integer',
-            'solider_ad_max_profit' => 'numeric',
-
-            'solider_ad_max_profit_currency' => 'required',
-            'ad_click_price_currency' => 'required',
-            'app_store' => 'required',
-            'google_play' => 'required',
-            'minimum_payback_amount' => 'required|numeric',
-            'mission_ar' => 'nullable',
-            'mission_en' => 'nullable',
-            'vision_ar' => 'nullable',
-            'vision_en' => 'nullable',
-            'number_of_days' => 'nullable|numeric'
-
-
         ];
     }
 

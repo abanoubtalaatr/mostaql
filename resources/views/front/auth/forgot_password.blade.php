@@ -1,4 +1,4 @@
-@extends('layouts.forgot_password')
+@extends('layouts.front')
 @section('content')
 @livewire('front.forgot-password')
 @endsection

@@ -16,8 +16,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>@lang('site.title_ar')</th>
-                                <th>@lang('site.title_en')</th>
-                                <th>@lang('site.picture')</th>
+{{--                                <th>@lang('site.title_en')</th>--}}
+{{--                                <th>@lang('site.picture')</th>--}}
                                 <th>@lang('site.created_at')</th>
                                 <th>@lang('site.actions')</th>
                             </tr>
@@ -27,8 +27,8 @@
                                 <tr>
                                     <td>#{{$loop->index + 1}}</td>
                                     <td>{{$record->name_ar}}</td>
-                                    <td>{{$record->name_en}}</td>
-                                    <td><img src="{{$record->picture_url}}" style='width:100px;'/></td>
+{{--                                    <td>{{$record->name_en}}</td>--}}
+{{--                                    <td><img src="{{$record->picture_url}}" style='width:100px;'/></td>--}}
                                     <td>{{$record->created_at}}</td>
                                     <td>
                                         <div class="actions">

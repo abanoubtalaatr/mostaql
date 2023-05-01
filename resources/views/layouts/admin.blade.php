@@ -23,6 +23,21 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     @livewireStyles()
     @stack('styles')
+    <script src="https://cdn.tiny.cloud/1/my-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            directionality: 'rtl',
+            plugins: 'link code',
+            height:400,
+            toolbar: 'undo redo | bold italic underline | alignright aligncenter alignleft | code',
+            language: 'ar',
+            language_url: 'https://cdn.tiny.cloud/1/my-api-key/tinymce/5/langs/ar.js',
+            extended_valid_elements : 'span[style|class],div[align|style|class],br,hr',
+            content_style: 'body { font-family: "Arial", sans-serif; font-size: 14px; direction: rtl; text-align: right; }'
+        });
+    </script>
+
 </head>
 
 <body class="home-page" x-data x-on:saved="toastr.success($event.detail.message);">
@@ -66,48 +81,94 @@
                     </a>
                 </li>
             @endcan
-
-            @can('Manage tasks')
+            <hr>
+            @can('Manage users')
                 <li>
-                    <a href="{{route('admin.task.index')}}">
+                    <a href="{{route('admin.countries')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
-                        @lang('site.tasks')
+                        @lang('site.countries')
                     </a>
                 </li>
             @endcan
 
-            @can('Manage libraries')
+            @can('Manage users')
                 <li>
-                    <a href="{{route('admin.library')}}">
-                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/library.svg" alt="">
-                        @lang('site.library')
+                    <a href="{{route('admin.cities')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.cities')
                     </a>
                 </li>
             @endcan
 
-            @can('Manage payback_requests')
+
+            @can('Manage users')
                 <li>
-                    <a href="{{route('admin.payback_requests')}}">
-                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/library.svg" alt="">
-                        @lang('site.payback_requests')
+                    <a href="{{route('admin.skills')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.skills')
                     </a>
                 </li>
             @endcan
 
-            @can('Manage ads')
+            @can('Manage users')
                 <li>
-                    <a href="{{route('admin.ads')}}">
-                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/ads.svg" alt="">
-                        @lang('site.ads')
+                    <a href="{{route('admin.money')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.money')
                     </a>
                 </li>
             @endcan
+
+            @can('Manage users')
+                <li>
+                    <a href="{{route('admin.medals')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.medals')
+                    </a>
+                </li>
+            @endcan
+
+{{--            @can('Manage tasks')--}}
+{{--                <li>--}}
+{{--                    <a href="{{route('admin.task.index')}}">--}}
+{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
+{{--                        @lang('site.tasks')--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            @endcan--}}
+
+{{--            @can('Manage libraries')--}}
+{{--                <li>--}}
+{{--                    <a href="{{route('admin.library')}}">--}}
+{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/library.svg" alt="">--}}
+{{--                        @lang('site.library')--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            @endcan--}}
+
+{{--            @can('Manage payback_requests')--}}
+{{--                <li>--}}
+{{--                    <a href="{{route('admin.payback_requests')}}">--}}
+{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/library.svg" alt="">--}}
+{{--                        @lang('site.payback_requests')--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            @endcan--}}
+
+{{--            @can('Manage ads')--}}
+{{--                <li>--}}
+{{--                    <a href="{{route('admin.ads')}}">--}}
+{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/ads.svg" alt="">--}}
+{{--                        @lang('site.ads')--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            @endcan--}}
 
             @can('Manage categories')
                 <li>
                     <a href="{{route('admin.category')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
-                        @lang('site.library_categories')
+                        @lang('site.categories')
                     </a>
                 </li>
             @endcan
@@ -131,32 +192,32 @@
                 </li>
             @endcan
 
-            @can('Manage sliders')
-                <li>
-                    <a href="{{route('admin.slider')}}">
-                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
-                        @lang('general.slider')
-                    </a>
-                </li>
-            @endcan
+{{--            @can('Manage sliders')--}}
+{{--                <li>--}}
+{{--                    <a href="{{route('admin.slider')}}">--}}
+{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
+{{--                        @lang('general.slider')--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            @endcan--}}
 
-            @can('Manage discounts')
-                <li>
-                    <a href="{{route('admin.discount')}}">
-                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
-                        @lang('general.discounts')
-                    </a>
-                </li>
-            @endcan
+{{--            @can('Manage discounts')--}}
+{{--                <li>--}}
+{{--                    <a href="{{route('admin.discount')}}">--}}
+{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
+{{--                        @lang('general.discounts')--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            @endcan--}}
 
-            @can('Manage partners')
-                <li>
-                    <a href="{{route('admin.partner')}}">
-                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
-                        @lang('site.partners')
-                    </a>
-                </li>
-            @endcan
+{{--            @can('Manage partners')--}}
+{{--                <li>--}}
+{{--                    <a href="{{route('admin.partner')}}">--}}
+{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
+{{--                        @lang('site.partners')--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            @endcan--}}
 
 
             @can('Manage settings')

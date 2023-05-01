@@ -13,6 +13,7 @@ class HomeController extends Controller{
         $benefits = Page::whereType('benifits')->get();
         $services = Page::whereType('services')->get();
         $footers = Page::whereType('footer')->get();
+
         return view('front.front.home',compact('benefits','how_does_it_work','services','footers'));
     }
 

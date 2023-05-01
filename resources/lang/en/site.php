@@ -422,4 +422,6 @@ return [
     'your_account_not_active' => 'Your an account not active contact with admin',
     'phone' => 'Phone',
     'create_new_account_as_a_creator' => 'Create new an account as ad creator',
+    'create_country' => 'Create country',
+    'countries' => 'Countries'
 ];

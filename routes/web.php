@@ -1,95 +1,69 @@
 <?php
 
-use App\Models\Ad;
-use App\Models\AdDevices;
-use App\Models\AdTime;
-use App\Models\AdUser;
-use App\Models\Discount;
-use App\Models\User;
-
-use App\Models\Filter;
-
-use App\Models\AdProfit;
-
-
-use App\Notifications\AdFinishedNotification;
-use App\Services\GoogleAnalyticsService;
-use Illuminate\Http\Request;
-use App\Services\HyperpayService;
-
-use App\Services\AdsFilterService;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Front\ContactUs;
-
-
-use App\Http\Livewire\User\EditProfile;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\TaskController as AdminTaskController;
+use App\Http\Controllers\Advertiser\BillingController;
+use App\Http\Controllers\Advertiser\CampController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LibraryController;
-use App\Http\Livewire\Front\ForgotPassword;
-
-use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\MyFatoorahController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\Advertiser\CampController;
-
-
-use App\Http\Livewire\Admin\Pages\Edit as PagesEdit;
-
-use App\Http\Controllers\Advertiser\BillingController;
-use App\Http\Livewire\Admin\Pages\Index as PagesIndex;
-use App\Http\Livewire\Admin\Settings as SettingsIndex;
-use App\Http\Livewire\Admin\Slider\Edit as SliderEdit;
-use App\Http\Livewire\Admin\Library\Edit as LibraryEdit;
-use App\Http\Livewire\Admin\Pages\Create as PagesCreate;
-use App\Http\Livewire\Admin\Pages\Delete as PagesDelete;
-use App\Http\Livewire\Admin\Partner\Edit as PartnerEdit;
-use App\Http\Livewire\Admin\Slider\Index as SliderIndex;
+use App\Http\Controllers\User\AdController as UserAdController;
+use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\ContactController as UserContactController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\TaskController as UserTaskController;
+use App\Http\Livewire\Admin\Admins\Create as AdminCreate;
+use App\Http\Livewire\Admin\Admins\Edit as AdminEdit;
+use App\Http\Livewire\Admin\Admins\Index as AdminIndex;
+use App\Http\Livewire\Admin\Category\Create as CategoryCreate;
 use App\Http\Livewire\Admin\Category\Edit as CategoryEdit;
-use App\Http\Livewire\Admin\Library\Index as LibraryIndex;
-use App\Http\Livewire\Admin\Partner\Index as PartnerIndex;
-use App\Http\Livewire\Admin\Slider\Create as SliderCreate;
-use App\Http\Livewire\Admin\Slider\Delete as SliderDelete;
+use App\Http\Livewire\Admin\Category\Index as CategoryIndex;
 use App\Http\Livewire\Admin\Discount\Create as DiscountCrate;
 use App\Http\Livewire\Admin\Discount\Delete as DiscountDelete;
 use App\Http\Livewire\Admin\Discount\Edit as DiscountEdit;
 use App\Http\Livewire\Admin\Discount\Index as DiscountIndex;
-use App\Http\Livewire\Admin\Role\Index as RoleIndex;
-use App\Http\Livewire\Admin\Role\Edit as RoleEdit;
-use App\Http\Livewire\Admin\Role\Create as RoleCreate;
-use App\Http\Livewire\Admin\Role\Delete as RoleDelete;
-use App\Http\Livewire\Admin\Admins\Index as AdminIndex;
-use App\Http\Livewire\Admin\Admins\Edit as AdminEdit;
-use App\Http\Livewire\Admin\Admins\Create as AdminCreate;
-
-use App\Http\Livewire\User\Library\Show as UserShowLibrary;
-use App\Http\Livewire\Admin\Category\Index as CategoryIndex;
 use App\Http\Livewire\Admin\Library\Create as LibraryCreate;
 use App\Http\Livewire\Admin\Library\Delete as LibraryDelete;
+use App\Http\Livewire\Admin\Library\Edit as LibraryEdit;
+use App\Http\Livewire\Admin\Library\Index as LibraryIndex;
+use App\Http\Livewire\Admin\Pages\Create as PagesCreate;
+use App\Http\Livewire\Admin\Pages\Delete as PagesDelete;
+use App\Http\Livewire\Admin\Pages\Edit as PagesEdit;
+use App\Http\Livewire\Admin\Pages\Index as PagesIndex;
 use App\Http\Livewire\Admin\Partner\Create as PartnerCreate;
-
-
 use App\Http\Livewire\Admin\Partner\Delete as PartnerDelete;
-use Illuminate\Support\Facades\Session;
+use App\Http\Livewire\Admin\Partner\Edit as PartnerEdit;
+use App\Http\Livewire\Admin\Partner\Index as PartnerIndex;
+use App\Http\Livewire\Admin\PaybackRequest\Index as PaybackRequestsIndex;
+use App\Http\Livewire\Admin\PaybackRequest\Pay as PaybackRequestsPay;
+use App\Http\Livewire\Admin\Role\Create as RoleCreate;
+use App\Http\Livewire\Admin\Role\Edit as RoleEdit;
+use App\Http\Livewire\Admin\Role\Index as RoleIndex;
+use App\Http\Livewire\Admin\Settings as SettingsIndex;
+use App\Http\Livewire\Admin\Slider\Create as SliderCreate;
+use App\Http\Livewire\Admin\Slider\Delete as SliderDelete;
+use App\Http\Livewire\Admin\Slider\Edit as SliderEdit;
+use App\Http\Livewire\Admin\Slider\Index as SliderIndex;
+use App\Http\Livewire\Front\ContactUs;
+use App\Http\Livewire\User\Category\Index as UserCategoryIndex;
+use App\Http\Livewire\User\EditProfile;
+use App\Http\Livewire\User\Library\Index as UserLibraryIndex;
+use App\Http\Livewire\User\Library\Show as UserShowLibrary;
+use App\Http\Livewire\User\PaybackRequests\Index as WalletIndex;
+use App\Models\Ad;
+use App\Models\AdDevices;
+use App\Models\AdProfit;
+use App\Models\Discount;
+use App\Models\User;
+use App\Services\GoogleAnalyticsService;
+use App\Services\HyperpayService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-use App\Http\Livewire\User\Library\Index as UserLibraryIndex;
-use App\Http\Livewire\Admin\Category\Create as CategoryCreate;
-use App\Http\Controllers\User\AdController as UserAdController;
-use App\Http\Livewire\User\Category\Index as UserCategoryIndex;
-use App\Http\Livewire\User\PaybackRequests\Index as WalletIndex;
-use App\Http\Controllers\User\TaskController as UserTaskController;
-use App\Http\Controllers\Admin\AuthController as AdminAuthController;
-use App\Http\Controllers\Admin\TaskController as AdminTaskController;
-use App\Http\Livewire\Admin\PaybackRequest\Pay as PaybackRequestsPay;
-use App\Http\Controllers\User\ContactController as UserContactController;
-use App\Http\Livewire\Admin\PaybackRequest\Index as PaybackRequestsIndex;
-use App\Http\Controllers\Admin\ContactController as AdminContactController;
-use App\Http\Controllers\User\DashboardController as UserDashboardController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use Spatie\Analytics\Analytics;
-use Spatie\Analytics\Period;
 
 Route::get('test', function () {
     $soldier_current_profit = AdProfit::whereSoldierId(40)->whereAdId(47)->sum('amount');
@@ -159,6 +133,12 @@ Route::group([
 //    Route::get('library/{library}/{utm?}/visit-library', [LibraryController::class, 'show'])->name('show_library');
 
     Route::post('/ad/{ad}/increase-clicks', [LibraryController::class, 'increaseClicks'])->name('increase_clicks_of_ad');
+    Route::get('support', function (){
+        $settings = \App\Models\Setting::first();
+        return view('livewire.user.support', compact('settings'));
+    })->name('support');
+
+    Route::get('terms', \App\Http\Livewire\User\Terms::class)->name('terms');
 
     Route::group(['as' => 'user.', 'prefix' => 'user/'], function () {
         Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register_form');
@@ -234,7 +214,10 @@ Route::group([
             Route::get('notifications', [NotificationController::class, 'userNotification'])->name('notifications.index');
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-            Route::get('profile', [AuthController::class, 'profile'])->name('edit_profile');
+            Route::get('profile', \App\Http\Livewire\User\Profile::class)->name('get_profile');
+            Route::get('favourite', \App\Http\Livewire\User\Favourite\Index::class)->name('favourite');
+//            Route::get('favourites/{favourite}/delete', Fa::class)->name('delete_discount');
+
             Route::post('save-profile', [AuthController::class, 'saveProfile'])->name('save_profile');
 
             Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
@@ -329,6 +312,34 @@ Route::group([
             Route::get('category/{category}', CategoryEdit::class)->name('category.edit');
             Route::get('category/{category}/delete', CategoryIndex::class)->name('category.delete');
 
+            Route::get('medals', App\Http\Livewire\Admin\Medal\Index::class)->name('medals');
+            Route::get('medals/create', \App\Http\Livewire\Admin\Medal\Create::class)->name('medal.create');
+            Route::get('medals/{medal}', \App\Http\Livewire\Admin\Medal\Edit::class)->name('medal.edit');
+            Route::get('medals/{medal}/delete', \App\Http\Livewire\Admin\Medal\Index::class)->name('medal.delete');
+
+            Route::get('countries', \App\Http\Livewire\Admin\Country\Index::class)->name('countries');
+            Route::get('countries/create', \App\Http\Livewire\Admin\Country\Create::class)->name('country.create');
+            Route::get('countries/{country}', \App\Http\Livewire\Admin\Country\Edit::class)->name('country.edit');
+            Route::get('countries/{country}/delete', \App\Http\Livewire\Admin\Country\Index::class)->name('country.delete');
+
+
+            Route::get('cities', \App\Http\Livewire\Admin\City\Index::class)->name('cities');
+            Route::get('cities/create',\App\Http\Livewire\Admin\City\Create::class)->name('city.create');
+            Route::get('cities/{city}', \App\Http\Livewire\Admin\City\Edit::class)->name('city.edit');
+            Route::get('cities/{city}/delete', \App\Http\Livewire\Admin\City\Index::class)->name('city.delete');
+
+            Route::get('skills', \App\Http\Livewire\Admin\Skill\Index::class)->name('skills');
+            Route::get('skills/create',\App\Http\Livewire\Admin\Skill\Create::class)->name('skill.create');
+            Route::get('skills/{skill}', \App\Http\Livewire\Admin\Skill\Edit::class)->name('skill.edit');
+            Route::get('skills/{skill}/delete', \App\Http\Livewire\Admin\Skill\Index::class)->name('skill.delete');
+
+
+            Route::get('money', \App\Http\Livewire\Admin\Money\Index::class)->name('money');
+            Route::get('money/create',\App\Http\Livewire\Admin\Money\Create::class)->name('money.create');
+            Route::get('money/{money}', \App\Http\Livewire\Admin\Money\Edit::class)->name('money.edit');
+            Route::get('money/{money}/delete', \App\Http\Livewire\Admin\Money\Index::class)->name('money.delete');
+
+
             Route::get('library', LibraryIndex::class)->name('library');
             Route::get('library/create', LibraryCreate::class)->name('library.create');
             Route::get('library/{library}', LibraryEdit::class)->name('library.edit');
@@ -349,7 +360,17 @@ Route::group([
     });
 });
 
+Route::get('/email/verify/{id}/{hash}', function (Request $request) {
+    $user = User::findOrFail($request->id);
 
+    if (! hash_equals((string) $request->hash, sha1($user->getEmailForVerification()))) {
+        abort(404);
+    }
+
+    $user->markEmailAsVerified();
+
+    return redirect('/home');
+})->name('verification.verify')->middleware('signed');
 
 
 

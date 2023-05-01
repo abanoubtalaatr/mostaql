@@ -22,9 +22,9 @@ class Edit extends Component{
 
     public function store(){
         $this->validate();
-        $this->form['picture'] =
-            $this->picture?
-                $this->picture->storeAs(date('Y/m/d'),Str::random(50).'.'.$this->picture->extension(),'public') : $this->page->picture;
+//        $this->form['picture'] =
+//            $this->picture?
+//                $this->picture->storeAs(date('Y/m/d'),Str::random(50).'.'.$this->picture->extension(),'public') : $this->page->picture;
         $this->page->update($this->form);
         session()->flash('success_message',__('site.page_edited_successfully'));
         return redirect()->to(route('admin.pages.index'));
@@ -43,16 +43,16 @@ class Edit extends Component{
     public function getRules(){
         return [
             'form.title_ar'=>'required|max:500',
-            'form.title_en'=>'required|max:500',
+//            'form.title_en'=>'required|max:500',
 
             'form.desc_ar'=>'required|max:500',
-            'form.desc_en'=>'required|max:500',
+//            'form.desc_en'=>'required|max:500',
 
-            'form.content_ar'=>'required|max:5000',
-            'form.content_en'=>'required|max:5000',
+//            'form.content_ar'=>'required|max:5000',
+//            'form.content_en'=>'required|max:5000',
 
-            'form.type'=>'nullable|in:navbar,services,how_it_works,benifits,footer',
-            'picture'=>'nullable|file|mimes:png,jpg,jpeg|max:10240'
+//            'form.type'=>'nullable|in:navbar,services,how_it_works,benifits,footer',
+//            'picture'=>'nullable|file|mimes:png,jpg,jpeg|max:10240'
         ];
     }
     public function render(){

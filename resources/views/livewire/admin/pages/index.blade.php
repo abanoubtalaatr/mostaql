@@ -15,8 +15,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>@lang('site.picture')</th>
-                                <th>@lang('site.location')</th>
+{{--                                <th>@lang('site.picture')</th>--}}
+{{--                                <th>@lang('site.location')</th>--}}
                                 <th>@lang('site.title_'.app()->getLocale())</th>
                                 <th>@lang('site.created_at')</th>
                                 <th>@lang('site.actions')</th>
@@ -26,8 +26,8 @@
                             @foreach($records as $record)
                                 <tr>
                                     <td>#{{$loop->index + 1}}</td>
-                                    <td><img src="{{$record->picture_url}}" style='width:100px;'/></td>
-                                    <td>{{$record->type}}</td>
+{{--                                    <td><img src="{{$record->picture_url}}" style='width:100px;'/></td>--}}
+{{--                                    <td>{{$record->type}}</td>--}}
                                     <td>{{$record->{"title_".app()->getLocale()} }}</td>
                                     <td>{{$record->created_at}}</td>
                                     <td>

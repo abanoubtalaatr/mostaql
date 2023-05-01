@@ -1,90 +1,135 @@
-<section class="login">
-    <div class="row">
-        <div class="col-md-5">
-            <x-langselect/>
-            <div class="login-back">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-md-8">
+<div class="container-fluid signup mt-5">
+    <div class="box-title text-right">
+        <h4 class="card-title">انشاء حساب جديد</h4>
+    </div>
+    <div class="row row-cols-1 p-2 row-cols-md-2 mt-4">
+        <div class="col mb-4 text-right my-1 px-0">
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <h4 class="card-title">معلومات عنا</h4>
+                    <p class="card-text">
+                        موقع .. هو أكبر منصة للعمل الحر في المملكه العربيه السعوديه يعمل
+                        موقع ..على وصل الشركات وأصحاب المشاريع بأفضل المستقلين المحترفين
+                        لمساعدتهم على تنفيذ أفكارهم ومشاريعهم او توظيفهم بشكل دائم ، وفي
+                        الوقت نفسه يتيح للمستقلين مكانا لإيجاد مشاريع يعملون عليها
+                        وزيادة مصادر دخلهم.
+                    </p>
+                    <p class="card-text">
+                        تستطيع من خلال موقع .. إضافة مشروعك الذي ترغب بتنفيذه بالاشتراك
+                        في باقه من ضمن الباقات المتاحه لتحصل على عشرات العروض من أفضل
+                        المستقلين بداخل المملكه
 
-                        <div class="register-head">
-                            <h4 class="grey">@lang('site.create_new_account_as_a_creator')</h4>
-
-                            {{-- <p class="grey">@lang('site.please_select_account_type')</p> --}}
-                        </div>
-                        <div class="step" @if($step==2) style='display:none' @endif>
-                            <div class="select-user">
-                                <div class="row">
-                                    <div class="col-6" wire:click="changeUserType('advertiser')">
-                                        <div
-                                            class="register-u @if(isset($form['user_type']) && $form['user_type'] == 'advertiser') active @endif">
-                                            <p>@lang('site.as_advertiser')</p>
-                                        </div>
-                                    </div>
-                                    {{--                        <div class="col-6" wire:click="changeUserType('soldier')">--}}
-                                    {{--                          <div class="register-u @if(isset($form['user_type']) && $form['user_type'] == 'soldier') active @endif">--}}
-                                    {{--                            <p>@lang('site.as_soldier')</p>--}}
-                                    {{--                          </div>--}}
-                                    {{--                        </div>--}}
-                                </div>
-                            </div>
-                            <div class="btns">
-                                <button class="button btn-red full next-step-btn">@lang('site.next')</button>
-                            </div>
-                        </div>
-                        <div class="step" @if($step==1) style='display:none' @endif>
-                            <form wire:submit.prevent='store'>
-                                <input wire:model.defer='form.username' class="form-control register-input" type="text"
-                                       placeholder="@lang('validation.attributes.username')"/>
-                                @error('form.username') <span class="invalid-info">{{$message}}</span> @enderror
-
-
-                                @if($form['user_type']=='advertiser')
-                                    <input wire:model.defer='form.email' class="form-control register-input" type="text"
-                                           placeholder="@lang('messages.email')"/>
-                                    @error('form.email') <span class="invalid-info">{{$message}}</span> @enderror
-                                @endif
-
-                                @if($form['user_type']=='soldier')
-                                    <input wire:model.defer='form.mobile' class="form-control register-input"
-                                           name='mobile' type="text"
-                                           placeholder="@lang('validation.attributes.mobile')"/>
-                                    @error('form.mobile') <span class="invalid-info">{{$message}}</span> @enderror
-                                @endif
-
-                                <div class="input-group register-group">
-                                    <input wire:model.defer='form.password' class="form-control" type="password"
-                                           placeholder="@lang('messages.password')">
-                                    <div class="input-group-prepend check"><i class="fas fa-eye-slash"></i></div>
-                                </div>
-                                <p class="red"> {{trans('site.password_vaild')}} </p>
-                                @error('form.password') <span class="invalid-info">{{$message}}</span> @enderror
-
-                                <div class="input-group register-group">
-                                    <input wire:model.defer='form.password_confirmation' class="form-control"
-                                           type="password" placeholder="@lang('messages.password_confirmation')">
-                                    <div class="input-group-prepend check"><i class="fas fa-eye-slash"></i></div>
-                                </div>
-                                @error('form.password_confirmation') <span
-                                    class="invalid-info">{{$message}}</span> @enderror
-
-                                <button type='submit'
-                                        class="button btn-red full mt-4">@lang('messages.Register')</button>
-                            </form>
-                        </div>
-                        <div class="mr-30 text-center">
-                            <a class="grey" href="{{route('user.login_form')}}">
-                                @lang('site.already_have_an_account')!
-                                <span class="red">@lang('messages.Login')</span>
-                            </a>
-                        </div>
-                    </div>
+                        <br>
+                        <br>
+                        ، وتتمكن ايضا من الاشتراك في باقه للاعلان عن خدمتك داخل الموقع
+                        يمكنك ايضا اختيار العرض المناسب لمشروعك ليبدأ المستقل العمل على
+                        تنفيذه. تضمن لك منصة .. حقوقك كصاحب مشروع أو مستقل، حيث يعمل
+                        مستقل كوسيط بين الطرفين إلى أن يتم تسليم العمل كاملاً
+                    </p>
+                    <a href="/{{app()->getLocale()}}/user/login" class="btn extra-green" style="text-decoration: none">هل
+                        لديك حساب ؟</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-7">
-            <div class="login-img"><img
-                    src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/login/login-img@2x.png" alt="">
-            </div>
+        <div class="col mb-4">
+            <form wire:submit.prevent="store" class="text-right">
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col-md-6 my-2">
+                        <label for="">الاسم الاول</label>
+                        <input type="text" class="form-control text-right" id="first_name" name="first_name"
+                               wire:model.defer="form.first_name">
+                        @error('form.first_name') <span
+                            class="error text-danger text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for=""> الاسم الاخير</label>
+                        <input wire:model.defer="form.last_name" type="text" class="form-control text-right">
+                        @error('form.last_name') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for="">الجنسيه</label>
+                        <select wire:model.defer="form.country_id" wire:change="getCities" id=""
+                                class="form-control text-right">
+                            <option selected="">...اختار</option>
+                            @foreach($countries as $country)
+                                <option value="{{$country->id}}">{{$country->value}}</option>
+                            @endforeach
+                        </select>
+                        @error('form.country_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for="">المدينه</label>
+                        <select wire:model.defer="form.city_id" id="" class="form-control text-right">
+                            <option selected="">...اختار</option>
+                            @forelse($cities as $city)
+                                <option value="{{$city->id}}">{{$city->name_ar}}</option>
+                                @endforeach
+                        </select>
+                        @error('form.city_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="col-md-6 my-2">
+                        <label for="">رقم الجوال</label>
+                        <input wire:model.defer="form.mobile" type="tel" class="form-control text-right" maxlength="9"
+                               placeholder="ادخل الرقم السعودي الخاص بك فقط">
+
+                        @error('form.mobile') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="col-md-6 my-2">
+                        <label for="">البريد الالكتروني</label>
+                        <input wire:model.defer="form.email" type="email" class="form-control text-right"
+                               placeholder="ادخل بريدك الالكتروني صحيح لتتمكن من استعادة كلمة المرور مستقبلا">
+                        @error('form.email') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for="">انشاء كلمه مرور </label>
+                        <div class="showBtn-password">
+                            <input wire:model.defer="form.password" type="password" class="form-control text-right"
+                                   id="passwordStrength">
+                            <button id="showBtn-p" class="btn">show</button>
+                        </div>
+                        <p id="messageStrength">
+                            كلمه مرور <span id="spanStrength"></span>
+                        </p>
+                        @error('form.password') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for="">اعاده كلمه المرور</label>
+                        <div class="showBtn-password">
+                            <input wire:model.defer="form.password_confirmation" type="password"
+                                   class="form-control text-right" id="repassStrength">
+                            <button id="showBtn-Re-p" class="btn">show</button>
+                        </div>
+                        <p id="messageStrength">
+                            كلمه مرور <span id="spanStrength"></span>
+                        </p>
+                        @error('form.password_confirmation') <span
+                            class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="col-md-12 my-2">
+                        <label for="">البطاقه الشخصيه</label>
+                        <input wire:model.defer="form.id_image" type="file" class="form-control-file">
+                        <small id="emailHelp" class="form-text text-muted">يجب عليك التقاط صوره لشخصك مع بطاقتك الشخصيه
+                            لإثبات هويتك
+                            وللوثوق بك من خلال اصحاب المشاريع
+                        </small>
+                        @error('form.id_image') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="col-md-12 ml-1 my-3">
+                        <input class="form-check-input" type="checkbox" wire:model.defer="form.terms_accepted" value="1" id="">
+                        <label class="form-check-label mr-4 d-block" for="">
+                            <a href="/{{app()->getLocale()}}/terms" class="user-conditions">
+                                لقد قرأت ووافقت على شروط الاستخدام وبيان الخصوصية
+                            </a>
+                        </label>
+                        @error('form.terms_accepted') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <button class="btn extra-purple my-2">انشاء الحساب</button>
+            </form>
         </div>
     </div>
-</section>
+</div>

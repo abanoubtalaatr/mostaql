@@ -3,7 +3,7 @@
 return [
 
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'مستقل'),
 
     'env' => env('APP_ENV', 'production'),
 
@@ -18,7 +18,7 @@ return [
     'timezone' => 'UTC',
 
 
-    'locale' => 'en',
+    'locale' => 'ar',
 
     /*
     |--------------------------------------------------------------------------

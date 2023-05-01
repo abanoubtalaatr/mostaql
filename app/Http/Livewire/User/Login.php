@@ -2,6 +2,12 @@
 
 namespace App\Http\Livewire\User;
 
+use App\Mail\VerifyEmail;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Login extends Component
@@ -11,21 +17,29 @@ class Login extends Component
     public function login()
     {
         $this->validate();
-        if (auth('users')->attempt(['username' => $this->username, 'password' => $this->password], $this->remember_me)) {
-            if (auth()->user()->is_verified == 0 && auth()->user()->user_type == 'soldier') {
-                return redirect()->to(route('user.verify_register_code'));
+        // if user enter email or mobile , then check if verified or not in two cases
+        if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
+
+            if (!auth()->user()->email_verified_at) {
+                // check your mail
+                $user = User::find(auth()->id());
+//                Auth::logout();
+//                $this->sendVerficationEmail($user);
+
+                $this->error_message = trans('site.please_check_your_email_we_send_email_verification');
+//                return redirect()->to(route('user.verify_register_code'));
             }
-            return redirect()->to(route('user.dashboard'));
+            return redirect()->to(\url('user/profile'));
         } else {
             if (auth('users')->attempt(['mobile' => $this->username, 'password' => $this->password], $this->remember_me)) {
-                if (auth()->user()->is_verified == 0 && auth()->user()->user_type == 'soldier') {
+                if (auth()->user()->is_verified == 0) {
                     return redirect()->to(route('user.verify_register_code'));
                 }
                 return redirect()->to(route('user.dashboard'));
             } else {
 
                 if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
-                    if (auth()->user()->is_verified == 0 && auth()->user()->user_type == 'soldier') {
+                    if (auth()->user()->is_verified == 0) {
                         return redirect()->to(route('user.verify_register_code'));
                     }
                     return redirect()->to(route('user.dashboard'));
@@ -34,6 +48,19 @@ class Login extends Component
             }
 
         }
+    }
+
+
+    public function sendVerficationEmail($user)
+    {
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(60),
+            ['id' => $user->id, 'hash' => Str::random(60)]
+        );
+
+        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
+
     }
 
     public function getRules()

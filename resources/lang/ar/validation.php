@@ -138,6 +138,7 @@ return [
         'fax' => 'الفاكس',
         'website' => 'لينك الموقع',
         'facebook' => 'فيس بوك',
+        'snap_chat' => 'سناب شات',
         'linkedin' => 'لينكدان',
         'twitter' => 'تويتر',
         'instgram' => 'انستجرام',
@@ -593,6 +594,10 @@ return [
         'start_at ' => 'تبداء في',
         'selectedRoles'=> 'الادوار',
         'permissions'=> 'الصلاحيات',
-        'name' => 'الاسم'
-    ],
+        'name' => 'الاسم',
+        'first_name' => 'الأسم الاول',
+        'id_image' => 'البطاقة الشخصية',
+        'terms_accepted' => 'الموافقة علي الشروط والاحكام',
+        'description_ar' => 'الوصف باللغة العربية'
+     ],
 ];

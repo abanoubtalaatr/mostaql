@@ -34,12 +34,10 @@
                         <label for="status-select">@lang('general.user_type')</label>
                         <select wire:model='user_type' id='status-select' class="form-control  contact-input">
                             <option value>@lang('general.user_type')</option>
-                            <option value="soldier">@lang('site.soldier')</option>
-                            <option value="advertiser">@lang('site.advertiser')</option>
+                            <option value="freelancer">@lang('site.freelancer')</option>
+                            <option value="owner">@lang('site.owner')</option>
                         </select>
                     </div>
-
-
 
                 </div>
 
@@ -72,18 +70,6 @@
 
                             <td>
                                 <div class="actions">
-                                    @if($record->user_type=='soldier')
-                                        <a href="{{route('admin.user_stats',$record->id)}}" class="no-btn">
-                                            <i class="fas fa-chart-bar"></i>
-                                        </a>
-                                        <a href="{{route('admin.user_single_library_stats',$record->id)}}" class="no-btn">
-                                            <i class="fas fa-chart-pie"></i>
-                                        </a>
-                                    @endif
-                                    <a href="{{route('admin.'.($record->user_type=='soldier'? 'payback_requests' : 'billing.index'))}}?user_id={{$record->id}}" class="no-btn">
-                                            <i class="fas fa-dollar-sign"></i>
-                                        </a>
-
                                     <button
                                         wire:click='toggleStatus({{$record->id}})'
                                         class="no-btn">
