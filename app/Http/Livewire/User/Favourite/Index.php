@@ -16,14 +16,12 @@ class Index extends Component
 
     public function destroy(Favourite $favourite)
     {
-        dd('abanoub');
         $favourite->delete();
     }
 
     public function render()
     {
         $records = \App\Models\Favourite::where('user_id', auth()->id())->get();
-
         return view('livewire.user.favourite.index', compact('records'))->layout('layouts.front');
     }
 }

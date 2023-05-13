@@ -1,32 +1,32 @@
-<nav class="navbar navbar-expand-lg py-5 navbar-dark">
+<nav class="navbar navbar-expand-lg py-5 navbar-dark" dir="ltr" xmlns="http://www.w3.org/1999/html">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         @if(auth()->user())
             <ul class="navbar-nav my-2 my-lg-0 on-responsive">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="{{asset('images/Group 60.png')}}" alt="">
+                        <img width="40" height="40" class="rounded-circle" src="{{auth()->user()->avatar}}" alt="">
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/profile"> حسابي </a>
-                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/favourite"> مفضلتي </a>
+                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/profile/{{auth()->id()}}"> حسابي </a>
+                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/my-favourite"> مفضلتي </a>
                         <a class="dropdown-item" href="/{{app()->getLocale()}}/terms"> ضمان الحقوق </a>
                         <a class="dropdown-item" href="payments.html"> الرصيد </a>
-                        <a class="dropdown-item" href="editprofile.html">
+                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/edit-profile">
                             تعديل الحساب
                         </a>
                         <a class="dropdown-item" href="/{{app()->getLocale()}}/support"> الدعم الفني </a>
                         <div class="dropdown-divider"></div>
                         <form action="{{route('user.logout')}}" method="get">
                             @csrf
-                            <button type="submit" class="dropdown-item text-white" > تسجيل خروج </button>
+                            <button type="submit" class="dropdown-item text-white"> تسجيل خروج</button>
                         </form>
 
                     </div>
                 </li>
                 <li class="nav-item mx-2 mt-1">
-                    <a class="nav-link" href="notifications.html">
-                        <i class="fas fa-bell"></i>
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/notifications">
+                        <i class="fas fa-bell"></i><span class="text-danger" > {{auth()->user()->notifications->count()}}</span>
                     </a>
                 </li>
                 <li class="nav-item mx-2 mt-1">
@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="nav-item mx-2 mt-1">
-                    <a class="nav-link" href="allusers.html">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/all-users">
                         <i class="fas fa-search"></i>
                     </a>
                 </li>
@@ -59,14 +59,16 @@
                 <a class="nav-link" href="packedges.html">الباقات</a>
             </li>
             <li class="nav-item mx-4">
-                <a class="nav-link" href="bids.html">عروضي</a>
+                <a class="nav-link" href="/{{app()->getLocale()}}/user/my-proposals">عروضي</a>
             </li>
             <li class="nav-item mx-4">
-                <a class="nav-link" href="projects.html">تصفح المشاريع</a>
+                <a class="nav-link" href="/{{app()->getLocale()}}/user/projects">تصفح المشاريع</a>
             </li>
-            <li class="nav-item mx-4">
-                <a class="nav-link" href="addproject.html">اضف مشروع</a>
-            </li>
+            @if(!auth()->user() || auth()->user()->user_type !='freelancer' )
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/create-project">اضف مشروع</a>
+                </li>
+            @endif
         </ul>
     </div>
     <a class="navbar-brand" href="#">LOGO</a>

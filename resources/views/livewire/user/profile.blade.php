@@ -11,18 +11,18 @@
                             <div class="rounded">
                                 <img src="{{asset('images/Ellipse 5.png')}}" alt="">
                             </div>
-                            <p class="mt-2">{{auth()->user()->first_name. ' '. auth()->user()->last_name}}</p>
+                            <p class="mt-2">{{$user->first_name. ' '. $user->last_name}}</p>
                             <ul class="d-flex justify-content-center">
                                 <li class="mx-1">
-                                    {{trans('site.'.auth()->user()->user_type)}}
+                                    {{trans('site.'.$user->user_type)}}
                                     <i class="fas fa-money-check-alt"></i>
                                 </li>
                                 <li class="mx-1">
-                                    {{auth()->user()->city->name_ar}} - {{auth()->user()->country->value}}
+                                    {{$user->city? $user->city->name_ar:''}} - {{$user->country? $user->country->value :''}}
                                     <i class="fas fa-home"></i>
                                 </li>
                                 <li class="mx-1">
-                                    {{auth()->user()->job_title}}
+                                    {{$user->job_title}}
                                     <i class="fas fa-briefcase"></i>
                                 </li>
                             </ul>
@@ -70,22 +70,22 @@
                             <h6 class="my-2">التقييمات</h6>
                             <h6 class="my-2">
 
-                                @for ($i = 1; $i <= auth()->user()->averageRates(); $i++)
+                                @for ($i = 1; $i <= $user->averageRates(); $i++)
                                     <img src="{{asset('images/Star 1.png')}}" alt="">
                                 @endfor
 
                             </h6>
                             <h6 class="my-2">المشاريع المكتملة</h6>
-                            <h6 class="my-2">{{auth()->user()->completedProposals->count()}} مشاريع مكتمله</h6>
+                            <h6 class="my-2">{{$user->completedProposals->count()}} مشاريع مكتمله</h6>
                             <h6 class="my-2">مشاريع تحت التنفيذ</h6>
-                            <h6 class="my-2">{{auth()->user()->processingProposals->count()}} تحت التنفيذ</h6>
+                            <h6 class="my-2">{{$user->processingProposals->count()}} تحت التنفيذ</h6>
 
                             <h6 class="my-2">تاريخ الانضمام</h6>
-                            <h6 class="my-2">عام - {{auth()->user()->created_at->format("Y")}}</h6>
+                            <h6 class="my-2">عام - {{$user->created_at->format("Y")}}</h6>
                             <h6 class="my-2">أوسمة</h6>
 
                             <h6 class="my-2" style="cursor: pointer">
-                                @foreach(auth()->user()->medals as $medal)
+                                @foreach($user->medals as $medal)
                                     <img src="{{asset('uploads/pics/'.$medal->picture)}}" style="width: 25px"
                                          class="mx-1"
                                          alt="5"
@@ -103,126 +103,14 @@
                         <h5 class="card-title">المهارات</h5>
                         <div class="row row-cols-2 text-right mx-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-2"
                              style="direction: ltr">
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    HTML
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    CSS
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Javascript
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    PHP
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Laravel
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Reactjs
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Vuejs
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Bootstrap
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Tailwind
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    HTML
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    CSS
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Javascript
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    PHP
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Laravel
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Reactjs
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    PHP
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Laravel
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    Reactjs
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    HTML
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="mx-1 mb-1">
-                                    CSS
-                                    <i class="fas mx-1 fa-circle"></i>
-                                </p>
-                            </div>
+                            @foreach($user->skills as $skill)
+                                <div>
+                                    <p class="mx-1 mb-1">
+                                        {{$skill->name_ar}}
+                                        <i class="fas mx-1 fa-circle"></i>
+                                    </p>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -236,7 +124,7 @@
                              style="direction: rtl">
                             <div>
                                 <p class="mx-1 mb-2" style="font-size: 15px">
-                                    <i class="fas fa-times"></i>
+                                    <i class="fas fa-check"></i>
                                     البريد الإلكتروني
                                 </p>
                             </div>
@@ -290,27 +178,31 @@
                                     <h5 class="card-title">نبذة عني</h5>
                                 </div>
                                 <p class="card-text">
-                                    {{auth()->user()->description}}
+                                    {{$user->description}}
                                 </p>
                             </div>
                             <div class="tab-pane fade my-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="row row-cols-1 text-right mx-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
-                                    @foreach(auth()->user()->rates as $rate)
+                                    @foreach($user->rates as $rate)
                                         <div class="col">
                                             <div class="card mb-3 border-0">
                                                 <div class="card-body bg-white">
                                                     <div class="d-flex justify-content-between">
                                                         <div class="d-flex">
                                                             <div>
-                                                                @if(auth()->user()->avatar)
-                                                                    <img src="{{asset(auth()->user()->avatar)}}" alt="">
+                                                                @if($user->avatar)
+                                                                    <img width="40" height="40"
+                                                                         class="rounded-circle mb-3"
+                                                                         src="{{asset($user->minimized_picture)}}"
+                                                                         alt="">
                                                                 @else
-                                                                    <img src="{{asset('images/Group 60.png')}}" alt="">
+                                                                    <img width="40" height="40"
+                                                                         src="{{asset('images/Group 60.png')}}" alt="">
                                                                 @endif
 
                                                             </div>
                                                             <strong
-                                                                class="m-1">{{$rate->project->user->first_name}}</strong>
+                                                                class="m-1">{{$rate->project?$rate->project->user->first_name :''}}</strong>
                                                         </div>
                                                         <div class="mx-1">
                                                             @for ($i = 1; $i <= $rate->rate; $i++)
@@ -330,7 +222,7 @@
                             </div>
                             <div class="tab-pane fade my-5" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                 <div class="row row-cols-1 text-right row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
-                                    @foreach(auth()->user()->acceptedProposals as $proposal)
+                                    @foreach($user->acceptedProposals as $proposal)
                                         <div class="col mb-2">
                                             <a data-toggle="modal" data-target="#exampleModal">
                                                 <div class="card border-0 bg-transparent">

@@ -48,6 +48,26 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->hasMany(Proposal::class)->where('status_id',3);
     }
 
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, SkillUser::class);
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        return url('uploads/pics/' .$value);
+    }
+
+    public function getMinimizedPictureAttribute($value)
+    {
+        return url('uploads/pics/' .$value);
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
     public function completedProposals()
     {
         return $this->hasMany(Proposal::class)->where('status_id',5);
@@ -68,7 +88,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         // sum of of rate for this user divided by rate rows
         $sumRate = $this->rates()->sum('rate');
         $countRate = $this->rates()->count();
-        return round($sumRate / $countRate);
+        if($sumRate > 0 && $countRate > 0) {
+            return round($sumRate / $countRate);
+        }
+        return  0;
     }
 
     public function medals()

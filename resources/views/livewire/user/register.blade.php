@@ -1,4 +1,4 @@
-<div class="container-fluid signup mt-5">
+<div class="container-fluid signup mt-5" style="direction: ltr">
     <div class="box-title text-right">
         <h4 class="card-title">انشاء حساب جديد</h4>
     </div>
@@ -36,8 +36,7 @@
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col-md-6 my-2">
                         <label for="">الاسم الاول</label>
-                        <input type="text" class="form-control text-right" id="first_name" name="first_name"
-                               wire:model.defer="form.first_name">
+                        <input wire:model.defer="form.first_name"  type="text" class="form-control text-right" id="first_name" name="first_name">
                         @error('form.first_name') <span
                             class="error text-danger text-danger">{{ $message }}</span> @enderror
                     </div>
@@ -67,7 +66,6 @@
                         </select>
                         @error('form.city_id') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
-
                     <div class="col-md-6 my-2">
                         <label for="">رقم الجوال</label>
                         <input wire:model.defer="form.mobile" type="tel" class="form-control text-right" maxlength="9"
@@ -75,7 +73,6 @@
 
                         @error('form.mobile') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
-
                     <div class="col-md-6 my-2">
                         <label for="">البريد الالكتروني</label>
                         <input wire:model.defer="form.email" type="email" class="form-control text-right"
@@ -107,7 +104,6 @@
                         @error('form.password_confirmation') <span
                             class="error text-danger">{{ $message }}</span> @enderror
                     </div>
-
                     <div class="col-md-12 my-2">
                         <label for="">البطاقه الشخصيه</label>
                         <input wire:model.defer="form.id_image" type="file" class="form-control-file">
@@ -117,7 +113,6 @@
                         </small>
                         @error('form.id_image') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
-
                     <div class="col-md-12 ml-1 my-3">
                         <input class="form-check-input" type="checkbox" wire:model.defer="form.terms_accepted" value="1" id="">
                         <label class="form-check-label mr-4 d-block" for="">
@@ -127,9 +122,18 @@
                         </label>
                         @error('form.terms_accepted') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
+                    <div class="col-md-12 ml-1 my-3">
+                        @if(session()->has('check_your_email'))
+                        <div class="text-right alert alert-info">{{session()->get('check_your_email')}}</div>
+                        @endif
+                    </div>
+
+
                 </div>
                 <button class="btn extra-purple my-2">انشاء الحساب</button>
             </form>
+
         </div>
+
     </div>
 </div>

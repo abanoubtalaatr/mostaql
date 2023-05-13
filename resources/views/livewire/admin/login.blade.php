@@ -6,7 +6,7 @@
                 <div class="row justify-content-center">
                 <div class="col-md-8">
                     <x-langselect/>
-                    //
+
                     <div class="login-form">
                         @if($error_message)
                         <div class="alert alert-danger">
@@ -15,7 +15,7 @@
                         @endif
 
                     <form wire:submit.prevent="attempt" method='post'>
-                        <div class="login-logo"><img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/logo.svg" alt=""></div>
+{{--                        <div class="login-logo"><img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/logo.svg" alt=""></div>--}}
                         @if(session()->has('in_active_message'))
                             <div class="alert alert-danger">
                                 {{session()->get('in_active_message')}}

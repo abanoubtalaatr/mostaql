@@ -1,12 +1,17 @@
-@component('mail::message')
-    # Verify your email
 
-    Please click the button below to verify your email address.
+{{--    Please click the button below to verify your email address.--}}
 
-    @component('mail::button', ['url' => $verificationUrl])
-        Verify Email
+{{--    <a class="btn btn-dark big" href="{{$verificationUrl}}"> اضغط هنا لتكملة تسجيل الدخول</a>--}}
+{{--    {{ config('app.name') }}--}}
+
+    @component('mail::message')
+
+        Please click the button below to verify your email address
+
+        @component('mail::button', ['url' => $verificationUrl])
+            Click Here
+        @endcomponent
+
+        Thanks,<br>
+        {{ config('app.name') }}
     @endcomponent
-
-    Thanks,<br>
-    {{ config('app.name') }}
-@endcomponent

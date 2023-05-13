@@ -240,7 +240,7 @@
     <!-- End Main Content-->
         <!-- Main footer-->
         <footer class="main-footer">
-            <p>All rights reserved {{date('Y')}} - Adsoldiers</p>
+            <p>All rights reserved {{date('Y')}} </p>
         </footer>
         <!-- End Main footer-->
     </div>

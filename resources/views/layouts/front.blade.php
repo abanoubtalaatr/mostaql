@@ -17,13 +17,14 @@
 <!-- start css file -->
     <link rel="stylesheet" href="{{asset('assets_ar')}}/css/style.css"/>
 
-
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <!-- start responsive -->
-{{--        <link rel="stylesheet" href="{{asset('assets_'.app()->getLocale())}}/css/responsive.css"/>--}}
+    {{--        <link rel="stylesheet" href="{{asset('assets_'.app()->getLocale())}}/css/responsive.css"/>--}}
     @livewireStyles()
 </head>
 <!-- start body -->
-<body>
+<body dir="ltr">
 <!-- start navbar -->
 
 <x-front.navbar-items/>
@@ -33,7 +34,11 @@
     <i class="fas fa-info-circle"></i>
 </a>
 
+
 @yield('content')
+
+{{--<livewire:chat-component :receiver="99"/>--}}
+
 <footer class="p-4 mt-5">
     <p class="card-text text-center">© 2023 موقع. جميع الحقوق محفوظة.</p>
 </footer>
@@ -42,10 +47,34 @@
 <script src="{{asset('bootstrap-4.6.1-dist/js/jquery-3.6.0.min.js')}}"></script>
 <script src="{{asset('bootstrap-4.6.1-dist/js/popper.min.js')}}"></script>
 <script src="{{asset('bootstrap-4.6.1-dist/js/bootstrap.min.js')}}"></script>
-
-@livewireScripts()
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 <script src="{{asset('js/main.js')}}"></script>
+<script>
+    let noOfCharac = 150;
+    let contents = document.querySelectorAll(".content");
+
+    contents.forEach((content) => {
+        if (content.textContent.length < noOfCharac) {
+            content.nextElementSibling.style.display = "none";
+        } else {
+            let displayText = content.textContent.slice(0, noOfCharac);
+            let moreText = content.textContent.slice(noOfCharac);
+            content.innerHTML = `${displayText}<span class="dots">...</span>
+          <span class="hide more">${moreText}</span>`;
+        }
+    });
+
+    function readMore(btn) {
+        let post = btn.parentElement;
+        post.querySelector(".dots").classList.toggle("hide");
+        post.querySelector(".more").classList.toggle("hide");
+        btn.textContent == "اقرا المزيد"
+            ? (btn.textContent = "اقرا اقل")
+            : (btn.textContent = "اقرا المزيد");
+    }
+</script>
+@livewireScripts()
 </body>
 
 <!-- end of body -->

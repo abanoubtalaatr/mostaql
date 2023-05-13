@@ -438,5 +438,6 @@ return [
     'description_ar' => 'الوصف',
     'medal' => 'الوسام',
     'create_medal' => 'أنشاء وسام جديد',
-    'edit_medal' => 'تعديل الوسم'
+    'edit_medal' => 'تعديل الوسم',
+    'proposal' => 'عرض سعر'
 ];

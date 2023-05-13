@@ -21,8 +21,8 @@ class Terms extends Component
 
     public function render()
     {
-        $pages = Page::all();
-
-        return view('livewire.user.terms',compact('pages'))->layout('layouts.front');
+        $termsAndConditions = Page::find(1);
+        return view('livewire.user.terms',
+            compact('termsAndConditions'))->layout('layouts.front');
     }
 }

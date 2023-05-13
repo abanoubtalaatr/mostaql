@@ -43,16 +43,19 @@ class Register extends Component
 //        $user->update(['verified_code' => $code]);
 ////            $this->sendOTPToClient($user, $code);
 
+
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',
             now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => Str::random(60)]
+            [
+                'id' => $user->id,
+                'hash' => Str::random(60),
+            ]
         );
 
-//        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
-        dd('done');
+        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
 
-        return redirect()->to(route('user.dashboard'));
+        session()->flash('check_your_email', 'برجاء تفقد ايميلك لتتمكن من الدخول');
     }
 
     // must refactor make api_id and api_password in .env file
@@ -79,10 +82,10 @@ class Register extends Component
     public function getRules()
     {
         return [
-            'form.email' => 'max:200|email:dns,rfc|unique:users,email',
+            'form.email' => 'required|max:200|email:dns,rfc|unique:users,email',
             'form.first_name' => 'required|max:100|unique:users,first_name',
             'form.last_name' => 'required|max:100|unique:users,last_name',
-            'form.mobile' => 'required_if:form.user_type,soldier|starts_with:5|integer|digits:9',
+            'form.mobile' => 'required|starts_with:5|integer|digits:9',
             'form.password' => 'required|min:8',
             'form.password_confirmation' => 'required|same:form.password',
             'form.city_id' => ['required', 'exists:cities,id'],

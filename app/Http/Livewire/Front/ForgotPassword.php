@@ -37,10 +37,10 @@ class ForgotPassword extends Component
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',
             now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => Str::random(60)]
+            ['id' => $user->id, 'hash' => Str::random(60),'forgot' => 'true']
         );
 
-//        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
+        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
 
         $this->message = trans('site.please_check_your_email');
     }

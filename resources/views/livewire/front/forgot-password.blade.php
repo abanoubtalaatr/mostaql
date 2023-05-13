@@ -15,7 +15,7 @@
 
                 </div>
                 @if(isset($message))
-                    <div class="row row-cols-1 row-cols-md-2  text-right px-3 text-right mx-auto text-danger">{{$message}}</div>
+                    <div class="row row-cols-1 row-cols-md-2 alert alert-info ml-auto  text-right px-3 text-right w-75">{{$message}}</div>
                 @endif
 
                 <button class="btn extra-purple px-5 reset-password my-5">

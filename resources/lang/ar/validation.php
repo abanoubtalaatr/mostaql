@@ -594,10 +594,15 @@ return [
         'start_at ' => 'تبداء في',
         'selectedRoles'=> 'الادوار',
         'permissions'=> 'الصلاحيات',
-        'name' => 'الاسم',
         'first_name' => 'الأسم الاول',
         'id_image' => 'البطاقة الشخصية',
         'terms_accepted' => 'الموافقة علي الشروط والاحكام',
-        'description_ar' => 'الوصف باللغة العربية'
+        'description_ar' => 'الوصف باللغة العربية',
+        'minimized_picture' => 'الصورة المصغره',
+        'skills' => 'المهارات',
+        'number_of_days' => 'المدة المتوقعة للتسليم',
+        'money_id' =>'الميزانية المتوقعة',
+        'file' => 'ملف',
+        'job_title' => 'المسمي الوظيفي',
      ],
 ];

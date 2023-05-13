@@ -1,29 +1,29 @@
-@extends('layouts.user')
+@extends('layouts.front')
 @section('content')
-     <main class="main-content">
+     <main class="main-content" style="direction: rtl">
           <!--head-->
-          <x-user.head/>
+{{--          <x-user.head/>--}}
           <!--dashboard-->
           <section class="dashboard p-3">
               <div class="row">
                 <div class="col-md-12">
                   <div class="border bg-white rounded p-lg-5 p-3 mb-3">
-                    <h2 class="head-term">{{$page_title}}</h2>
+                    <h2 class="head-term text-right">{{$page_title}}</h2>
                     @if(count($records))
                         @foreach($records as $record)
-                        <a href="{{$record->redirect_url}}" class="notif-bg">
+
                             <div class="notif  bg-white p-3 d-flex">
-                                <img src="{{$record->image_url}}" alt="">
+                                <img width="30" height="30" src="{{$record->image_url}}" alt="">
                                 <div class="notif-info">
                                     <h4>@lang('site.'.$record->type) <span class="float-start notif-time">{{$record->created_at}}</span></h4>
                                     <p>{{$record->{"content_".app()->getLocale()} }}</p>
                                 </div>
                             </div>
-                        </a>
+
                         @endforeach
                         {{$records->links()}}
                     @else
-                        <div class="alert alert-warning">
+                        <div class="alert alert-warning text-right">
                             @lang('site.no_data_to_display')
                         </div>
                     @endif

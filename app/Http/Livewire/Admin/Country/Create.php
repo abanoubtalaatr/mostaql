@@ -23,7 +23,7 @@ class Create extends Component{
 //        $this->form['picture'] = $this->picture->storeAs(date('Y/m/d'),Str::random(50).'.'.$this->picture->extension(),'public');
         Country::create($this->form);
         session()->flash('success_message',__('site.created_successfully'));
-        return redirect()->to(url('admin/country'));
+        return redirect()->to(url('admin/countries'));
     }
 
 

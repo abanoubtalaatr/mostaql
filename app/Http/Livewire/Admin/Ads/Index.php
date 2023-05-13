@@ -17,8 +17,6 @@ class Index extends Component{
 
     public function mount(){
         $this->page_title = __('site.ads');
-        $this->camps = Camp::orderBy('title')->get();
-        $this->status = request('status');
     }
 
     public function updated(){
@@ -33,17 +31,11 @@ class Index extends Component{
     public function getRecords(){
 
         return
-            Ad::when($this->title,function($query,$title){
-                    return $query->where('title','LIKE','%'.$title.'%');
-                })->when($this->camp_id,function($query,$camp_id){
-                    return $query->whereCampId($camp_id);
-                })->when($this->status,function($query,$status){
-                    return $this->status=='only_active'? $query->where('status','!=','inactive') : $query->whereStatus($status);
-                })->orderByDesc('id')
-                ->paginate();
+            Ad::paginate();
     }
 
     public function render(){
+
         return view('livewire.admin.ads.index',['records'=>$this->getRecords()])->layout('layouts.admin');
     }
 }

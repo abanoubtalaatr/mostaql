@@ -18,10 +18,20 @@ use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
+    public $user;
+
+    public function mount(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function render()
     {
         $countries = Country::all();
 
-        return view('livewire.user.profile', compact('countries'))->layout('layouts.front');
+        $user = $this->user;
+
+//        dd($user->rates[0]->project);
+        return view('livewire.user.profile', compact('countries', 'user'))->layout('layouts.front');
     }
 }

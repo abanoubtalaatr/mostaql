@@ -9,6 +9,7 @@
 body {
     background-color: var(--body);
     font-family: "Tajawal", sans-serif;
+    direction: rtl;
 }
 
 ul {
@@ -548,7 +549,7 @@ html {
 
 .mycart .row {
     overflow-y: auto;
-    height: 800px;
+
 }
 .mycart .row .col .card {
     border: 1px solid #47325B;

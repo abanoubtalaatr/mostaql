@@ -24,6 +24,10 @@ class AuthController extends Controller
         return view('front.auth.login');
     }
 
+    public function showEditProfile()
+    {
+        return view('front.auth.edit');
+    }
     public function showForgotPasswordForm()
     {
         return view('front.auth.forgot_password');
@@ -116,9 +120,15 @@ class AuthController extends Controller
         return redirect()->to(route('user.edit_profile'))->withSuccessMessage(__('site.saved'));
     }
 
+    public function showMyFavourite()
+    {
+        return view('front.user.favourite.index');
+    }
+
     public function logout()
     {
         auth('users')->logout();
         return redirect()->to('/');
     }
+
 }

@@ -19,17 +19,19 @@ class Login extends Component
         $this->validate();
         // if user enter email or mobile , then check if verified or not in two cases
         if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
-
+            $user = User::find(auth()->id());
             if (!auth()->user()->email_verified_at) {
                 // check your mail
                 $user = User::find(auth()->id());
-//                Auth::logout();
-//                $this->sendVerficationEmail($user);
+                Auth::logout();
+                $this->sendVerficationEmail($user);
 
-                $this->error_message = trans('site.please_check_your_email_we_send_email_verification');
+                session()->flash('please_check_your_email_we_send_email_verification', trans('site.please_check_your_email_we_send_email_verification'));
 //                return redirect()->to(route('user.verify_register_code'));
+            } else {
+                return redirect()->to(\url("user/profile/$user->id"));
             }
-            return redirect()->to(\url('user/profile'));
+
         } else {
             if (auth('users')->attempt(['mobile' => $this->username, 'password' => $this->password], $this->remember_me)) {
                 if (auth()->user()->is_verified == 0) {

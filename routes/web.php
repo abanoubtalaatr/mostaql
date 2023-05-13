@@ -49,7 +49,6 @@ use App\Http\Livewire\Admin\Slider\Edit as SliderEdit;
 use App\Http\Livewire\Admin\Slider\Index as SliderIndex;
 use App\Http\Livewire\Front\ContactUs;
 use App\Http\Livewire\User\Category\Index as UserCategoryIndex;
-use App\Http\Livewire\User\EditProfile;
 use App\Http\Livewire\User\Library\Index as UserLibraryIndex;
 use App\Http\Livewire\User\Library\Show as UserShowLibrary;
 use App\Http\Livewire\User\PaybackRequests\Index as WalletIndex;
@@ -133,7 +132,7 @@ Route::group([
 //    Route::get('library/{library}/{utm?}/visit-library', [LibraryController::class, 'show'])->name('show_library');
 
     Route::post('/ad/{ad}/increase-clicks', [LibraryController::class, 'increaseClicks'])->name('increase_clicks_of_ad');
-    Route::get('support', function (){
+    Route::get('support', function () {
         $settings = \App\Models\Setting::first();
         return view('livewire.user.support', compact('settings'));
     })->name('support');
@@ -142,6 +141,8 @@ Route::group([
 
     Route::group(['as' => 'user.', 'prefix' => 'user/'], function () {
         Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register_form');
+        Route::get('edit-profile', [AuthController::class, 'showEditProfile'])->name('edit.profile');
+
         Route::get('login', [AuthController::class, 'showLoginForm'])->name('login_form');
         Route::get('forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('forgot-password');
         Route::get('verify-forget-password-code/{user}', [AuthController::class, 'verifyForgetPasswordCode'])->name('verify_forget_password_code');
@@ -209,16 +210,26 @@ Route::group([
             $paid_ad = Ad::where('id', $id)->first();
             return redirect()->to(route('user.show_ad', $paid_ad->id) . '?status=ad-payment-failed');
         })->name('fatorah_error');
-
+        Route::get('all-users', [\App\Http\Controllers\User\UserController::class, 'index'])->name('all_users');
         Route::group(['middleware' => 'auth'], function () {
             Route::get('notifications', [NotificationController::class, 'userNotification'])->name('notifications.index');
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-            Route::get('profile', \App\Http\Livewire\User\Profile::class)->name('get_profile');
-            Route::get('favourite', \App\Http\Livewire\User\Favourite\Index::class)->name('favourite');
-//            Route::get('favourites/{favourite}/delete', Fa::class)->name('delete_discount');
+            Route::get('profile/{user}', \App\Http\Livewire\User\Profile::class)->name('get_profile');
+            Route::get('my-favourite', [AuthController::class, 'showMyFavourite'])->name('my_favourite');
 
-            Route::post('save-profile', [AuthController::class, 'saveProfile'])->name('save_profile');
+            Route::get('edit-profile', [AuthController::class, 'showEditProfile'])->name('edit_profile');
+            //            Route::get('favourites/{favourite}/delete', Fa::class)->name('delete_discount');
+
+            //project
+//            Route::get('/projects/create', \App\Http\Livewire\User\Project\Create::class);
+//            Route::post('save-profile', [AuthController::class, 'saveProfile'])->name('save_profile');
+            Route::get('create-project', [\App\Http\Controllers\User\ProjectController::class, 'showCreateProject'])->name('create_project');
+            Route::get('projects', [\App\Http\Controllers\User\ProjectController::class,'index'])->name('projects.index');
+            Route::get('projects/{project}', [\App\Http\Controllers\User\ProjectController::class, 'show'])->name('project.show');
+
+            Route::get('my-proposals', [\App\Http\Controllers\User\ProposalController::class, 'index'])->name('my_proposals');
+            Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class,'show'])->name('show.proposal');
 
             Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
             Route::get('billing', [BillingController::class, 'index'])->name('billing');
@@ -279,6 +290,7 @@ Route::group([
 
             Route::get('ads', \App\Http\Livewire\Admin\Ads\Index::class)->name('ads');
             Route::get('ads/{ad}', \App\Http\Livewire\Admin\Ads\Show::class)->name('show_ad');
+            Route::get('ads/new', \App\Http\Livewire\Admin\Ads\Create::class)->name('new_ads');
             Route::get('ads/{ad}/edit', [UserAdController::class, 'editStatus'])->name('ads.edit');
             Route::post('ads/{ad}/update', [UserAdController::class, 'saveEditStatus'])->name('ads.update');
 
@@ -324,18 +336,18 @@ Route::group([
 
 
             Route::get('cities', \App\Http\Livewire\Admin\City\Index::class)->name('cities');
-            Route::get('cities/create',\App\Http\Livewire\Admin\City\Create::class)->name('city.create');
+            Route::get('cities/create', \App\Http\Livewire\Admin\City\Create::class)->name('city.create');
             Route::get('cities/{city}', \App\Http\Livewire\Admin\City\Edit::class)->name('city.edit');
             Route::get('cities/{city}/delete', \App\Http\Livewire\Admin\City\Index::class)->name('city.delete');
 
             Route::get('skills', \App\Http\Livewire\Admin\Skill\Index::class)->name('skills');
-            Route::get('skills/create',\App\Http\Livewire\Admin\Skill\Create::class)->name('skill.create');
+            Route::get('skills/create', \App\Http\Livewire\Admin\Skill\Create::class)->name('skill.create');
             Route::get('skills/{skill}', \App\Http\Livewire\Admin\Skill\Edit::class)->name('skill.edit');
             Route::get('skills/{skill}/delete', \App\Http\Livewire\Admin\Skill\Index::class)->name('skill.delete');
 
 
             Route::get('money', \App\Http\Livewire\Admin\Money\Index::class)->name('money');
-            Route::get('money/create',\App\Http\Livewire\Admin\Money\Create::class)->name('money.create');
+            Route::get('money/create', \App\Http\Livewire\Admin\Money\Create::class)->name('money.create');
             Route::get('money/{money}', \App\Http\Livewire\Admin\Money\Edit::class)->name('money.edit');
             Route::get('money/{money}/delete', \App\Http\Livewire\Admin\Money\Index::class)->name('money.delete');
 
@@ -360,16 +372,14 @@ Route::group([
     });
 });
 
-Route::get('/email/verify/{id}/{hash}', function (Request $request) {
-    $user = User::findOrFail($request->id);
+Route::get('email/verify/{id}/{hash}', function ($id) {
 
-    if (! hash_equals((string) $request->hash, sha1($user->getEmailForVerification()))) {
-        abort(404);
-    }
+    $user = User::findOrFail($id);
 
     $user->markEmailAsVerified();
 
-    return redirect('/home');
+    return redirect('/ar/user/profile');
+
 })->name('verification.verify')->middleware('signed');
 
 

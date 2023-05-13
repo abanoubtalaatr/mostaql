@@ -3,11 +3,16 @@
         <h4 class="card-title">تسجيل الدخول إلى حسابك</h4>
     </div>
     <div class="row row-cols-1 row-cols-md-1 mt-4 p-0">
+        @if(session()->has('please_check_your_email_we_send_email_verification'))
+            <div class="alert alert-danger text-right">
+                {{session()->get('please_check_your_email_we_send_email_verification')}}
+            </div>
+        @endif
         <div class="col mb-4 text-right my-1 px-0">
             <form wire:submit.prevent="login" class="text-right px-3">
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col-md-12 my-2">
-                        <label for="">الجوال</label>
+                        <label for="">البريد الاكتروني</label>
                         <input wire:model.defer="username" type="tel" class="form-control text-right">
                         @error('username') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>

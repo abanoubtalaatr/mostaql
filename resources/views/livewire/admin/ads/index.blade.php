@@ -3,42 +3,13 @@
           <x-admin.head/>
           <!--table-->
           <div class="border-div">
-            <div class="b-btm flex-div-2">
-              <h4>{{$page_title}}</h4>
-            </div>
+
+              <div class="b-btm flex-div-2">
+                  <h4>{{$page_title}}</h4>
+                  <a style='text-align:center' href='{{route('admin.new_ads')}}' class="button btn-red big">@lang('site.create_new')</a>
+              </div>
             <div class="table-page-wrap">
 
-                <div class="row">
-                    <div class="form-group col-3">
-                        <label for="status-select">@lang('messages.Ad_Title')</label>
-                        <input wire:model='title' type="text" class="form-control contact-input">
-                    </div>
-
-
-                    <div class="form-group col-3">
-                        <label for="status-select">@lang('site.status')</label>
-                        <select wire:model='status' id='status-select' class="form-control  contact-input">
-                            <option value>@lang('site.status')</option>
-                            <option value="unpaid">@lang('site.unpaid')</option>
-                            <option value="active">@lang('site.active')</option>
-                            <option value="inactive">@lang('site.inactive')</option>
-                            <option value="reviewing">@lang('site.reviewing')</option>
-                            <option value="finished">@lang('site.finished')</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group  col-3">
-                        <label for="campagin-select">@lang('validation.attributes.campagin_id')</label>
-                        <select wire:model='camp_id' id='campagin-select' class="form-control  contact-input">
-                            <option value>@lang('validation.attributes.campagin_id')</option>
-                            @foreach($camps as $camp)
-                                <option value="{{$camp->id}}">{{$camp->title}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-
-                </div>
 
                 @if(count($records))
                 <table class="table-page table">
