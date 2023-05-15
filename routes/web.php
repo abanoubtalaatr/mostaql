@@ -287,10 +287,10 @@ Route::group([
 
             Route::get('logout', [AdminAuthController::class, 'logout'])->name('logout');
             Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+            Route::get('advertisements/new', \App\Http\Livewire\Admin\Ads\Create::class)->name('new_ads');
+            Route::get('advertisements', \App\Http\Livewire\Admin\Ads\Index::class)->name('ads');
+            Route::get('advertisements/{ad}', \App\Http\Livewire\Admin\Ads\Show::class)->name('show_ad');
 
-            Route::get('ads', \App\Http\Livewire\Admin\Ads\Index::class)->name('ads');
-            Route::get('ads/{ad}', \App\Http\Livewire\Admin\Ads\Show::class)->name('show_ad');
-            Route::get('ads/new', \App\Http\Livewire\Admin\Ads\Create::class)->name('new_ads');
             Route::get('ads/{ad}/edit', [UserAdController::class, 'editStatus'])->name('ads.edit');
             Route::post('ads/{ad}/update', [UserAdController::class, 'saveEditStatus'])->name('ads.update');
 

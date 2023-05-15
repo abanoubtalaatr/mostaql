@@ -790,6 +790,8 @@ return [
     'Name in Arabic' => 'الاسم بالعربي',
     'Name in English' => 'الاسم بالانجليزية',
     'Image' => 'الصورة',
-    'verification_code_is_wrong' => 'كود التفعيل غير صحيح'
+    'verification_code_is_wrong' => 'كود التفعيل غير صحيح',
+    'start_at' => 'يبداء في',
+    'end_at' => 'ينتهي في'
 
 ];
