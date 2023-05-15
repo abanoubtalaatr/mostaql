@@ -213,6 +213,7 @@ Route::group([
         Route::get('all-users', [\App\Http\Controllers\User\UserController::class, 'index'])->name('all_users');
         Route::group(['middleware' => 'auth'], function () {
             Route::get('notifications', [NotificationController::class, 'userNotification'])->name('notifications.index');
+            Route::get('chats',[\App\Http\Controllers\User\ChatController::class,'index'])->name('chats');
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
             Route::get('profile/{user}', \App\Http\Livewire\User\Profile::class)->name('get_profile');
@@ -289,7 +290,7 @@ Route::group([
             Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
             Route::get('advertisements/new', \App\Http\Livewire\Admin\Ads\Create::class)->name('new_ads');
             Route::get('advertisements', \App\Http\Livewire\Admin\Ads\Index::class)->name('ads');
-            Route::get('advertisements/{ad}', \App\Http\Livewire\Admin\Ads\Show::class)->name('show_ad');
+            Route::get('advertisements/{advertisement}/edit', \App\Http\Livewire\Admin\Ads\Edit::class)->name('advertisements.edit');
 
             Route::get('ads/{ad}/edit', [UserAdController::class, 'editStatus'])->name('ads.edit');
             Route::post('ads/{ad}/update', [UserAdController::class, 'saveEditStatus'])->name('ads.update');

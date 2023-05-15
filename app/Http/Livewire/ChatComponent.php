@@ -6,6 +6,7 @@ use App\Models\Chat;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Pusher\Pusher;
 
 class ChatComponent extends Component
 {
@@ -22,14 +23,7 @@ class ChatComponent extends Component
 
     public function sendMessage()
     {
-        $message = new Chat();
-        $message->sender_id = Auth::id();
-        $message->receiver_id = $this->receiver->id;
-        $message->message = $this->newMessage;
-        $message->save();
 
-        $this->messages[] = $message;
-        $this->newMessage = '';
     }
 
     public function render()

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\User\Project;
 
 use App\Http\Livewire\Traits\ValidationTrait;
+use App\Models\Ad;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Category;
@@ -20,11 +21,11 @@ class Index extends Component
     public $perPage = 10;
     public $page = 1;
     protected $projects = [];
+    protected $ads= [];
 
-
-    public function getRecords()
+    public function mount()
     {
-
+        $this->ads = Ad::get();
     }
 
     public function loadMore()
@@ -51,7 +52,8 @@ class Index extends Component
                     $q->whereIn('category_id', $this->filters);
                 })->paginate($this->perPage);;
         }
+        $ads = $this->ads;
 
-        return view('livewire.user.project.index', compact('categories', 'projects'));
+        return view('livewire.user.project.index', compact('categories', 'projects', 'ads'));
     }
 }

@@ -31,7 +31,7 @@
                             التصنيف
                             <i class="fas fa-gift" style="color: palevioletred"></i>
                         </h5>
-                        <button  class="btn extra-purple"  wire:click="$set('filters', [])">حذف الفلتر</button>
+                        <button class="btn extra-purple" wire:click="$set('filters', [])">حذف الفلتر</button>
                         <div class="row">
                             @foreach($categories as $category)
                                 <div class="col-md-12 mt-2">
@@ -50,78 +50,97 @@
                 <div class="card bg-transparent">
                     <div class="card-body">
                         <div class="row advertisement row-cols-2 row-cols-md-3 py-1 text-center">
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="{{asset('images/adds.png')}}" alt="">
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="images/adds.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="images/adds.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="images/adds.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="images/adds.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="images/adds.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="images/adds.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="images/adds.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col mb-2">
-                                <a href="" type="button" data-toggle="modal" data-target="#exampleModal">
-                                    <div class="card border-0">
-                                        <img src="images/adds.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
+                            @foreach($ads as $ad)
+                                <div class="col mb-2">
+                                    <a href="" type="button" data-toggle="modal" data-target="#exampleModal{{$ad->id}}">
+                                        <div class="card border-0">
+                                            <img src="{{asset('images/adds.png')}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @foreach($ads as $ad)
+        <div class="modal fade" id="exampleModal{{$ad->id}}" tabindex="-1"
+             aria-labelledby="exampleModalLabel{{$ad->id}}"
+             style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h5 class="modal-title text-right mx-3 mb-1 mt-3" id="exampleModalLabel{{$ad->id}}">
+                        {{$ad->title}}
+                    </h5>
+                    <hr>
+                    <div class="modal-body text-center">
+                        <img height="150" src="{{asset('images/adds.png')}}" width="100%" alt="">
+                        <div
+                            class="row row-cols-3 row-cols-lg-3 text-center row-cols-md-3 row-cols-sm-3">
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->snap_chat}}" class="join-us"><i
+                                                class="fab fa-snapchat-ghost"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->website}}" class="join-us"><i
+                                                class="fas fa-globe-europe"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->location}}" class="join-us"><i
+                                                class="fas fa-map-marker-alt"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->facebook}}" class="join-us"><i
+                                                class="fab fa-facebook-square"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->instagram}}" class="join-us"><i
+                                                class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->twitter}}" class="join-us"><i
+                                                class="fab fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn extra-purple" data-dismiss="modal">
+                            اغلاق
+                        </button>
+                        <a href="/{{app()->getLocale()}}/support" type="button" class="btn extra-green">اعمل
+                            اعلان</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
     <div class="container mt-5 projects-card">
         <div class="row row-cols-1 row-cols-md-2 text-right">
             @foreach($projects as $project)

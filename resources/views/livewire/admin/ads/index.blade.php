@@ -37,8 +37,9 @@
 {{--                                            class="far fa-user green"></i></a>--}}
 
 
-                                    <a href="{{route('admin.ads.edit',$record)}}" class='no-btn'><i
+                                    <a href="{{route('admin.advertisements.edit',$record)}}" class='no-btn'><i
                                             class="far fa-edit red"></i></a>
+                                    <button class="no-btn" wire:click='destroy({{$record->id}})'><i class="fas fa-trash red"></i></button>
 
                                 </div>
                             </td>

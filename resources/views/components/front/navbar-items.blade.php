@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li class="nav-item mx-2 mt-1">
-                    <a class="nav-link" href="">
+                    <a hre class="nav-link" href="/{{app()->getLocale()}}/user/chats">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </li>

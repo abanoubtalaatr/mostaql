@@ -781,7 +781,6 @@ return [
     'Second Feature in English' => 'الميزة الثانية بالانجليزية',
     'Third Feature in Arabic' => 'الميزة الثالثة بالعربي',
     'Third Feature in English' => 'الميزة الثالثة بالانجليزية',
-
     'partners' => 'الشركاء',
     'show_partners' => 'عرض الشركاء',
     'add_partner' => 'إضافة شريك جديد',
