@@ -154,9 +154,11 @@
                         <div class="d-flex justify-content-between">
 
                             <div>
-                                @if($project->status_id != 3)
-                                    <a class="btn extra-green text-decoration-none"
-                                       href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}">مشاهدة</a>
+                                @if($project->status_id != 3 )
+                                    @if($userType !='freelancer')
+                                        <a class="btn extra-green text-decoration-none"
+                                           href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}">مشاهدة</a>
+                                    @endif
                                 @endif
                             </div>
 

@@ -53,8 +53,6 @@ use App\Http\Livewire\User\Library\Index as UserLibraryIndex;
 use App\Http\Livewire\User\Library\Show as UserShowLibrary;
 use App\Http\Livewire\User\PaybackRequests\Index as WalletIndex;
 use App\Models\Ad;
-use App\Models\AdDevices;
-use App\Models\AdProfit;
 use App\Models\Discount;
 use App\Models\User;
 use App\Services\GoogleAnalyticsService;
@@ -63,11 +61,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-
-Route::get('test', function () {
-    $soldier_current_profit = AdProfit::whereSoldierId(40)->whereAdId(47)->sum('amount');
-    dd($soldier_current_profit);
-});
 
 Route::get('ads/{ad}/fatorah_pay', [MyFatoorahController::class, 'pay'])->name('pay_fatorah');
 
@@ -379,7 +372,7 @@ Route::get('email/verify/{id}/{hash}', function ($id) {
 
     $user->markEmailAsVerified();
 
-    return redirect('/ar/user/profile');
+    return redirect('/ar/user/login');
 
 })->name('verification.verify')->middleware('signed');
 

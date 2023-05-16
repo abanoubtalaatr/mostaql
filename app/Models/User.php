@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Camp;
+use App\Services\Statuses;
 use Illuminate\Support\Str;
 use App\Services\FCMService;
 use Laravel\Sanctum\HasApiTokens;
@@ -70,17 +71,17 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function completedProposals()
     {
-        return $this->hasMany(Proposal::class)->where('status_id',5);
+        return $this->hasMany(Proposal::class)->where('status_id',Statuses::PROPOSALUNDERPROCESS);
     }
 
     public function processingProposals()
     {
-        return $this->hasMany(Proposal::class)->where('status_id',6);
+        return $this->hasMany(Proposal::class)->where('status_id',Statuses::ACCEPTPROPOSAL);
     }
 
     public function rejectedProposals()
     {
-        return $this->hasMany(Proposal::class)->where('status_id',4);
+        return $this->hasMany(Proposal::class)->where('status_id',Statuses::REJECTPORPOSAL);
     }
 
     public function averageRates()

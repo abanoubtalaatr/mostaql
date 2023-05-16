@@ -74,6 +74,20 @@
             : (btn.textContent = "اقرا المزيد");
     }
 </script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
+        cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
+        forceTLS: true
+    });
+
+    var channel = pusher.subscribe('chat');
+    channel.bind('message', function(data) {
+        Livewire.emit('messageReceived', data.message);
+    });
+</script>
 @livewireScripts()
 </body>
 

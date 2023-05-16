@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\User\Project;
 
 use App\Http\Livewire\Traits\ValidationTrait;
-use App\Mail\ProposalCreated;
+use App\Mail\Proposal as ProposalEmail;
 use App\Models\Favourite;
 use App\Models\Money;
 use App\Models\Notification;
@@ -36,6 +36,7 @@ class Show extends Component
     public $dues;
     public $showAddProposal = true;
     public $user;
+    public $userType ;
 
     public function mount(Project $project)
     {
@@ -44,6 +45,7 @@ class Show extends Component
         $this->checkIsFavourite();
         $this->checkShowAddProposal();
         $this->user = $this->project->user;
+        $this->userType = auth()->user()->user_type;
 
     }
 
@@ -92,7 +94,7 @@ class Show extends Component
         $user = User::find($this->project->user_id);
 
 
-        Mail::to($user->email)->send(new ProposalCreated($this->project));
+        Mail::to($user->email)->send(new ProposalEmail($this->project,'عرض جديد علي مشروعك'));
 
         $this->createNotification($user, $this->project);
 

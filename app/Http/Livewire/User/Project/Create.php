@@ -5,6 +5,7 @@ namespace App\Http\Livewire\User\Project;
 use App\Http\Livewire\Traits\ValidationTrait;
 use App\Models\Money;
 use App\Models\Skill;
+use App\Services\Statuses;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Category;
@@ -56,6 +57,7 @@ class Create extends Component
             'file' => $imagePath,
             'number_of_days' => $this->form['number_of_days'],
             'user_id' => auth()->id(),
+            'status_id' => Statuses::PROJECTOFFERPROPOSAL,
         ]);
 
         $project->skills()->sync($this->form['skills']);

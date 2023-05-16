@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="form-group col-3">
                         <label for="status-select">@lang('validation.attributes.username')</label>
-                        <input wire:model='username' type="text" class="form-control contact-input">
+                        <input wire:model='first_name' type="text" class="form-control contact-input">
                     </div>
 
                     <div class="form-group col-3">
@@ -36,6 +36,7 @@
                             <option value>@lang('general.user_type')</option>
                             <option value="freelancer">@lang('site.freelancer')</option>
                             <option value="owner">@lang('site.owner')</option>
+                            <option value="owner_freelancer">@lang('site.owner_freelancer')</option>
                         </select>
                     </div>
 
@@ -58,7 +59,7 @@
                         @foreach($records as $record)
                         <tr>
                             <td class="text-center">{{$loop->index + 1}}</td>
-                            <td class='text-center'>{{$record->username}}</td>
+                            <td class='text-center'>{{$record->first_name . ' ' .$record->last_name}}</td>
                             <td class='text-center'>{{$record->email}}</td>
                             <td class="text-center">@lang('site.'.$record->user_type)</td>
                             <td class="text-center">{{$record->payment_number}}</td>

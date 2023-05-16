@@ -11,7 +11,7 @@ class Index extends Component
     use WithPagination;
 
     public $user_type, $status, $username, $email, $page_title;
-    protected $queryString = ['status', 'email', 'email', 'username', 'user_type'];
+    protected $queryString = ['status', 'email', 'email', 'first_name', 'user_type'];
 
     protected $paginationTheme = 'bootstrap';
 
@@ -28,7 +28,7 @@ class Index extends Component
             })->when(!empty($this->user_type), function ($query) {
                 return $query->whereUserType($this->user_type);
             })->when(!empty($this->username), function ($query) {
-                return $query->where('username', 'LIKE', '%' . $this->username . '%');
+                return $query->where('first_name', 'LIKE', '%' . $this->first_name . '%');
             })->when(!empty($this->email), function ($query) {
                 return $query->where('email', 'LIKE', '%' . $this->email . '%');
             })->paginate();

@@ -43,14 +43,14 @@ class Index extends Component
                 $q->whereIn('category_id', $this->filters);
             })->whereHas('skills', function ($query) {
                 $query->whereIn('skill_id', auth()->user()->skills->pluck('id'));
-            })->paginate($this->perPage);
+            })->latest()->paginate($this->perPage);
         } else {
             $projects = Project::query()
                 ->when($this->title, function ($query, $title) {
                     $query->where('title', 'like', '%' . $title . '%');
                 })->when(count($this->filters), function ($q) {
                     $q->whereIn('category_id', $this->filters);
-                })->paginate($this->perPage);;
+                })->latest()->paginate($this->perPage);;
         }
         $ads = $this->ads;
 

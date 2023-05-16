@@ -29,7 +29,7 @@ class Login extends Component
                 session()->flash('please_check_your_email_we_send_email_verification', trans('site.please_check_your_email_we_send_email_verification'));
 //                return redirect()->to(route('user.verify_register_code'));
             } else {
-                return redirect()->to(\url("user/profile/$user->id"));
+                return redirect()->to(\url("user/projects"));
             }
 
         } else {

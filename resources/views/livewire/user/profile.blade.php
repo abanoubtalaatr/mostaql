@@ -18,7 +18,8 @@
                                     <i class="fas fa-money-check-alt"></i>
                                 </li>
                                 <li class="mx-1">
-                                    {{$user->city? $user->city->name_ar:''}} - {{$user->country? $user->country->value :''}}
+                                    {{$user->city? $user->city->name_ar:''}}
+                                    - {{$user->country? $user->country->value :''}}
                                     <i class="fas fa-home"></i>
                                 </li>
                                 <li class="mx-1">
@@ -41,23 +42,26 @@
                     </div>
                 </div>
             </div>
-            <div class="col mb-1">
-                <div class="card bg-transparent border-0">
-                    <div class="card-body">
-                        <button class="btn extra-purple mb-3" id="idUser" onclick="copyContent()"
-                                title="يمكنك من خلال رقم العضويه البحث عن المستخدم او ابلاغ الاداره من خلال رقم العضويه - اضغط للطباعه">
-                            {{\App\Models\Setting::first()->mobile}}
-                        </button>
+            @if(auth()->id() != $user->id )
+                <div class="col mb-1">
+                    <div class="card bg-transparent border-0">
+                        <div class="card-body">
+                            <button class="btn extra-purple mb-3" id="idUser" onclick="copyContent()"
+                                    title="يمكنك من خلال رقم العضويه البحث عن المستخدم او ابلاغ الاداره من خلال رقم العضويه - اضغط للطباعه">
+                                {{$user->id}}
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col mb-1">
-                <div class="card bg-transparent border-0">
-                    <div class="card-body">
-                        <button class="btn extra-green px-3 mb-3">تواصل الان</button>
+                <div class="col mb-1">
+                    <div class="card bg-transparent border-0">
+                        <div class="card-body">
+                            <a href="{{route('user.chats',['chat' => $user->id])}}" class="btn extra-green px-3 mb-3">تواصل
+                                الان</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
     <div class="container-fluid left-side-user mt-5">

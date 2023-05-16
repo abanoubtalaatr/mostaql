@@ -17,6 +17,7 @@ class Chat extends Component
 
     public function mount()
     {
+        $this->receiver = User::find(request()->query('chat'));
 
         $userId = \auth()->id();
         $this->users = User::joinSub(function ($query) use ($userId) {
@@ -35,19 +36,45 @@ class Chat extends Component
     {
         $this->validate();
 
+        if(!$this->receiver){
+            $this->addError('receiver', 'برجاء اختيار عضو لبدء المجادثه.');
+            return;
+        }
         $message = new \App\Models\Chat();
         $message->sender_id = Auth::id();
         $message->receiver_id = $this->receiver->id;
         $message->message = $this->message;
 
         $message->save();
-        $pusher = new Pusher(env('PUSHER_APP_KEY'), env('PUSHER_APP_SECRET'), env('PUSHER_APP_ID'), [
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'useTLS' => true,
-        ]);
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            [
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'useTLS' => true
+            ]
+        );
 
-        $this->messages[] = $message;
+        $data = [
+            'message' => $message
+        ];
+
+        $pusher->trigger('chat', 'message', $data);
+
         $this->message = '';
+    }
+
+    public function getListeners()
+    {
+        return [
+            'messageReceived' => 'addMessage'
+        ];
+    }
+
+    public function addMessage($message)
+    {
+        array_push($this->messages, $message);
     }
 
     protected function rules()
@@ -60,6 +87,11 @@ class Chat extends Component
     public function setReceiver($receiverId)
     {
         $this->receiver = User::find($receiverId);
+        $this->removeError();
+    }
+
+    public function removeError() {
+        $this->resetErrorBag('receiver');
     }
 
     public function render()
