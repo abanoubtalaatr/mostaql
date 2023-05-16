@@ -95,8 +95,9 @@ class Show extends Component
         Mail::to($user->email)->send(new ProposalCreated($this->project));
 
         $this->createNotification($user, $this->project);
-        $this->reset();
+
         session()->flash('proposal_created', 'تم ارسال عرضك');
+        return redirect("user/projects/". $this->project->id);
     }
 
     public function createNotification($user, $project)

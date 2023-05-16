@@ -15,7 +15,7 @@
                     <h5 class="card-title">وصف المشروع</h5>
                     <hr>
                     <p class="card-text">
-                        {{$project->description_ar}}
+                        {{$project->description_ar??''}}
                     </p>
                 </div>
             </div>
@@ -25,6 +25,7 @@
                     <h5 class="card-title">المهارات المطلوبة</h5>
                     <hr>
                     <div class="row row-cols-2 text-center row-cols-lg-4 row-cols-md-3 row-cols-sm-3">
+
                         @foreach($project->skills as $skill)
                             <div>
                                 <p class="mx-1 mb-1">{{$skill->name_ar}}</p>
@@ -162,17 +163,17 @@
                             <div class="d-flex justify-content-between">
                                 <div class="mx-2 mt-1 d-flex">
                                     <div class="mx-1">
-                                        @if($user)
-                                            @for ($i = 1; $i <= $project->user->averageRates(); $i++)
+                                        @if($proposal->user)
+                                            @for ($i = 1; $i <= $proposal->user->averageRates(); $i++)
                                                 <img src="{{asset('images/Star 1.png')}}" alt="">
                                             @endfor
                                         @endif
                                     </div>
-                                    <strong>{{$user?$user->first_name:''}}</strong>
+                                    <strong>{{$proposal->user?$proposal->user->first_name:'' }}</strong>
                                 </div>
                                 <div>
                                     <img width="50" height="50" class="rounded-circle"
-                                         src="{{asset($user?$user->avatar:'')}}" alt="">
+                                         src="{{asset($proposal->user?$proposal->user->avatar:'')}}" alt="">
                                 </div>
                             </div>
                         </div>
