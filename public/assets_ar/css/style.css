@@ -9,7 +9,6 @@
 body {
     background-color: var(--body);
     font-family: "Tajawal", sans-serif;
-    direction: rtl;
 }
 
 ul {
@@ -179,11 +178,17 @@ footer p {
     color: var(---purple);
 }
 
+.details-proposal {
+    text-align: right;
+    direction: rtl;
+}
+
 button, .extra-purple, .extra-green {
     color: #fff;
     font-weight: 400;
     padding: 10px 35px;
     border-radius: 4px;
+    text-decoration: none;
 }
 
 a, .join-us {
@@ -549,7 +554,7 @@ html {
 
 .mycart .row {
     overflow-y: auto;
-
+    height: 800px;
 }
 .mycart .row .col .card {
     border: 1px solid #47325B;
@@ -794,6 +799,109 @@ html {
     color: #000;
 }
 
+.current-msg hr {
+    background: #fff !important;
+}
+.current-msg .row .descripe-project-msg {
+    background: var(---purple) !important;
+    border: 0px;
+}
+.current-msg .row .descripe-project-msg h5,
+.current-msg .row .descripe-project-msg p {
+    color: #fff;
+}
+.current-msg .row .descripe-project-msg p {
+    margin: 15px 0;
+    font-size: 16px;
+}
+.current-msg .row .descripe-project-msg .row div p {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+.current-msg .row .project-card-msg .card-body {
+    background: var(---purple) !important;
+    border: 0px;
+    color: #fff !important;
+}
+.current-msg .row .project-card-msg .card-body h6 {
+    color: #fff;
+}
+.current-msg .row .project-card-msg hr {
+    background: #fff;
+}
+.current-msg .row .project-card-msg button {
+    color: #fff;
+}
+.current-msg .row .card {
+    background: transparent;
+    border: 0px;
+}
+.current-msg .row h6 {
+    color: var(---purple);
+}
+.current-msg .row textarea {
+    height: 300px !important;
+}
+.current-msg .row .available-msg p {
+    font-size: 16px;
+    color: var(--text-2);
+}
+.current-msg .alert-warning li {
+    font-size: 15px;
+    list-style-type: circle;
+    direction: rtl;
+    margin: 0px 15px;
+}
+.current-msg .audio-msg {
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    background: var(--body) !important;
+}
+
+.stay-tuned, .footer-stay-tuned {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.stay-tuned h1, .footer-stay-tuned h1 {
+    color: #ffffff;
+}
+.stay-tuned h1 i, .footer-stay-tuned h1 i {
+    color: #1f9946;
+    -webkit-animation: loveheart 0.3s linear 0.5s backwards;
+    animation: loveheart 0.3s linear 0.5s backwards;
+}
+.stay-tuned p, .footer-stay-tuned p {
+    color: #8A8A8A;
+}
+
+.footer-stay-tuned {
+    top: initial;
+    bottom: 0%;
+}
+.footer-stay-tuned span {
+    color: #ffffff;
+}
+
+@-webkit-keyframes loveheart {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-6rem);
+        transform: translateX(-6rem);
+    }
+}
+
+@keyframes loveheart {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-6rem);
+        transform: translateX(-6rem);
+    }
+}
 @media only screen and (min-width: 992px) {
     .login .box-title {
         margin-left: 150px;
