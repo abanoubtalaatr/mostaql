@@ -60,7 +60,7 @@ class Chat extends Component
             'message' => $message
         ];
 
-        $pusher->trigger('chat', 'message', $data);
+        $pusher->trigger('chat', "message", $data);
 
         $this->message = '';
     }

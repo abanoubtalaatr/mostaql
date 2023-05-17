@@ -38,11 +38,12 @@ class Index extends Component
         $categories = Category::all();
         $projects = Project::query();
 
+//        ->whereHas('skills', function ($query) {
+//        $query->whereIn('skill_id', auth()->user()->skills->pluck('id'));
+//    })
         if (auth()->user()) {
             $projects = $projects->when(count($this->filters), function ($q) {
                 $q->whereIn('category_id', $this->filters);
-            })->whereHas('skills', function ($query) {
-                $query->whereIn('skill_id', auth()->user()->skills->pluck('id'));
             })->latest()->paginate($this->perPage);
         } else {
             $projects = Project::query()
