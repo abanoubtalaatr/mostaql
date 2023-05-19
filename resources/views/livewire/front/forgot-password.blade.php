@@ -17,6 +17,14 @@
                 @if(isset($message))
                     <div class="row row-cols-1 row-cols-md-2 alert alert-info ml-auto  text-right px-3 text-right w-75">{{$message}}</div>
                 @endif
+                @if ($successMessage)
+                    <div>{{ $successMessage }}</div>
+                @endif
+
+                @if ($errorMessage)
+                    <div>{{ $errorMessage }}</div>
+                @endif
+
 
                 <button class="btn extra-purple px-5 reset-password my-5">
                     ارسال

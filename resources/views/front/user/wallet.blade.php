@@ -1,5 +1,4 @@
-
 @extends('layouts.front')
 @section('content')
-    @livewire('user.project.index')
+    @livewire('user.wallet')
 @endsection

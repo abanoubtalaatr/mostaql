@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Wallet extends Model{
+class Wallet extends Model
+{
     use HasFactory;
-    protected $guarded=[];
 
-    public function paybackRequest(){
+    protected $guarded = [];
+    protected $dates = ['created_at'];
+
+    public function paybackRequest()
+    {
         return $this->belongsTo(PaybackRequest::class);
     }
 }

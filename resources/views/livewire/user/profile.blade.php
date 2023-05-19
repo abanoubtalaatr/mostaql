@@ -80,9 +80,9 @@
 
                             </h6>
                             <h6 class="my-2">المشاريع المكتملة</h6>
-                            <h6 class="my-2">{{$user->completedProposals->count()}} مشاريع مكتمله</h6>
+                            <h6 class="my-2">{{$completedProject}} مشاريع مكتمله</h6>
                             <h6 class="my-2">مشاريع تحت التنفيذ</h6>
-                            <h6 class="my-2">{{$user->processingProposals->count()}} تحت التنفيذ</h6>
+                            <h6 class="my-2">{{$underWork}} تحت التنفيذ</h6>
 
                             <h6 class="my-2">تاريخ الانضمام</h6>
                             <h6 class="my-2">عام - {{$user->created_at->format("Y")}}</h6>

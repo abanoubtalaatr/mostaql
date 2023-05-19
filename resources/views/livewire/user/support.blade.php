@@ -9,18 +9,8 @@
             <div class="col mb-4">
                 <div class="card bg-transparent border-0">
                     <div class="card-body">
-                        <p class="card-text">
-                            يمكنك من خلال هذه الصفحه التواصل مع اداره الموقع علي اي منصه
-                            سوشال ميديا من خلال هذه الصفحه يمكنك التبليغ عن رقم عضويه عضو ما
-                            من خلال ارسالها عبر واتس اب او عبر البريد الالكتروني وايضا يمكنك
-                            مراسله الاداراه بخصوص مشكله ما تواجهك او ارسال بريد الكتروني الي
-                            الاداره وايضا يمكننا الرد عليك تنفيذ المشروع.
-                        </p>
-                        <p class="card-text">
-                            يمكنك من خلال هذه الصفحه التواصل مع اداره الموقع علي اي منصه
-                            سوشال ميديا من خلال هذه الصفحه يمكنك اضافه اعلانك علي الموقع من
-                            خلال التواصل مع الاداره وارسال لهم البيانات المراده وارسال لهم
-                            مده الاعلان مع تحمل الميزانيه الخاصه بكل اعلان وبكل مده
+                        <p class="">
+                            {!! $support->desc_ar !!}
                         </p>
                         <button type="button" class="btn extra-green p-2" data-toggle="modal"
                                 data-target="#exampleModal">
@@ -55,7 +45,8 @@
             <div class="col mb-4">
                 <div class="card bg-transparent border-0">
                     <div class="card-body">
-                        <a href="{{$settings->twitter??''}}" target="_blank" class="join-us"><i class="fab fa-twitter"></i>
+                        <a href="{{$settings->twitter??''}}" target="_blank" class="join-us"><i
+                                class="fab fa-twitter"></i>
                         </a>
                     </div>
                 </div>
@@ -81,24 +72,27 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form class="text-right">
-                        <div class="form-group">
+                <div class="modal-body" style="direction: rtl">
+                    <form class="text-right text-right" action="{{route('user.contact_us')}}" method="post">
+                        @csrf
+                        @method('post')
+                        <div class="form-group text-right">
                             <label for="exampleInputEmail1">البريد الالكتروني</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1"
+                            <input type="email" name="email" class="form-control" id="exampleInputEmail1"
                                    aria-describedby="emailHelp">
                             <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص
                                 آخر.</small>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">رسالتك</label>
-                            <textarea class="form-control text-right textarea-popup" id="" rows="3"></textarea>
+                            <textarea name="message" class="form-control text-right textarea-popup" id="" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn extra-purple">ارسال</button>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn extra-purple">ارسال</button>
-                </div>
+
             </div>
         </div>
     </div>

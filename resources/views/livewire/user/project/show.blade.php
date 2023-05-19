@@ -72,9 +72,19 @@
                 <button wire:click="addToFavourite" class="btn extra-purple">اضف الي المفضله</button>
             @endif
 
+            @if($showDeliverProject)
+                <button wire:click="deliveryProject" class="btn extra-purple">تسليم الصفقة</button>
+            @endif
+
             @if (session()->has('favourite'))
                 <div class="alert alert-success w-75 mt-3" style="margin-left: 25%">
                     {{ session()->get('favourite') }}
+                </div>
+            @endif
+
+            @if (session()->has('request_to_delivered'))
+                <div class="alert alert-success w-75 mt-3" style="margin-left: 25%">
+                    {{ session()->get('request_to_delivered') }}
                 </div>
             @endif
         </div>
@@ -131,12 +141,12 @@
                                         class="error text-danger">{{ $message }}</span> @enderror
 
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">
-                                    <label for="">اضافه ملفات</label>
-                                    <input type="file" wire:model.defer="form.file" class="form-control-file">
-                                    @error('form.file') <span class="error text-danger">{{ $message }}</span> @enderror
+{{--                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">--}}
+{{--                                    <label for="">اضافه ملفات</label>--}}
+{{--                                    <input type="file" wire:model.defer="form.file" class="form-control-file">--}}
+{{--                                    @error('form.file') <span class="error text-danger">{{ $message }}</span> @enderror--}}
 
-                                </div>
+{{--                                </div>--}}
                             </div>
                             <button class="btn extra-purple my-3">اضف الان</button>
                         </div>

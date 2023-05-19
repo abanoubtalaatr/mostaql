@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('solider:not_enough_data')
+        $schedule->command('user:can_withdraw')
             ->daily("13.00");
     }
 

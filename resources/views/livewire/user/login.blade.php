@@ -7,9 +7,15 @@
             <div class="alert alert-danger text-right">
                 {{session()->get('please_check_your_email_we_send_email_verification')}}
             </div>
+
         @endif
+
         <div class="col mb-4 text-right my-1 px-0">
+
             <form wire:submit.prevent="login" class="text-right px-3">
+                <div class="row row-cols-1 row-cols-md-2 text-right" style="direction: rtl;">
+                    @if(isset($error_message)) <span class="error text-danger">{{ $error_message }}</span>  @endif
+                </div>
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col-md-12 my-2">
                         <label for="">البريد الاكتروني</label>
@@ -29,8 +35,6 @@
                         <input wire:model.defer="remember_me" class="form-check-input" type="checkbox" value="" id="">
                     </div>
 
-                    @if(isset($errro_message)) <span class="error text-danger">{{ $message }}</span>  @endif
-
                 </div>
                 <div class="row row-cols-1 help-me mt-4 row-cols-md-1" style="direction: rtl">
                     <div class="col-md-6 mb-2">
@@ -44,9 +48,9 @@
                         <a class="nav-link join-us-login" href="/{{app()->getLocale()}}/user/forgot-password">
                             لقد نسيت كلمة المرور
                         </a>
-{{--                        <a class="nav-link join-us-login" href="resetpassword.html">--}}
-{{--                            الرجاء إعادة إرسال الرمز--}}
-{{--                        </a>--}}
+                        {{--                        <a class="nav-link join-us-login" href="resetpassword.html">--}}
+                        {{--                            الرجاء إعادة إرسال الرمز--}}
+                        {{--                        </a>--}}
                     </div>
                 </div>
             </form>

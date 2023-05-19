@@ -6,18 +6,22 @@ use App\Models\Page;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends Component{
+class Index extends Component
+{
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
     public $page_title;
 
-    public function mount(){
+    public function mount()
+    {
         $this->page_title = __('site.pages');
     }
 
 
-    public function render(){
+    public function render()
+    {
         $records = Page::paginate();
-        return view('livewire.admin.pages.index',compact('records'))->layout('layouts.admin');
+        return view('livewire.admin.pages.index', compact('records'))->layout('layouts.admin');
     }
 }

@@ -14,57 +14,34 @@ class Edit extends Component
 {
     use WithFileUploads, ValidationTrait;
 
-    public $form, $page_title, $picture;
+    public $page_title, $picture;
+    public $desc_ar, $title_ar;
 
     public function mount(Page $page)
     {
         $this->page = $page;
-        $this->form = Arr::except($page->toArray(), ['updated_at', 'created_at', 'id']);
+        $this->desc_ar = $page->desc_ar;
+        $this->title_ar = $page->title_ar;
+
         $this->page_title = __('site.edit_page');
     }
 
     public function store()
     {
-        $this->validate();
-//        $this->form['picture'] =
-//            $this->picture?
-//                $this->picture->storeAs(date('Y/m/d'),Str::random(50).'.'.$this->picture->extension(),'public') : $this->page->picture;
-        $this->page->update($this->form);
+
+        $this->page->update([
+            'title_ar' => $this->title_ar,
+            'desc_ar' => $this->desc_ar,
+        ]);
         session()->flash('success_message', __('site.page_edited_successfully'));
         return redirect()->to(route('admin.pages.index'));
     }
 
-
-    public function updatedContent($value)
-    {
-        $this->content = $value;
-        $this->dispatchBrowserEvent('editorUpdated');
-    }
-
-    public function updatedPicture()
-    {
-        $this->withValidator(function (Validator $validator) {
-            if ($validator->errors()->has('picture')) {
-                $this->picture = '';
-            }
-        })->validateOnly('picture');
-    }
-
-
     public function getRules()
     {
         return [
-            'form.title_ar' => 'required|max:500',
-//            'form.title_en'=>'required|max:500',
-
-            'form.desc_ar' => 'required|max:500',
-//            'form.desc_en'=>'required|max:500',
-
-//            'form.content_ar'=>'required|max:5000',
-//            'form.content_en'=>'required|max:5000',
-
-//            'form.type'=>'nullable|in:navbar,services,how_it_works,benifits,footer',
-//            'picture'=>'nullable|file|mimes:png,jpg,jpeg|max:10240'
+            'title_ar' => 'required',
+            'desc_ar' => 'required',
         ];
     }
 

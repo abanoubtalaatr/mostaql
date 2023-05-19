@@ -58,6 +58,7 @@ use App\Models\User;
 use App\Services\GoogleAnalyticsService;
 use App\Services\HyperpayService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -89,7 +90,7 @@ Route::get('my_fatoorah_view', function () {
     return view('payment.my_fatorah');
 });
 
-
+//Auth::routes();
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
@@ -127,7 +128,8 @@ Route::group([
     Route::post('/ad/{ad}/increase-clicks', [LibraryController::class, 'increaseClicks'])->name('increase_clicks_of_ad');
     Route::get('support', function () {
         $settings = \App\Models\Setting::first();
-        return view('livewire.user.support', compact('settings'));
+        $support = \App\Models\Page::find(1);
+        return view('livewire.user.support', compact('settings','support'));
     })->name('support');
 
     Route::get('terms', \App\Http\Livewire\User\Terms::class)->name('terms');
@@ -203,10 +205,12 @@ Route::group([
             $paid_ad = Ad::where('id', $id)->first();
             return redirect()->to(route('user.show_ad', $paid_ad->id) . '?status=ad-payment-failed');
         })->name('fatorah_error');
+
         Route::get('all-users', [\App\Http\Controllers\User\UserController::class, 'index'])->name('all_users');
+
         Route::group(['middleware' => 'auth'], function () {
             Route::get('notifications', [NotificationController::class, 'userNotification'])->name('notifications.index');
-            Route::get('chats',[\App\Http\Controllers\User\ChatController::class,'index'])->name('chats');
+            Route::get('chats', [\App\Http\Controllers\User\ChatController::class, 'index'])->name('chats');
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
             Route::get('profile/{user}', \App\Http\Livewire\User\Profile::class)->name('get_profile');
@@ -219,21 +223,13 @@ Route::group([
 //            Route::get('/projects/create', \App\Http\Livewire\User\Project\Create::class);
 //            Route::post('save-profile', [AuthController::class, 'saveProfile'])->name('save_profile');
             Route::get('create-project', [\App\Http\Controllers\User\ProjectController::class, 'showCreateProject'])->name('create_project');
-            Route::get('projects', [\App\Http\Controllers\User\ProjectController::class,'index'])->name('projects.index');
+            Route::get('projects', [\App\Http\Controllers\User\ProjectController::class, 'index'])->name('projects.index');
             Route::get('projects/{project}', [\App\Http\Controllers\User\ProjectController::class, 'show'])->name('project.show');
 
             Route::get('my-proposals', [\App\Http\Controllers\User\ProposalController::class, 'index'])->name('my_proposals');
-            Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class,'show'])->name('show.proposal');
+            Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class, 'show'])->name('show.proposal');
 
             Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
-            Route::get('billing', [BillingController::class, 'index'])->name('billing');
-            Route::get('camps', [CampController::class, 'index'])->name('camps');
-            Route::get('camps/create', [CampController::class, 'create'])->name('create_camp');
-            Route::get('camps/{camp}/edit', [CampController::class, 'edit'])->name('edit_camp');
-            Route::get('tasks', [UserTaskController::class, 'index'])->name('tasks');
-            Route::get('tasks/{task}', [UserTaskController::class, 'show'])->name('show_task');
-            Route::get('tasks/{task}/complete', [UserTaskController::class, 'userComplete'])->name('complete_task');
-
             Route::get('ads', [UserAdController::class, 'index'])->name('ads');
             Route::get('ads/create', [UserAdController::class, 'create'])->name('create_ad');
             Route::get('ads/{ad}/edit', [UserAdController::class, 'edit'])->name('edit_ad');
@@ -245,7 +241,7 @@ Route::group([
             Route::get('category', UserCategoryIndex::class)->name('category');
             Route::get('library/{library}', UserShowLibrary::class)->name('library.show');
 
-            Route::get('wallet', WalletIndex::class)->name('wallet');
+            Route::get('wallet', [\App\Http\Controllers\User\WalletController::class,'index'])->name('wallet');
 
             Route::get('contact', [UserContactController::class, 'index'])->name('contact_us');
 
@@ -365,6 +361,20 @@ Route::group([
         });
     });
 });
+
+
+Route::post('contact-us', function (Request $request){
+   if($request->email && $request->message) {
+       \App\Models\Contact::create([
+           'sender_name' => auth()->user()->first_name .' '. auth()->user()->last_name,
+           'sender_email' => $request->email,
+           'message' => $request->message,
+       ]);
+       return redirect('/ar/support');
+   }
+    return redirect('/ar/support');
+
+})->middleware('auth')->name('user.contact_us');
 
 Route::get('email/verify/{id}/{hash}', function ($id) {
 

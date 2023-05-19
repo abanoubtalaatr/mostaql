@@ -148,7 +148,7 @@
                     <div class="card bg-transparent">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-3">
-                                <h6 class="card-title">{{$project->category->title_ar}}</h6>
+                                <h6 class="card-title">{{$project->title}}</h6>
                                 <small class="small">{{$project->created_at->diffForHumans()}}</small>
                             </div>
                             <button class="mx-2 mb-2 btn small-btn-border">
@@ -161,12 +161,12 @@
                             {{--                            <i class="fas fa-briefcase"></i>--}}
                             {{--                        </button>--}}
                             <button class="mx-2 mb-2 btn small-btn-border">
-                                {{$project->money->name_ar}}
+                                {{$project->price}}
                                 <i class="fas fa-money-check-alt"></i>
                             </button>
 
                             <p class="card-text my-4 content">
-                                <span class="dots"></span>
+                                <span class="dots">{{$project->title}}</span>
                                 <span class="hide more">{{$project->description_ar}}</span>
                             </p>
 

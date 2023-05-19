@@ -6,6 +6,7 @@ use App\Mail\VerifyEmail;
 use App\Services\OTPService;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -13,7 +14,7 @@ use App\Services\GenerateCodeService;
 
 class ForgotPassword extends Component
 {
-    public $email, $message;
+    public $email, $message,$successMessage, $errorMessage;
 
     public function sendEmail()
     {
@@ -34,15 +35,28 @@ class ForgotPassword extends Component
         $this->validate();
         $user = User::where('email', $this->email)->first();
 
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => Str::random(60),'forgot' => 'true']
-        );
 
-        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
+        $response = Password::sendResetLink(['email' => $this->email]);
 
-        $this->message = trans('site.please_check_your_email');
+        if ($response === Password::RESET_LINK_SENT) {
+            $this->successMessage ='برجاء تصفح بريدك الاكتروني.';
+            $this->errorMessage = '';
+            $this->email = '';
+        } else {
+            $this->successMessage = '';
+            $this->errorMessage = trans($response);
+        }
+//
+//        $verificationUrl = URL::temporarySignedRoute(
+//            'verification.verify',
+//            now()->addMinutes(60),
+//            ['id' => $user->id, 'hash' => Str::random(60),'forgot' => 'true']
+//        );
+//
+//        dd($verificationUrl);
+//        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
+//
+//        $this->message = trans('site.please_check_your_email');
     }
 
     public function render()

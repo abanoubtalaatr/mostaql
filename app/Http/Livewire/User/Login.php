@@ -16,6 +16,7 @@ class Login extends Component
 
     public function login()
     {
+
         $this->validate();
         // if user enter email or mobile , then check if verified or not in two cases
         if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
@@ -39,16 +40,15 @@ class Login extends Component
                 }
                 return redirect()->to(route('user.dashboard'));
             } else {
-
                 if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
                     if (auth()->user()->is_verified == 0) {
                         return redirect()->to(route('user.verify_register_code'));
                     }
                     return redirect()->to(route('user.dashboard'));
                 }
+
                 $this->error_message = __('messages.Wrong_credential');
             }
-
         }
     }
 
@@ -69,7 +69,7 @@ class Login extends Component
     {
         return [
             'password' => 'required|min:8',
-            'username' => 'required|max:50'
+            'username' => 'required|max:50|email'
         ];
     }
 

@@ -439,6 +439,6 @@ return [
     'medal' => 'الوسام',
     'create_medal' => 'أنشاء وسام جديد',
     'edit_medal' => 'تعديل الوسم',
-    'proposal' => 'عرض سعر',
+    'proposal' => '',
     'owner_freelancer' => 'صاحب مشروع ومستقل',
 ];

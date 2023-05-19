@@ -13,7 +13,7 @@ use App\Models\Project;
 
 class Create extends Component
 {
-    use WithFileUploads,ValidationTrait;
+    use WithFileUploads, ValidationTrait;
 
     public $title;
     public $description_ar;
@@ -33,15 +33,16 @@ class Create extends Component
     public function getRules()
     {
         return [
-            'form.title'=>'required|max:500',
+            'form.title' => 'required|max:500',
             'form.description_ar' => ['required', 'string', 'min:4'],
-            'form.category_id' => ['required','exists:categories,id'],
+            'form.category_id' => ['required', 'exists:categories,id'],
             'form.money_id' => ['required', 'exists:money,id'],
             'form.file' => ['required', 'mimes:png,jpg', 'max:2048'],
             'form.number_of_days' => ['required', 'integer'],
             'form.skills' => ['required', 'array'],
         ];
     }
+
     public function store()
     {
 
@@ -49,23 +50,29 @@ class Create extends Component
 
         $imagePath = $this->form['file']->store('public/images');
 
+        $money = Money::find($this->form['money_id']);
+        if ($money) {
+            $moneyName = $money->name_ar;
+        } else {
+            $moneyName = '';
+        }
+
         $project = Project::create([
             'title' => $this->form['title'],
             'description_ar' => $this->form['description_ar'],
-            'money_id' => $this->form['money_id'],
+            'price' => $moneyName,
             'category_id' => $this->form['category_id'],
             'file' => $imagePath,
             'number_of_days' => $this->form['number_of_days'],
             'user_id' => auth()->id(),
-            'status_id' => Statuses::PROJECTOFFERPROPOSAL,
+            'status_id' => 1,
         ]);
 
         $project->skills()->sync($this->form['skills']);
         session()->flash('success', 'تم انشاء مشروعك بنجاج.');
 
-        $this->reset();
+        return redirect(route('user.my_proposals'));
     }
-
 
 
     public function render()

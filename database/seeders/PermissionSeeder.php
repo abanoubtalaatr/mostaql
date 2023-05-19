@@ -31,6 +31,10 @@ class PermissionSeeder extends Seeder
             'Manage partners' => 'أدراة الشركاء',
             'Manage settings' => 'أدارة الاعدادات',
             'Manage sliders' => 'أدارة السسلايدر',
+            "Manage cities" => 'ادراة المدن',
+            "Manage skills" => 'ادراة المهارات',
+            "Manage money" => 'ادارة الميزانية المتوقعة',
+            "Manage medals" => 'ادارة الاوسمة',
         ];
 
         foreach ($crudPermissionNames as $en_permission => $ar_permission) {

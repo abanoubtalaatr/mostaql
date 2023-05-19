@@ -19,10 +19,27 @@ use Livewire\WithFileUploads;
 class Profile extends Component
 {
     public $user;
+    public $completedProject;
+    public $underWork;
 
     public function mount(User $user)
     {
         $this->user = $user;
+
+        $this->completedProject = $user->proposals()
+            ->where('status_id', 12)
+            ->whereHas('project', function ($query) {
+                $query->where('status_id', 3);
+            })
+            ->count();
+
+        $this->underWork = $user->proposals()
+            ->where('status_id', 12)
+            ->whereHas('project', function ($query) {
+                $query->where('status_id', 2);
+            })
+            ->count();
+
     }
 
     public function render()

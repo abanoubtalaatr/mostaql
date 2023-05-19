@@ -71,7 +71,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function completedProposals()
     {
-        return $this->hasMany(Proposal::class)->where('status_id',Statuses::PROPOSALUNDERPROCESS);
+        return $this->hasMany(Proposal::class);
     }
 
     public function processingProposals()

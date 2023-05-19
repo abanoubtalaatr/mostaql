@@ -23,20 +23,6 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     @livewireStyles()
     @stack('styles')
-    <script src="https://cdn.tiny.cloud/1/my-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            directionality: 'rtl',
-            plugins: 'link code',
-            height:400,
-            toolbar: 'undo redo | bold italic underline | alignright aligncenter alignleft | code',
-            language: 'ar',
-            language_url: 'https://cdn.tiny.cloud/1/my-api-key/tinymce/5/langs/ar.js',
-            extended_valid_elements : 'span[style|class],div[align|style|class],br,hr',
-            content_style: 'body { font-family: "Arial", sans-serif; font-size: 14px; direction: rtl; text-align: right; }'
-        });
-    </script>
 
 </head>
 
@@ -81,8 +67,8 @@
                     </a>
                 </li>
             @endcan
-            <hr>
-            @can('Manage users')
+
+            @can('Manage countries')
                 <li>
                     <a href="{{route('admin.countries')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
@@ -91,7 +77,7 @@
                 </li>
             @endcan
 
-            @can('Manage users')
+            @can('Manage cities')
                 <li>
                     <a href="{{route('admin.cities')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
@@ -101,7 +87,7 @@
             @endcan
 
 
-            @can('Manage users')
+            @can('Manage skills')
                 <li>
                     <a href="{{route('admin.skills')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
@@ -110,7 +96,7 @@
                 </li>
             @endcan
 
-            @can('Manage users')
+            @can('Manage money')
                 <li>
                     <a href="{{route('admin.money')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
@@ -119,7 +105,7 @@
                 </li>
             @endcan
 
-            @can('Manage users')
+            @can('Manage medals')
                 <li>
                     <a href="{{route('admin.medals')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">

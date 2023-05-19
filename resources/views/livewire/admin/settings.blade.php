@@ -65,6 +65,12 @@
                             <hr/>
                         </div>
 
+                        <div class="col-6">
+                            <label for="">@lang('validation.attributes.platform_dues')</label>
+                            <input wire:model='form.platform_dues'  placeholder="@lang('validation.attributes.snap_chat')" class="@error('form.platform_dues') is-invalid @enderror form-control contact-input" type="text"/>
+                            @error('form.platform_dues') <p class="text-danger">{{$message}}</p> @enderror
+                            <hr/>
+                        </div>
                     </div>
 
                      {{-- <div class="row">
@@ -98,7 +104,7 @@
 {{--                        </div>--}}
 {{--                    </div>--}}
 
-                    <hr>
+
 
 {{--                    <div class="row">--}}
 {{--                        <div class="col-6">--}}
@@ -116,7 +122,6 @@
 {{--                        </div>--}}
 {{--                    </div>--}}
 
-                    <hr>
 
 {{--                    <div class="row">--}}
 {{--                        <div class="col-6">--}}

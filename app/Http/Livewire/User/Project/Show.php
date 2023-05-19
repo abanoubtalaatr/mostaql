@@ -36,7 +36,8 @@ class Show extends Component
     public $dues;
     public $showAddProposal = true;
     public $user;
-    public $userType ;
+    public $userType;
+    public $showDeliverProject = false;
 
     public function mount(Project $project)
     {
@@ -46,7 +47,39 @@ class Show extends Component
         $this->checkShowAddProposal();
         $this->user = $this->project->user;
         $this->userType = auth()->user()->user_type;
+        $this->checkShowButtonDeliverProject();
 
+    }
+
+    public function checkShowButtonDeliverProject()
+    {
+        if (auth()->user()) {
+
+            $user = User::where('id', '!=', $this->user->id)->where('id', auth()->id())->first();
+
+            if ($user) {
+                $proposal = Proposal::where('user_id', $user->id)
+                    ->where('project_id', $this->project->id)
+                    ->where('status_id', 12)
+                    ->first();
+                if ($proposal && $this->project->status_id == 2) {
+                    $this->showDeliverProject = true;
+                }
+            }
+        }
+    }
+
+    public function deliveryProject()
+    {
+
+        $user = User::find($this->project->user_id);
+
+        Mail::to($user->email)->send(new ProposalEmail($this->project, 'طلب تسليم الصفقة'));
+
+        $this->createNotification($user, $this->project, 'طلب تسليم الصفقة ', 'طلب تسليم الصفقة علي المشروع');
+
+        $this->project->update(['request_to_delivered' => 1]);
+        session()->flash('request_to_delivered', 'تم ارسال الطلب بنجاح');
     }
 
     public function checkShowAddProposal()
@@ -79,12 +112,10 @@ class Show extends Component
     public function addProposal()
     {
         $this->validate();
-        $this->form['file'] = $this->form['file']->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->form['file']->extension(), 'public');
 
         Proposal::create([
             'user_id' => auth()->id(),
             'project_id' => $this->project->id,
-            'file' => $this->form['file'],
             'number_of_days' => $this->form['number_of_days'],
             'price' => $this->form['price'],
             'description' => $this->form['description'],
@@ -94,18 +125,18 @@ class Show extends Component
         $user = User::find($this->project->user_id);
 
 
-        Mail::to($user->email)->send(new ProposalEmail($this->project,'عرض جديد علي مشروعك'));
+        Mail::to($user->email)->send(new ProposalEmail($this->project, 'عرض جديد علي مشروعك'));
 
-        $this->createNotification($user, $this->project);
+        $this->createNotification($user, $this->project, 'عرض جديد علي مشروعك', 'عرض جديد علي مشروعك يمكنك الان تصفحة');
 
         session()->flash('proposal_created', 'تم ارسال عرضك');
-        return redirect("user/projects/". $this->project->id);
+        return redirect("user/projects/" . $this->project->id);
     }
 
-    public function createNotification($user, $project)
+    public function createNotification($user, $project, $message, $body)
     {
-        $title_ar = "عرض سعر جديد";
-        $content_ar = "عرض سعر جديد علي مشروعك  ( $project->title )";
+        $title_ar = $message;
+        $content_ar = "$body ( $project->title )";
         $user_id = $user->id;
         $type = 'proposal';
 
@@ -131,7 +162,7 @@ class Show extends Component
             'form.number_of_days' => ['required', 'integer'],
             'form.price' => ['required', 'integer'],
             'form.description' => ['required', 'string', 'min:4'],
-            'form.file' => ['required', 'mimes:png,jpg', 'max:2048'],
+//            'form.file' => ['required', 'mimes:png,jpg', 'max:2048'],
         ];
     }
 

@@ -11,7 +11,7 @@
                         <a class="dropdown-item" href="/{{app()->getLocale()}}/user/profile/{{auth()->id()}}"> حسابي </a>
                         <a class="dropdown-item" href="/{{app()->getLocale()}}/user/my-favourite"> مفضلتي </a>
                         <a class="dropdown-item" href="/{{app()->getLocale()}}/terms"> ضمان الحقوق </a>
-                        <a class="dropdown-item" href="payments.html"> الرصيد </a>
+                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/wallet"> الرصيد </a>
                         <a class="dropdown-item" href="/{{app()->getLocale()}}/user/edit-profile">
                             تعديل الحساب
                         </a>
