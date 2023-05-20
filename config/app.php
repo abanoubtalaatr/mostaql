@@ -3,7 +3,7 @@
 return [
 
 
-    'name' => env('APP_NAME', 'مستقل'),
+    'name' => env('APP_NAME', 'أخدمني'),
 
     'env' => env('APP_ENV', 'production'),
 
