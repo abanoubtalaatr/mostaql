@@ -33,6 +33,11 @@ class AuthController extends Controller
         return view('front.auth.forgot_password');
     }
 
+    public function showResetPassword($token)
+    {
+        return view('front.auth.reset_password', compact('token'));
+    }
+
 
     public function verifyForgetPasswordCode(User $user)
     {

@@ -6,12 +6,13 @@
 
     @component('mail::message')
 
-        Please click the button below to verify your email address
+        برجاء الضغظ هنا
 
         @component('mail::button', ['url' => $verificationUrl])
-            Click Here
+        برجاء الضغظ
         @endcomponent
 
-        Thanks,<br>
+        شكرا لك
+        <br>
         {{ config('app.name') }}
     @endcomponent

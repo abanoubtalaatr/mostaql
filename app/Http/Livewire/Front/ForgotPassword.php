@@ -34,29 +34,16 @@ class ForgotPassword extends Component
 
         $this->validate();
         $user = User::where('email', $this->email)->first();
+        $token = Str::random(60);
+        $user->reset_token = $token;
+        $user->save();
 
+        $url = url(app()->getLocale().'/user/reset-password').'/'.$token;
 
-        $response = Password::sendResetLink(['email' => $this->email]);
+        Mail::to($user->email)->send(new VerifyEmail($url,'تغيير كلمة المرور الخاصة بك'));
 
-        if ($response === Password::RESET_LINK_SENT) {
-            $this->successMessage ='برجاء تصفح بريدك الاكتروني.';
-            $this->errorMessage = '';
-            $this->email = '';
-        } else {
-            $this->successMessage = '';
-            $this->errorMessage = trans($response);
-        }
-//
-//        $verificationUrl = URL::temporarySignedRoute(
-//            'verification.verify',
-//            now()->addMinutes(60),
-//            ['id' => $user->id, 'hash' => Str::random(60),'forgot' => 'true']
-//        );
-//
-//        dd($verificationUrl);
-//        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
-//
-//        $this->message = trans('site.please_check_your_email');
+        info('the url '. $url);
+        $this->message = trans('site.please_check_your_email');
     }
 
     public function render()

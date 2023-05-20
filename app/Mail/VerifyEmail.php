@@ -12,15 +12,17 @@ class VerifyEmail extends Mailable
     use Queueable, SerializesModels;
 
     public $verificationUrl;
+    public $message = '';
 
-    public function __construct($verificationUrl)
+    public function __construct($verificationUrl, $message = null)
     {
+        $this->message = $message;
         $this->verificationUrl = $verificationUrl;
     }
 
     public function build()
     {
-        return $this->subject('Verify your email')
+        return $this->subject($this->message ?? 'تفعيل حسابك')
             ->markdown('emails.user.verify-email');
     }
 }

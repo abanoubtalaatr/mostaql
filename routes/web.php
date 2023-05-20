@@ -144,6 +144,8 @@ Route::group([
         Route::get('verify-register-code', [AuthController::class, 'verifyRegisterCode'])->name('verify_register_code');
         Route::post('verify-register-code', [AuthController::class, 'verifyRegisterCodePost'])->name('verify_registration_code');
         Route::post('send-verify-code', [AuthController::class, 'resendOtpCode'])->name('resend_verification_code');
+
+        Route::get('reset-password/{token}', [AuthController::class,'showResetPassword'])->name('show.reset_password');
         /**Confirm payment */
         Route::get('payment/status/web', function (Request $request) {
             $payment_service = new HyperpayService;
