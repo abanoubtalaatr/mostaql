@@ -37,7 +37,7 @@ class Create extends Component
             'form.description_ar' => ['required', 'string', 'min:4'],
             'form.category_id' => ['required', 'exists:categories,id'],
             'form.money_id' => ['required', 'exists:money,id'],
-            'form.file' => ['required', 'mimes:png,jpg', 'max:2048'],
+            'form.file' => ['nullable', 'mimes:png,jpg', 'max:2048'],
             'form.number_of_days' => ['required', 'integer'],
             'form.skills' => ['required', 'array'],
         ];
@@ -48,7 +48,10 @@ class Create extends Component
 
         $validatedData = $this->validate();
 
-        $imagePath = $this->form['file']->store('public/images');
+        if (isset($this->form['file'])) {
+            $imagePath = $this->form['file']->store('public/images');
+        }
+
 
         $money = Money::find($this->form['money_id']);
         if ($money) {
@@ -62,7 +65,7 @@ class Create extends Component
             'description_ar' => $this->form['description_ar'],
             'price' => $moneyName,
             'category_id' => $this->form['category_id'],
-            'file' => $imagePath,
+            'file' => $imagePath ?? '',
             'number_of_days' => $this->form['number_of_days'],
             'user_id' => auth()->id(),
             'status_id' => 1,

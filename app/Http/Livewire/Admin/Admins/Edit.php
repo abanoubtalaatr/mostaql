@@ -22,6 +22,7 @@ class Edit extends Component
 
     public function mount(Admin $admin)
     {
+
         $this->page_title = __('site.edit_admin');
         $this->admin = $admin;
         $this->roles = Role::where('is_owner', 0)->get();

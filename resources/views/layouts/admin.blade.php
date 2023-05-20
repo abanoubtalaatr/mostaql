@@ -31,8 +31,7 @@
     <!--Sidebar-->
     <div id="sidebar-wrapper">
         <div class="sidebar-nav">
-            <div class="logo-wrap"><img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/logo.svg"
-                                        alt=""></div>
+            <div class="logo-wrap"><h3 style="text-align: right;padding-right: 29px;color: white;">أخدمني</h3></div>
             @can('Manage dashboard')
                 <li>
                     <a href="{{route('admin.dashboard')}}">
@@ -123,41 +122,41 @@
                 </li>
             @endcan
 
-{{--            @can('Manage tasks')--}}
-{{--                <li>--}}
-{{--                    <a href="{{route('admin.task.index')}}">--}}
-{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
-{{--                        @lang('site.tasks')--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endcan--}}
+            {{--            @can('Manage tasks')--}}
+            {{--                <li>--}}
+            {{--                    <a href="{{route('admin.task.index')}}">--}}
+            {{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
+            {{--                        @lang('site.tasks')--}}
+            {{--                    </a>--}}
+            {{--                </li>--}}
+            {{--            @endcan--}}
 
-{{--            @can('Manage libraries')--}}
-{{--                <li>--}}
-{{--                    <a href="{{route('admin.library')}}">--}}
-{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/library.svg" alt="">--}}
-{{--                        @lang('site.library')--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endcan--}}
+            {{--            @can('Manage libraries')--}}
+            {{--                <li>--}}
+            {{--                    <a href="{{route('admin.library')}}">--}}
+            {{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/library.svg" alt="">--}}
+            {{--                        @lang('site.library')--}}
+            {{--                    </a>--}}
+            {{--                </li>--}}
+            {{--            @endcan--}}
 
-{{--            @can('Manage payback_requests')--}}
-{{--                <li>--}}
-{{--                    <a href="{{route('admin.payback_requests')}}">--}}
-{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/library.svg" alt="">--}}
-{{--                        @lang('site.payback_requests')--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endcan--}}
+            {{--            @can('Manage payback_requests')--}}
+            {{--                <li>--}}
+            {{--                    <a href="{{route('admin.payback_requests')}}">--}}
+            {{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/library.svg" alt="">--}}
+            {{--                        @lang('site.payback_requests')--}}
+            {{--                    </a>--}}
+            {{--                </li>--}}
+            {{--            @endcan--}}
 
-{{--            @can('Manage ads')--}}
-{{--                <li>--}}
-{{--                    <a href="{{route('admin.ads')}}">--}}
-{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/ads.svg" alt="">--}}
-{{--                        @lang('site.ads')--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endcan--}}
+            {{--            @can('Manage ads')--}}
+            {{--                <li>--}}
+            {{--                    <a href="{{route('admin.ads')}}">--}}
+            {{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/ads.svg" alt="">--}}
+            {{--                        @lang('site.ads')--}}
+            {{--                    </a>--}}
+            {{--                </li>--}}
+            {{--            @endcan--}}
 
             @can('Manage categories')
                 <li>
@@ -205,32 +204,32 @@
                 </li>
             @endcan
 
-{{--            @can('Manage sliders')--}}
-{{--                <li>--}}
-{{--                    <a href="{{route('admin.slider')}}">--}}
-{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
-{{--                        @lang('general.slider')--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endcan--}}
+            {{--            @can('Manage sliders')--}}
+            {{--                <li>--}}
+            {{--                    <a href="{{route('admin.slider')}}">--}}
+            {{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
+            {{--                        @lang('general.slider')--}}
+            {{--                    </a>--}}
+            {{--                </li>--}}
+            {{--            @endcan--}}
 
-{{--            @can('Manage discounts')--}}
-{{--                <li>--}}
-{{--                    <a href="{{route('admin.discount')}}">--}}
-{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
-{{--                        @lang('general.discounts')--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endcan--}}
+            {{--            @can('Manage discounts')--}}
+            {{--                <li>--}}
+            {{--                    <a href="{{route('admin.discount')}}">--}}
+            {{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
+            {{--                        @lang('general.discounts')--}}
+            {{--                    </a>--}}
+            {{--                </li>--}}
+            {{--            @endcan--}}
 
-{{--            @can('Manage partners')--}}
-{{--                <li>--}}
-{{--                    <a href="{{route('admin.partner')}}">--}}
-{{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
-{{--                        @lang('site.partners')--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endcan--}}
+            {{--            @can('Manage partners')--}}
+            {{--                <li>--}}
+            {{--                    <a href="{{route('admin.partner')}}">--}}
+            {{--                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">--}}
+            {{--                        @lang('site.partners')--}}
+            {{--                    </a>--}}
+            {{--                </li>--}}
+            {{--            @endcan--}}
 
 
             @can('Manage settings')
@@ -300,18 +299,7 @@
 </style>
 @if(session('success_message'))
     <script>
-      toastr.success('{{session('success_message')}}');
-
-
-
-
-
-
-
-
-
-
-
+        toastr.success('{{session('success_message')}}');
 
 
     </script>

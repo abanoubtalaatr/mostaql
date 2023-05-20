@@ -76,7 +76,7 @@
                     </h5>
                     <hr>
                     <div class="modal-body text-center">
-                        <img height="150" src="{{asset($ad->photo_url)}}" width="100%" alt="">
+                        <img height="250" src="{{asset($ad->photo_url)}}" width="100%" alt="">
                         <div
                             class="row row-cols-3 row-cols-lg-3 text-center row-cols-md-3 row-cols-sm-3">
                             <div class="col mb-1">

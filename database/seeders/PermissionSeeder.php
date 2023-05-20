@@ -26,6 +26,7 @@ class PermissionSeeder extends Seeder
             'Manage discounts' => 'أدراة أكواد الخصم',
             'Manage settings' => 'أدارة الاعدادات',
             "Manage cities" => 'ادراة المدن',
+            'Manage countries' => 'أدارة الدول',
             "Manage skills" => 'ادراة المهارات',
             "Manage money" => 'ادارة الميزانية المتوقعة',
             "Manage medals" => 'ادارة الاوسمة',

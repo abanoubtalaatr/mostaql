@@ -10,7 +10,7 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $user_type, $status, $username, $email, $page_title;
+    public $user_type, $status, $username, $email, $page_title,$first_name,$last_name;
     protected $queryString = ['status', 'email', 'email', 'first_name', 'user_type'];
 
     protected $paginationTheme = 'bootstrap';

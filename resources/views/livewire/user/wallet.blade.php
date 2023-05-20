@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row row-cols-1 pt-4 text-center row-cols-md-2 bg-white">
     <div class="col mb-4">
         <div class="card bg-transparent border-0">
@@ -32,4 +33,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -40,7 +40,7 @@
 {{--<livewire:chat-component :receiver="99"/>--}}
 
 <footer class="p-4 mt-5">
-    <p class="card-text text-center">© 2023 موقع. جميع الحقوق محفوظة.</p>
+    <p class="card-text text-center"> منصه اخدمني جميع الحقوق محفوظة 2023 ©.</p>
 </footer>
 <!-- start scripts included -->
 <!-- bootstrap included -->
@@ -76,7 +76,7 @@
 </script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
-    Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
 
     var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
         cluster: '{{ env("PUSHER_APP_CLUSTER") }}',

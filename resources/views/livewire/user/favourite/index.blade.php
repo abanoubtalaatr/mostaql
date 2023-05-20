@@ -22,7 +22,7 @@
                             </button>
 
 
-                            <a href="projectID.html" style="text-decoration: none" class="btn extra-green">شاهد
+                            <a href="/{{app()->getLocale()}}/user/projects/{{$record->project->id}}" style="text-decoration: none" class="btn extra-green">شاهد
                                 التفاصيل</a>
                         </div>
                     </div>

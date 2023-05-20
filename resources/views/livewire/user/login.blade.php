@@ -56,7 +56,4 @@
             </form>
         </div>
     </div>
-    <footer class="p-4 mt-5">
-        <p class="card-text text-center">© 2023 موقع. جميع الحقوق محفوظة.</p>
-    </footer>
 </div>

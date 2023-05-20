@@ -90,7 +90,7 @@ class Register extends Component
             'form.password_confirmation' => 'required|same:form.password',
             'form.city_id' => ['required', 'exists:cities,id'],
             'form.country_id' => ['required', 'exists:countries,id'],
-            'form.id_image' => ['required', 'image', 'mimes:png,jpg', 'max:2048'],
+            'form.id_image' => ['nullable', 'image', 'mimes:png,jpg', 'max:2048'],
             'form.terms_accepted' => ['required', 'boolean'],
         ];
     }
