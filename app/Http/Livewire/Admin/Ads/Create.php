@@ -27,17 +27,20 @@ class Create extends Component
 //
 //        $path = date('Y/m/d');
 //        $this->photo = $this->photo->storeAs($path,$hashed_name,'public');
+        $this->form['photo'] = $this->photo->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->photo->extension(), 'public');
 
         Ad::create($this->form);
 
         return $this->redirect('/admin/advertisements');
     }
 
+
     public function getRules()
     {
         return [
             'form.title' => ['required', 'string'],
-//            'photo' => 'image|mimes:jpeg,png,gif|max:1024', // max size 1M
+            'photo' => 'image|mimes:jpeg,png,gif|max:1024', // max size 1M
+            'form.photo' =>'nullable',
             'form.snap_chat' => ['required','url'],
             'form.location' => ['required'],
             'form.website' => ['required','url'],

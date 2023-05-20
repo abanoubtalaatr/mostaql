@@ -26,6 +26,7 @@
                                class="@error('form.snap_chat') is-invalid @enderror form-control contact-input"
                                type="text" placeholder="@lang('validation.attributes.snap_chat')"/>
                         @error('form.snap_chat') <p class="text-danger">{{$message}}</p> @enderror
+                        <hr/>
                     </div>
 
                     <div class="col-6">
@@ -34,6 +35,7 @@
                                class="@error('form.location') is-invalid @enderror form-control contact-input"
                                type="text" placeholder="@lang('validation.attributes.location')"/>
                         @error('form.location') <p class="text-danger">{{$message}}</p> @enderror
+                        <hr/>
                     </div>
 
                     <div class="col-6">
@@ -42,6 +44,7 @@
                                class="@error('form.website') is-invalid @enderror form-control contact-input"
                                type="text" placeholder="@lang('validation.attributes.website')"/>
                         @error('form.website') <p class="text-danger">{{$message}}</p> @enderror
+                        <hr/>
                     </div>
 
                     <div class="col-6">
@@ -50,6 +53,7 @@
                                class="@error('form.facebook') is-invalid @enderror form-control contact-input"
                                type="text" placeholder="@lang('validation.attributes.facebook')"/>
                         @error('form.facebook') <p class="text-danger">{{$message}}</p> @enderror
+                        <hr/>
                     </div>
 
 
@@ -59,6 +63,7 @@
                                class="@error('form.instagram') is-invalid @enderror form-control contact-input"
                                type="text" placeholder="@lang('validation.attributes.instagram')"/>
                         @error('form.instagram') <p class="text-danger">{{$message}}</p> @enderror
+                        <hr/>
                     </div>
 
                     <div class="col-6">
@@ -67,6 +72,7 @@
                                class="@error('form.twitter') is-invalid @enderror form-control contact-input"
                                type="text" placeholder="@lang('validation.attributes.twitter')"/>
                         @error('form.twitter') <p class="text-danger">{{$message}}</p> @enderror
+                        <hr/>
                     </div>
 
                     <div class="row">
@@ -76,6 +82,7 @@
                                    class="@error('form.start_at') is-invalid @enderror form-control" type="date"
                                    placeholder="@lang('validation.attributes.start_at')">
                             @error('form.start_at') <p class="text-danger">{{$message}}</p> @enderror
+                            <hr/>
                         </div>
                         <div class="col-6 " data-provide="datepicker">
                             <label>@lang('validation.attributes.end_at')</label>
@@ -83,15 +90,22 @@
                                    class="@error('form.end_at') is-invalid @enderror form-control" type="date"
                                    placeholder="@lang('validation.attributes.end_at')">
                             @error('form.end_at') <p class="text-danger">{{$message}}</p> @enderror
+                            <hr/>
                         </div>
 
                     </div>
-                    <div class="row my-4">
-                        <div>
-
-                                <label for="photo">Upload Photo</label>
-                                <input type="file" id="photo" wire:model="photo">
-                                @error('photo') <span class="error">{{ $message }}</span> @enderror
+                    <div class="row">
+                        <div class="custom-file-upload">
+                            @if($photo)
+                                <img  style='max-width:100%'  src="{{$photo->temporaryUrl()}}" alt="">
+                            @else
+                                @isset($ad)
+                                    <img style='max-width:100%' src="{{$ad->photo_url}}" alt="">
+                                @endisset
+                            @endif
+                            <img src="{{asset('frontAssets')}}/imgs/wallet/upload.svg" alt="">
+                            <span>@lang('validation.attributes.picture')</span>
+                            <input wire:model='photo' class='form-control @error('photo') is-invalid @enderror' type="file"/>
                             @error('photo') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                     </div>

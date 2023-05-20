@@ -14,6 +14,7 @@ class Chat extends Component
     public $messages = [];
     public $receiver;
     public $users;
+    public $lastMessage = '';
 
     public function mount()
     {
@@ -36,7 +37,7 @@ class Chat extends Component
     {
         $this->validate();
 
-        if(!$this->receiver){
+        if (!$this->receiver) {
             $this->addError('receiver', 'برجاء اختيار عضو لبدء المجادثه.');
             return;
         }
@@ -44,8 +45,8 @@ class Chat extends Component
         $message->sender_id = Auth::id();
         $message->receiver_id = $this->receiver->id;
         $message->message = $this->message;
-
         $message->save();
+
         $pusher = new Pusher(
             env('PUSHER_APP_KEY'),
             env('PUSHER_APP_SECRET'),
@@ -57,10 +58,11 @@ class Chat extends Component
         );
 
         $data = [
-            'message' => $message
+            'message' => $message->load('sender', 'receiver')
         ];
 
-        $pusher->trigger('chat', "message", $data);
+
+        $pusher->trigger('chat', "message$message->receiver_id", $data);
 
         $this->message = '';
     }
@@ -74,7 +76,7 @@ class Chat extends Component
 
     public function addMessage($message)
     {
-        array_push($this->messages, $message);
+        $this->messages[] = $message;
     }
 
     protected function rules()
@@ -90,7 +92,8 @@ class Chat extends Component
         $this->removeError();
     }
 
-    public function removeError() {
+    public function removeError()
+    {
         $this->resetErrorBag('receiver');
     }
 

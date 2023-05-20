@@ -21,12 +21,7 @@ class Index extends Component
     public $perPage = 10;
     public $page = 1;
     protected $projects = [];
-    protected $ads= [];
-
-    public function mount()
-    {
-        $this->ads = Ad::get();
-    }
+    protected $ads = [];
 
     public function loadMore()
     {
@@ -44,17 +39,21 @@ class Index extends Component
         if (auth()->user()) {
             $projects = $projects->when(count($this->filters), function ($q) {
                 $q->whereIn('category_id', $this->filters);
-            })->latest()->paginate($this->perPage);
+            })->when($this->title, function ($q) {
+                $q->where('title', 'like', '%' . $this->title . '%');
+            })
+                ->latest()->paginate($this->perPage);
         } else {
             $projects = Project::query()
-                ->when($this->title, function ($query, $title) {
-                    $query->where('title', 'like', '%' . $title . '%');
+                ->when($this->title, function ($query) {
+                    $query->where('title', 'like', '%' . $this->title . '%');
                 })->when(count($this->filters), function ($q) {
                     $q->whereIn('category_id', $this->filters);
                 })->latest()->paginate($this->perPage);;
         }
-        $ads = $this->ads;
 
+        $ads = Ad::active();
         return view('livewire.user.project.index', compact('categories', 'projects', 'ads'));
     }
 }
+

@@ -4,16 +4,15 @@
     </div>
     <div class="row row-cols-1 row-cols-md-2 text-right">
         <div class="col-md-4 mb-4">
-            <div class="card descripe-project-msg my-2">
+            <div class="card descripe-project-msg my-1">
                 @foreach($users as $user)
                     <div class="card-body cursor-pointer" style="cursor: pointer"
                          wire:click="setReceiver({{$user->id}})">
                         <h5 class="card-title d-inline-block">{{$user->first_name . ' ' . $user->last_name}}</h5>
                         <img height="40" width="40" class="rounded-circle border" src="{{$user->avatar}}">
-                        <p class="card-text">
-                        </p>
                     </div>
-                    <hr>
+
+                    <hr style="margin: 1px">
                 @endforeach
             </div>
 

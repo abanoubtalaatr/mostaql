@@ -25,48 +25,32 @@
                     </div>
 
 
-                    <div class="col-md-6 my-2">
+                    <div class="col-md-6 my-2 " wire:ignore>
                         <label for="">المهارات المطلوبة</label>
+                        <br>
+                        <select id='skills' wire:model='form.skills' multiple
+                                class="@error('form.skills') is-invalid @enderror form-control text-right">
+                            @foreach($skills as $skill)
+                                <option value="{{$skill->id}}">{{$skill->name_ar}}</option>
+                            @endforeach
 
-                        <div class="dropdown bootstrap-select show-tick select form-control text-right">
-                            <select wire:model.defer="form.skills" class="select form-control text-right selectpicker"
-                                    multiple="" tabindex="-98">
-                                <option disabled>اختر مهاراتك</option>
-
-                                @foreach($skills as $skill)
-                                    <option value="{{$skill->id}}">{{$skill->name_ar}}</option>
-                                @endforeach
-                            </select>
-                            @error('form.skills') <span
-                                class="error text-danger text-danger">{{ $message }}</span> @enderror
-
-                        </div>
-                        <small> حدد أهم المهارات المطلوبة لتنفيذ مشروعك. </small>
-
+                        </select>
+                        @error('form.skills')<span class="error text-danger text-danger">{{ $message }}</span> @enderror
                     </div>
+
+
+
                     <div class="col-md-6 my-2">
                         <label for="">التصنيف</label>
-                        <div class="dropdown bootstrap-select show-tick select form-control text-right">
-                            <select wire:model.defer="form.category_id"
-                                    class="select form-control text-right selectpicker" tabindex="-98">
-                                <option disabled>التصنيف</option>
-                                @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->title_ar}}</option>
-                                @endforeach
-                            </select>
-
-                            <div class="dropdown-menu ">
-                                <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1"
-                                     aria-multiselectable="true">
-                                    <ul class="dropdown-menu inner show" role="presentation"></ul>
-                                </div>
-                            </div>
-
-                        </div>
+                        <select id="" class="form-control text-right" wire:model.defer="form.category_id">
+                            <option selected="">...اختار</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->title_ar}}</option>
+                            @endforeach
+                        </select>
+                        <small>اختر تصنيف</small>
                         @error('form.category_id') <span
                             class="error text-danger text-danger">{{ $message }}</span> @enderror
-                        <small> حدد أهم المهارات المطلوبة لتنفيذ مشروعك. </small>
-
                     </div>
                     <div class="col-md-6 my-2">
                         <label for="">المدة المتوقعة للتسليم</label>
@@ -136,3 +120,24 @@
     </div>
 
 </div>
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+
+        window.addEventListener('onContentChanged', () => {
+            $('select').select2();
+        });
+
+        $(document).ready(()=>{
+            $('select').select2();
+            $('#skills').change(e=>{
+            @this.set('form.skills', $('#skills').select2('val'));
+            });
+        });
+    </script>
+@endpush
+
+@push('styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+

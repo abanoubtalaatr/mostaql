@@ -42,7 +42,7 @@ class Index extends Component
     {
 
         return
-            Ad::paginate();
+            Ad::latest()->paginate();
     }
 
     public function render()

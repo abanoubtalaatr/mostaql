@@ -80,11 +80,14 @@
 
     var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
         cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
-        forceTLS: true
+        forceTLS: true,
+        pusherOptions: {
+            authTimeout: 10000 // Set the authorization timeout to 10 seconds.
+        }
     });
 
     var channel = pusher.subscribe('chat');
-    channel.bind('message', function(data) {
+    channel.bind('message{{auth()->id()}}', function(data) {
         Livewire.emit('messageReceived', data.message);
     });
 </script>

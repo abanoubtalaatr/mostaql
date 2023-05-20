@@ -244,7 +244,7 @@ Route::group([
             Route::get('library/{library}', UserShowLibrary::class)->name('library.show');
 
             Route::get('wallet', [\App\Http\Controllers\User\WalletController::class,'index'])->name('wallet');
-
+            Route::get('packages',[\App\Http\Controllers\User\PackageController::class, 'index'])->name('packages');
             Route::get('contact', [UserContactController::class, 'index'])->name('contact_us');
 
         });/*authenticated users*/
@@ -332,10 +332,21 @@ Route::group([
             Route::get('cities/{city}', \App\Http\Livewire\Admin\City\Edit::class)->name('city.edit');
             Route::get('cities/{city}/delete', \App\Http\Livewire\Admin\City\Index::class)->name('city.delete');
 
+
             Route::get('skills', \App\Http\Livewire\Admin\Skill\Index::class)->name('skills');
             Route::get('skills/create', \App\Http\Livewire\Admin\Skill\Create::class)->name('skill.create');
             Route::get('skills/{skill}', \App\Http\Livewire\Admin\Skill\Edit::class)->name('skill.edit');
             Route::get('skills/{skill}/delete', \App\Http\Livewire\Admin\Skill\Index::class)->name('skill.delete');
+
+            Route::get('features', \App\Http\Livewire\Admin\Feature\Index::class)->name('features');
+            Route::get('features/create', \App\Http\Livewire\Admin\Feature\Create::class)->name('feature.create');
+            Route::get('features/{feature}', \App\Http\Livewire\Admin\Feature\Edit::class)->name('feature.edit');
+            Route::get('features/{feature}/delete', \App\Http\Livewire\Admin\Feature\Index::class)->name('feature.delete');
+
+            Route::get('packages', \App\Http\Livewire\Admin\Package\Index::class)->name('packages');
+            Route::get('packages/create', \App\Http\Livewire\Admin\Package\Create::class)->name('package.create');
+            Route::get('packages/{package}', \App\Http\Livewire\Admin\Package\Edit::class)->name('package.edit');
+            Route::get('packages/{packages}/delete', \App\Http\Livewire\Admin\Package\Index::class)->name('package.delete');
 
 
             Route::get('money', \App\Http\Livewire\Admin\Money\Index::class)->name('money');

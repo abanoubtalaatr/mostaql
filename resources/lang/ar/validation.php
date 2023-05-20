@@ -607,6 +607,10 @@ return [
         'location' => 'لينك المكان',
         'start_at' => 'يبداء في',
         'end_at' => 'ينتهي في',
-        'platform_dues' => 'عمولة المنصة بالنسبة المئوية'
+        'platform_dues' => 'عمولة المنصة بالنسبة المئوية',
+        'period'  =>'المدة بالاشهر',
+        'number_of_project' => 'عدد المشاريع',
+        'number_of_proposal' => 'عدد العروض',
+        'features' => 'المميزات'
      ],
 ];

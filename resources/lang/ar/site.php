@@ -441,4 +441,10 @@ return [
     'edit_medal' => 'تعديل الوسم',
     'proposal' => '',
     'owner_freelancer' => 'صاحب مشروع ومستقل',
+    'package_features' => 'مميزات الباقة',
+    'packages' => 'الباقات',
+    'number_of_project' => 'عدد المشاريع',
+    'number_of_proposal' => 'عدد العروض',
+    'period' => 'المدة بالاشهر',
+    'price' => 'السعر'
 ];

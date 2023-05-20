@@ -56,7 +56,7 @@
                 <a class="nav-link" href="/{{app()->getLocale()}}/terms"> حقوقك</a>
             </li>
             <li class="nav-item mx-4">
-                <a class="nav-link" href="packedges.html">الباقات</a>
+                <a class="nav-link" href="/{{app()->getLocale()}}/user/packages">الباقات</a>
             </li>
             <li class="nav-item mx-4">
                 <a class="nav-link" href="/{{app()->getLocale()}}/user/my-proposals">عروضي</a>

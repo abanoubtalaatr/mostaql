@@ -68,6 +68,15 @@
                 </li>
             @endcan
 
+            @can('Manage ads')
+                <li>
+                    <a href="{{route('admin.ads')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.ads')
+                    </a>
+                </li>
+            @endcan
+
             @can('Manage countries')
                 <li>
                     <a href="{{route('admin.countries')}}">
@@ -155,6 +164,24 @@
                     <a href="{{route('admin.category')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
                         @lang('site.categories')
+                    </a>
+                </li>
+            @endcan
+
+            @can('Manage features')
+                <li>
+                    <a href="{{route('admin.features')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.package_features')
+                    </a>
+                </li>
+            @endcan
+
+            @can('Manage packages')
+                <li>
+                    <a href="{{route('admin.packages')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.packages')
                     </a>
                 </li>
             @endcan

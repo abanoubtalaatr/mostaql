@@ -54,7 +54,7 @@
                                 <div class="col mb-2">
                                     <a href="" type="button" data-toggle="modal" data-target="#exampleModal{{$ad->id}}">
                                         <div class="card border-0">
-                                            <img src="{{asset('images/adds.png')}}" alt="">
+                                            <img src="{{asset($ad->photo_url)}}" alt="">
                                         </div>
                                     </a>
                                 </div>
@@ -76,7 +76,7 @@
                     </h5>
                     <hr>
                     <div class="modal-body text-center">
-                        <img height="150" src="{{asset('images/adds.png')}}" width="100%" alt="">
+                        <img height="150" src="{{asset($ad->photo_url)}}" width="100%" alt="">
                         <div
                             class="row row-cols-3 row-cols-lg-3 text-center row-cols-md-3 row-cols-sm-3">
                             <div class="col mb-1">

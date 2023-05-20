@@ -19,37 +19,33 @@ class PermissionSeeder extends Seeder
             'Manage admins' => ' أدراة المدراء',
             'Manage roles' => ' أدراة الأدوار والصلاحيات',
             'Manage categories' => 'أدراة الأقسام',
-            'Manage dashboard' => 'ادارة لوحة التحكم',
             'Manage users' => 'أدراة المستخدمين',
-            'Manage tasks' => 'أدراة المهام',
-            'Manage libraries' => 'أدراة المكتبة',
-            'Manage payback_requests' => 'أدارة تاريخ المعاملات',
             'Manage ads' => 'أدراة الاعلانات',
             'Manage contact_us' => 'أدراة تواصل معانا',
             'Manage pages' => 'أدراة الصفحات',
             'Manage discounts' => 'أدراة أكواد الخصم',
-            'Manage partners' => 'أدراة الشركاء',
             'Manage settings' => 'أدارة الاعدادات',
-            'Manage sliders' => 'أدارة السسلايدر',
             "Manage cities" => 'ادراة المدن',
             "Manage skills" => 'ادراة المهارات',
             "Manage money" => 'ادارة الميزانية المتوقعة',
             "Manage medals" => 'ادارة الاوسمة',
+            'Manage features' => 'ادارة مميزات الباقة',
+            'Manage packages' => 'ادارة الباقات'
         ];
 
         foreach ($crudPermissionNames as $en_permission => $ar_permission) {
-                Permission::updateOrCreate(
-                    [
-                        'name' => $en_permission,
-                        'name_ar' =>$ar_permission,
-                        'guard_name' => 'admin',
-                    ],
-                    [
-                        'name' => $en_permission,
-                        'name_ar' =>$ar_permission,
-                        'guard_name' => 'admin',
-                    ]
-                );
+            Permission::updateOrCreate(
+                [
+                    'name' => $en_permission,
+                    'name_ar' => $ar_permission,
+                    'guard_name' => 'admin',
+                ],
+                [
+                    'name' => $en_permission,
+                    'name_ar' => $ar_permission,
+                    'guard_name' => 'admin',
+                ]
+            );
         }
 
         $role = Role::where(['name' => 'super admin', 'guard_name' => 'admin'])->first();

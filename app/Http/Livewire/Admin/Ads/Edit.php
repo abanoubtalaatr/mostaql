@@ -7,6 +7,7 @@ use App\Models\Ad;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -23,6 +24,7 @@ class Edit extends Component
         $this->form = $advertisement->toArray();
 
         $this->ad = $advertisement;
+
         $this->form['start_at'] = Carbon::parse($this->form['start_at'])->format('Y-m-d');
         $this->form['end_at'] = Carbon::parse($this->form['end_at'])->format('Y-m-d');
     }
@@ -32,16 +34,29 @@ class Edit extends Component
 
         $this->validate();
 
-        $this->ad->update($this->form);
+        $this->form['photo'] =
+            $this->photo ?
+                $this->photo->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->photo->extension(), 'public') : $this->ad->photo;
 
+        $this->ad->update($this->form);
         return $this->redirect('/admin/advertisements');
+    }
+
+    public function updatedFormPhoto()
+    {
+        $this->withValidator(function (Validator $validator) {
+            if ($validator->errors()->has('form.photo')) {
+                $this->form['photo'] = '';
+            }
+        })->validateOnly('form.photo');
     }
 
     public function getRules()
     {
         return [
             'form.title' => ['required', 'string'],
-//            'photo' => 'image|mimes:jpeg,png,gif|max:1024', // max size 1M
+            'photo' => 'nullable|file|mimes:png,jpg,jpeg|max:10240', // max size 1M
+            'form.photo' => 'nullable',
             'form.snap_chat' => ['required', 'url'],
             'form.location' => ['required'],
             'form.website' => ['required', 'url'],
