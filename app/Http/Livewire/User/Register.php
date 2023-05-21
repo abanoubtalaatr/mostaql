@@ -33,7 +33,10 @@ class Register extends Component
     {
         $this->validate();
 
-        $this->form['id_image'] = $this->form['id_image']->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->form['id_image']->extension(), 'public');
+        if(isset($this->form['id_image'])) {
+            $this->form['id_image'] = $this->form['id_image']->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->form['id_image']->extension(), 'public');
+        }
+
         unset($this->form['password_confirmation'], $this->form['terms_accepted']);
         $user = User::create(array_merge($this->form, ['password' => bcrypt($this->form['password'])]));
 
