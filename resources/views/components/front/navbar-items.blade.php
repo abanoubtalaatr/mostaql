@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-item mx-2 mt-1">
                     <a class="nav-link" href="/{{app()->getLocale()}}/user/notifications">
-                        <i class="fas fa-bell"></i><span class="text-danger" > {{auth()->user()->notifications->count()}}</span>
+                        <i class="fas fa-bell"></i><span class="text-danger" > {{auth()->user()->notifications->where('when_read', null)->count()}}</span>
                     </a>
                 </li>
                 <li class="nav-item mx-2 mt-1">

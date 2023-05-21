@@ -46,7 +46,7 @@ class Show extends Component
         $this->checkIsFavourite();
         $this->checkShowAddProposal();
         $this->user = $this->project->user;
-        $this->userType = auth()->user()->user_type;
+        $this->userType = auth()->user() ? auth()->user()->user_type : '';
         $this->checkShowButtonDeliverProject();
 
     }
@@ -84,28 +84,34 @@ class Show extends Component
 
     public function checkShowAddProposal()
     {
-        $IHaveProposalForThisProject = Proposal::where('user_id', auth()->id())->where('project_id', $this->project->id)->exists();
+        if(auth()->user()) {
+            $IHaveProposalForThisProject = Proposal::where('user_id', auth()->id())->where('project_id', $this->project->id)->exists();
 
-        if ($this->project->user_id == auth()->id() || auth()->user()->user_type == 'owner' || $IHaveProposalForThisProject) {
-            $this->showAddProposal = false;
+            if ($this->project->user_id == auth()->id() || auth()->user()->user_type == 'owner' || $IHaveProposalForThisProject) {
+                $this->showAddProposal = false;
+            }
         }
     }
 
     public function addToFavourite()
     {
-        Favourite::create([
-            'user_id' => auth()->id(),
-            'project_id' => $this->project->id,
-        ]);
-        session()->flash('favourite', 'تم أضافة المشروع الي المفضلة');
+        if (auth()->user()) {
+            Favourite::create([
+                'user_id' => auth()->id(),
+                'project_id' => $this->project->id,
+            ]);
+            session()->flash('favourite', 'تم أضافة المشروع الي المفضلة');
+        }
     }
 
     public function checkIsFavourite()
     {
-        if (Favourite::where('project_id', $this->project->id)->where('user_id', auth()->id())->exists()) {
-            $this->isFavourite = true;
-        } else {
-            $this->isFavourite = false;
+        if (auth()->user()) {
+            if (Favourite::where('project_id', $this->project->id)->where('user_id', auth()->id())->exists()) {
+                $this->isFavourite = true;
+            } else {
+                $this->isFavourite = false;
+            }
         }
     }
 

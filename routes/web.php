@@ -134,6 +134,9 @@ Route::group([
 
     Route::get('terms', \App\Http\Livewire\User\Terms::class)->name('terms');
 
+    Route::get('user/projects', [\App\Http\Controllers\User\ProjectController::class, 'index'])->name('projects.index');
+    Route::get('user/projects/{project}', [\App\Http\Controllers\User\ProjectController::class, 'show'])->name('project.show');
+
     Route::group(['as' => 'user.', 'prefix' => 'user/'], function () {
         Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register_form');
         Route::get('edit-profile', [AuthController::class, 'showEditProfile'])->name('edit.profile');
@@ -225,9 +228,6 @@ Route::group([
 //            Route::get('/projects/create', \App\Http\Livewire\User\Project\Create::class);
 //            Route::post('save-profile', [AuthController::class, 'saveProfile'])->name('save_profile');
             Route::get('create-project', [\App\Http\Controllers\User\ProjectController::class, 'showCreateProject'])->name('create_project');
-            Route::get('projects', [\App\Http\Controllers\User\ProjectController::class, 'index'])->name('projects.index');
-            Route::get('projects/{project}', [\App\Http\Controllers\User\ProjectController::class, 'show'])->name('project.show');
-
             Route::get('my-proposals', [\App\Http\Controllers\User\ProposalController::class, 'index'])->name('my_proposals');
             Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class, 'show'])->name('show.proposal');
 

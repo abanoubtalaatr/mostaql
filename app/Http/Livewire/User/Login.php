@@ -35,10 +35,18 @@ class Login extends Component
 
         } else {
             if (auth('users')->attempt(['mobile' => $this->username, 'password' => $this->password], $this->remember_me)) {
-                if (auth()->user()->is_verified == 0) {
-                    return redirect()->to(route('user.verify_register_code'));
+                if (!auth()->user()->email_verified_at) {
+                    // check your mail
+                    $user = User::find(auth()->id());
+                    Auth::logout();
+
+                    $user = User::find(auth()->id());
+                    Auth::logout();
+                    $this->sendVerficationEmail($user);
+
+                    session()->flash('please_check_your_email_we_send_email_verification', trans('site.please_check_your_email_we_send_email_verification'));
                 }
-                return redirect()->to(route('user.dashboard'));
+                return redirect()->to(\url("user/projects"));
             } else {
                 if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
                     if (auth()->user()->is_verified == 0) {
@@ -69,7 +77,7 @@ class Login extends Component
     {
         return [
             'password' => 'required|min:8',
-            'username' => 'required|max:50|email'
+            'username' => 'required|max:50'
         ];
     }
 

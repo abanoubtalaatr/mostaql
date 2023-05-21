@@ -18,7 +18,7 @@
                 </div>
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col-md-12 my-2">
-                        <label for="">البريد الاكتروني</label>
+                        <label for="">رقم الجوال</label>
                         <input wire:model.defer="username" type="tel" class="form-control text-right">
                         @error('username') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
