@@ -55,8 +55,9 @@ class Register extends Component
                 'hash' => Str::random(60),
             ]
         );
+        return redirect()->to('ar/user/login');
 
-        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
+//        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
 
         session()->flash('check_your_email', 'برجاء تفقد ايميلك لتتمكن من الدخول');
     }

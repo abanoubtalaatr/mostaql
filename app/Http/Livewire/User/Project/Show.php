@@ -74,7 +74,7 @@ class Show extends Component
 
         $user = User::find($this->project->user_id);
 
-        Mail::to($user->email)->send(new ProposalEmail($this->project, 'طلب تسليم الصفقة'));
+//        Mail::to($user->email)->send(new ProposalEmail($this->project, 'طلب تسليم الصفقة'));
 
         $this->createNotification($user, $this->project, 'طلب تسليم الصفقة ', 'طلب تسليم الصفقة علي المشروع');
 
@@ -131,7 +131,7 @@ class Show extends Component
         $user = User::find($this->project->user_id);
 
 
-        Mail::to($user->email)->send(new ProposalEmail($this->project, 'عرض جديد علي مشروعك'));
+//        Mail::to($user->email)->send(new ProposalEmail($this->project, 'عرض جديد علي مشروعك'));
 
         $this->createNotification($user, $this->project, 'عرض جديد علي مشروعك', 'عرض جديد علي مشروعك يمكنك الان تصفحة');
 

@@ -56,7 +56,7 @@ class Index extends Component
         $user = User::find($proposal->user_id);
 
         if ($user) {
-            Mail::to($user->email)->send(new ProposalEmail($project, ' مبروك تمت الموافقة علي تسليم الصفقة'));
+//            Mail::to($user->email)->send(new ProposalEmail($project, ' مبروك تمت الموافقة علي تسليم الصفقة'));
             $this->createNotification($user, $project, ' مبروك تمت الموافقة علي تسليم الصفقة', ' مبروك تمت الموافقة علي تسليم الصفقة');
 
 

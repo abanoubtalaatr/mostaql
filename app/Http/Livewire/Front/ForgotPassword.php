@@ -40,9 +40,8 @@ class ForgotPassword extends Component
 
         $url = url(app()->getLocale().'/user/reset-password').'/'.$token;
 
-        Mail::to($user->email)->send(new VerifyEmail($url,'تغيير كلمة المرور الخاصة بك'));
-
-        info('the url '. $url);
+//        Mail::to($user->email)->send(new VerifyEmail($url,'تغيير كلمة المرور الخاصة بك'));
+        return $url;
         $this->message = trans('site.please_check_your_email');
     }
 

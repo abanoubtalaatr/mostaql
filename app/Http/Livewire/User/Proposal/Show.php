@@ -43,7 +43,7 @@ class Show extends Component
         $project->update(['status_id' =>Statuses::PROJECTUNDERWORK]);
         $user = User::find($project->user_id);
         $userProposal = User::find($this->proposal->user->id);
-        Mail::to($userProposal->email)->send(new ProposalEmail($project,'تم قبول عرضك علي مشروع'));
+//        Mail::to($userProposal->email)->send(new ProposalEmail($project,'تم قبول عرضك علي مشروع'));
         $this->createNotification($user, $project);
     }
 

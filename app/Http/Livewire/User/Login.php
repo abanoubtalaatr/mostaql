@@ -35,17 +35,17 @@ class Login extends Component
 
         } else {
             if (auth('users')->attempt(['mobile' => $this->username, 'password' => $this->password], $this->remember_me)) {
-                if (!auth()->user()->email_verified_at) {
-                    // check your mail
-                    $user = User::find(auth()->id());
-                    Auth::logout();
-
-                    $user = User::find(auth()->id());
-                    Auth::logout();
-                    $this->sendVerficationEmail($user);
-
-                    session()->flash('please_check_your_email_we_send_email_verification', trans('site.please_check_your_email_we_send_email_verification'));
-                }
+//                if (!auth()->user()->email_verified_at) {
+//                    // check your mail
+//                    $user = User::find(auth()->id());
+//                    Auth::logout();
+//
+//                    $user = User::find(auth()->id());
+//                    Auth::logout();
+//                    $this->sendVerficationEmail($user);
+//
+//                    session()->flash('please_check_your_email_we_send_email_verification', trans('site.please_check_your_email_we_send_email_verification'));
+//                }
                 return redirect()->to(\url("user/projects"));
             } else {
                 if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
@@ -69,7 +69,7 @@ class Login extends Component
             ['id' => $user->id, 'hash' => Str::random(60)]
         );
 
-        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
+//        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
 
     }
 
