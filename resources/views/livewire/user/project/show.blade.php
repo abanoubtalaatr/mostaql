@@ -41,7 +41,7 @@
                     <div class="row row-cols-2 text-right mx-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-2">
                         <h6 class="my-2">{{$project->created_at->diffForHumans()}}</h6>
                         <h6 class="my-2">تاريخ النشر</h6>
-                        <h6 class="my-2">{{$project->money->name_ar??''}}</h6>
+                        <h6 class="my-2">{{$project->price}}</h6>
                         <h6 class="my-2">الميزانية</h6>
                         <h6 class="my-2">{{$project->number_of_days}}</h6>
                         <h6 class="my-2">مدة التنفيذ</h6>
