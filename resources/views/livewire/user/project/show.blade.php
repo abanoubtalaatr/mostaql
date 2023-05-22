@@ -68,8 +68,10 @@
                     </div>
                 </div>
             </div>
-            @if(!$isFavourite)
-                <button wire:click="addToFavourite" class="btn extra-purple">اضف الي المفضله</button>
+            @if(auth()->user())
+                @if(!$isFavourite)
+                    <button wire:click="addToFavourite" class="btn extra-purple">اضف الي المفضله</button>
+                @endif
             @endif
 
             @if($showDeliverProject)
