@@ -31,7 +31,7 @@
                             التصنيف
                             <i class="fas fa-gift" style="color: palevioletred"></i>
                         </h5>
-                        <button class="btn extra-purple" wire:click="$set('filters', [])">حذف الفلتر</button>
+                        {{--                        <button class="btn extra-purple" wire:click="$set('filters', [])">حذف الفلتر</button>--}}
                         <div class="row">
                             @foreach($categories as $category)
                                 <div class="col-md-12 mt-2">
@@ -145,41 +145,43 @@
         <div class="row row-cols-1 row-cols-md-2 text-right">
             @foreach($projects as $project)
                 <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
-                    <div class="card bg-transparent">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h6 class="card-title">{{$project->title}}</h6>
-                                <small class="small">{{$project->created_at->diffForHumans()}}</small>
+                    <a href="">
+                        <div class="card bg-transparent">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h6 class="card-title">{{$project->title}}</h6>
+                                    <small class="small">{{$project->created_at->diffForHumans()}}</small>
+                                </div>
+                                <button class="mx-2 mb-2 btn small-btn-border">
+                                    {{($project->user?$project->user->city->name_ar:'')}}
+
+                                    <i class="fas fa-home"></i>
+                                </button>
+                                {{--                        <button class="mx-2 mb-2 btn small-btn-border">--}}
+                                {{--                            دوام كامل--}}
+                                {{--                            <i class="fas fa-briefcase"></i>--}}
+                                {{--                        </button>--}}
+                                <button class="mx-2 mb-2 btn small-btn-border">
+                                    {{$project->price}}
+                                    <i class="fas fa-money-check-alt"></i>
+                                </button>
+
+                                <p class="card-text my-4 content">
+                                    <span class="dots">{{$project->title}}</span>
+                                    <span class="hide more">{{$project->description_ar}}</span>
+                                </p>
+
+                                <button class="btn extra-purple mb-2" onclick="readMore(this)">
+                                    اقرا المزيد
+                                </button>
+
+                                <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}"
+                                   style="text-decoration: none" class="btn extra-green more mb-2">
+                                    تصفح المشروع
+                                </a>
                             </div>
-                            <button class="mx-2 mb-2 btn small-btn-border">
-                                {{($project->user?$project->user->city->name_ar:'')}}
-
-                                <i class="fas fa-home"></i>
-                            </button>
-                            {{--                        <button class="mx-2 mb-2 btn small-btn-border">--}}
-                            {{--                            دوام كامل--}}
-                            {{--                            <i class="fas fa-briefcase"></i>--}}
-                            {{--                        </button>--}}
-                            <button class="mx-2 mb-2 btn small-btn-border">
-                                {{$project->price}}
-                                <i class="fas fa-money-check-alt"></i>
-                            </button>
-
-                            <p class="card-text my-4 content">
-                                <span class="dots">{{$project->title}}</span>
-                                <span class="hide more">{{$project->description_ar}}</span>
-                            </p>
-
-                            <button class="btn extra-purple mb-2" onclick="readMore(this)">
-                                اقرا المزيد
-                            </button>
-
-                            <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}"
-                               style="text-decoration: none" class="btn extra-green more mb-2">
-                                أضف عرض / تصفح المشروع
-                            </a>
                         </div>
-                    </div>
+                    </a>
                 </div>
             @endforeach
 

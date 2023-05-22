@@ -15,6 +15,10 @@ ul {
     list-style: none;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 .fa-circle {
     font-size: 10px;
     color: var(---green);
@@ -186,7 +190,6 @@ footer p {
 button, .extra-purple, .extra-green {
     color: #fff;
     font-weight: 400;
-    padding: 10px 35px;
     border-radius: 4px;
     text-decoration: none;
 }
@@ -215,7 +218,6 @@ a, .join-us {
 .small-btn-border {
     border: 1px solid var(---purple);
     color: var(---purple);
-    padding: 10px 15px;
     font-weight: 600;
 }
 

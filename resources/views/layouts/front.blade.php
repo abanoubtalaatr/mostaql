@@ -39,9 +39,30 @@
 
 {{--<livewire:chat-component :receiver="99"/>--}}
 
+
 <footer class="p-4 mt-5">
-    <p class="card-text text-center"> منصه اخدمني جميع الحقوق محفوظة 2023 ©.</p>
+    <p class="card-text text-center">
+        © 2023 منصه اخدمني. جميع الحقوق محفوظة
+    </p>
 </footer>
+<div class="container-mobile">
+    <ul class="nav-mobile">
+        <li>
+            <a href="{{app()->getLocale()}}/user/projects"><i class="fas fa-home"></i></a>
+        </li>
+        @if(!auth()->user() || auth()->user()->user_type !='freelancer' )
+            <li>
+                <a href="/{{app()->getLocale()}}/user/create-project"><i class="fas fa-plus"></i></a>
+            </li>
+        @endif
+        <li>
+            <a href="/{{app()->getLocale()}}/user/all-users"><i class="fas fa-search"></i></a>
+        </li>
+        <li>
+            <a href="/{{app()->getLocale()}}/terms"><i class="fas fa-info-circle"></i></a>
+        </li>
+    </ul>
+</div>
 <!-- start scripts included -->
 <!-- bootstrap included -->
 <script src="{{asset('bootstrap-4.6.1-dist/js/jquery-3.6.0.min.js')}}"></script>
@@ -51,7 +72,7 @@
 
 <script src="{{asset('js/main.js')}}"></script>
 <script>
-    let noOfCharac = 150;
+    let noOfCharac = 350;
     let contents = document.querySelectorAll(".content");
 
     contents.forEach((content) => {
@@ -87,7 +108,7 @@
     });
 
     var channel = pusher.subscribe('chat');
-    channel.bind('message{{auth()->id()}}', function(data) {
+    channel.bind('message{{auth()->id()}}', function (data) {
         Livewire.emit('messageReceived', data.message);
     });
 </script>
