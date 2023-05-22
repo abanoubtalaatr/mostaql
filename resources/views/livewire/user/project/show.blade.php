@@ -141,14 +141,16 @@
                                         class="error text-danger">{{ $message }}</span> @enderror
 
                                 </div>
-{{--                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">--}}
-{{--                                    <label for="">اضافه ملفات</label>--}}
-{{--                                    <input type="file" wire:model.defer="form.file" class="form-control-file">--}}
-{{--                                    @error('form.file') <span class="error text-danger">{{ $message }}</span> @enderror--}}
+                                {{--                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">--}}
+                                {{--                                    <label for="">اضافه ملفات</label>--}}
+                                {{--                                    <input type="file" wire:model.defer="form.file" class="form-control-file">--}}
+                                {{--                                    @error('form.file') <span class="error text-danger">{{ $message }}</span> @enderror--}}
 
-{{--                                </div>--}}
+                                {{--                                </div>--}}
                             </div>
-                            <button class="btn extra-purple my-3">اضف الان</button>
+                            @if(auth()->user())
+                                <button class="btn extra-purple my-3">اضف الان</button>
+                            @endif
                         </div>
                     </form>
                 </div>
