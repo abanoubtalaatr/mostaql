@@ -151,7 +151,7 @@
                             @if(auth()->user())
                                 <button class="btn extra-purple my-3">اضف الان</button>
                             @else
-                                <h6>سجل دخول اولا لتتمكن من اضافة عرض</h6>
+                                <h6 class="text-danger">سجل دخول اولا لتتمكن من اضافة عرض</h6>
                             @endif
                         </div>
                     </form>
