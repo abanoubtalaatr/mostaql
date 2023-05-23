@@ -2,14 +2,6 @@
     <div class="text-right">
         <h4 class="card-title">ملفي الشخصي</h4>
     </div>
-    @if (session()->has('success'))
-        <div class="alert alert-success text-right" >{{ session('success') }}</div>
-        <script>
-            setTimeout(function () {
-                location.reload();
-            }, 1000);
-        </script>
-    @endif
     <form wire:submit.prevent="store" class="text-right">
         <div class="row row-cols-1 row-cols-md-2 text-right">
             <div class="col-md-4 mb-4 mt-5">
@@ -175,6 +167,14 @@
 
                             </div>
                         </div>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success text-right" >{{ session('success') }}</div>
+                            <script>
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
+                            </script>
+                        @endif
                         <button type="button" wire:click="store" class="btn extra-purple my-3">تعديل</button>
                     </div>
                 </div>

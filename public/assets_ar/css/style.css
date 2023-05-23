@@ -410,8 +410,21 @@ html {
 }
 
 .navbar {
-    background-color: #47325B;
+    background-color: #47325b;
     border-bottom: 1px solid #fff;
+}
+.navbar img {
+    width: 40px !important;
+    height: 40px !important;
+}
+.navbar ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: right !important;
+    -ms-flex-align: right !important;
+    align-items: right !important;
+    text-align: right !important;
 }
 .navbar ul li a {
     text-decoration: none;
@@ -429,7 +442,8 @@ html {
     background: rgba(71, 50, 91, 0.747);
 }
 
-.fa-bell, .fa-envelope {
+.fa-bell,
+.fa-envelope {
     font-size: 18px;
 }
 
@@ -520,11 +534,34 @@ html {
     height: 100px;
 }
 
+.projects-card .owner-details {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    direction: rtl;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+}
+.projects-card .owner-details li {
+    color: var(--text);
+}
+.projects-card .owner-details li i {
+    color: var(--text);
+    font-size: 13px;
+}
 .projects-card .card {
     direction: rtl;
 }
-.projects-card h6 {
+.projects-card .card button {
+    direction: ltr !important;
+}
+.projects-card .row .card .card-body .d-flex h6 {
     color: #47325B !important;
+    width: 79%;
+    height: 45px;
+    line-height: 20px;
+    overflow: hidden;
 }
 
 .skills div p {
@@ -552,6 +589,26 @@ html {
 
 .hide {
     display: none;
+}
+
+.categories {
+    direction: rtl;
+}
+.categories .row .col-md-12 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    direction: rtl;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.categories .row .col-md-12 label {
+    margin-right: 30px !important;
+}
+.categories .row .col-md-12 input {
+    width: 14px !important;
+    height: 14px !important;
 }
 
 .mycart .row {
@@ -669,6 +726,32 @@ html {
 .project-id .row .purposal p {
     font-size: 16px;
     color: var(--text-2);
+}
+.project-id .row .purposal .d-flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.maker-details {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    direction: rtl;
+    margin: 10px 0;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+.maker-details li {
+    display: inline-block;
+    color: var(--text);
+}
+.maker-details li i {
+    color: var(--text);
+    font-size: 13px;
 }
 
 .user {

@@ -16,12 +16,16 @@ class Index extends Component
     use ValidationTrait;
     use WithPagination;
 
+    protected $listeners = ['filters'];
+
     public $title;
     public $filters = [];
     public $perPage = 10;
     public $page = 1;
     protected $projects = [];
     protected $ads = [];
+
+    public $loading = false;
 
     public function loadMore()
     {
@@ -38,18 +42,22 @@ class Index extends Component
 //    })
         if (auth()->user()) {
             $projects = $projects->when(count($this->filters), function ($q) {
+                $this->loading = true;
                 $q->whereIn('category_id', $this->filters);
             })->when($this->title, function ($q) {
                 $q->where('title', 'like', '%' . $this->title . '%');
             })
                 ->latest()->paginate($this->perPage);
+            $this->loading = false;
         } else {
             $projects = Project::query()
                 ->when($this->title, function ($query) {
                     $query->where('title', 'like', '%' . $this->title . '%');
                 })->when(count($this->filters), function ($q) {
+                    $this->loading = true;
                     $q->whereIn('category_id', $this->filters);
-                })->latest()->paginate($this->perPage);;
+                })->latest()->paginate($this->perPage);
+            $this->loading = false;
         }
 
         $ads = Ad::active();

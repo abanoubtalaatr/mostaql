@@ -27,10 +27,10 @@
             <div class="col-lg-5 col-md-12 col-sm-12 mb-4">
                 <div class="card border categories bg-transparent">
                     <div class="card-body">
-                        <h5 class="card-title">
-                            التصنيف
-                            <i class="fas fa-gift" style="color: palevioletred"></i>
-                        </h5>
+                        {{--                        <h5 class="card-title">--}}
+                        {{--                            التصنيف--}}
+                        {{--                            <i class="fas fa-gift" style="color: palevioletred"></i>--}}
+                        {{--                        </h5>--}}
                         {{--                        <button class="btn extra-purple" wire:click="$set('filters', [])">حذف الفلتر</button>--}}
                         <div class="row">
                             @foreach($categories as $category)
@@ -143,7 +143,9 @@
     @endforeach
     <div class="container mt-5 projects-card">
         <div class="row row-cols-1 row-cols-md-2 text-right">
+
             @foreach($projects as $project)
+
                 <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
                     <a href="">
                         <div class="card bg-transparent">
@@ -152,15 +154,25 @@
                                     <h6 class="card-title">{{$project->title}}</h6>
                                     <small class="small">{{$project->created_at->diffForHumans()}}</small>
                                 </div>
+                                <ul class="owner-details">
+                                    <li>
+                                        <i class="fas fa-user"></i>
+                                        {{$project->user->first_name . ' ' . $project->user->last_name}}
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-paperclip"></i>
+                                        {{$project->user->projects->count()}} <span class="d-inline-block">عرض  </span>
+                                    </li>
+                                </ul>
                                 <button class="mx-2 mb-2 btn small-btn-border">
                                     {{($project->user?$project->user->city->name_ar:'')}}
 
                                     <i class="fas fa-home"></i>
                                 </button>
-                                {{--                        <button class="mx-2 mb-2 btn small-btn-border">--}}
-                                {{--                            دوام كامل--}}
-                                {{--                            <i class="fas fa-briefcase"></i>--}}
-                                {{--                        </button>--}}
+                                <button class="mx-2 mb-2 btn small-btn-border">
+                                    {{$project->created_at->diffForHumans()}}
+                                    <i class="fas fa-clock"></i>
+                                </button>
                                 <button class="mx-2 mb-2 btn small-btn-border">
                                     {{$project->price}}
                                     <i class="fas fa-money-check-alt"></i>
@@ -184,6 +196,12 @@
                     </a>
                 </div>
             @endforeach
+            @if($loading)
+                <div class="spinner">
+                    <div class="dot1"></div>
+                    <div class="dot2"></div>
+                </div>
+            @endif
 
         </div>
         <div class="text-center mt-4">
@@ -196,3 +214,38 @@
 
     </div>
 </div>
+
+<style>
+    .spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .spinner .dot1,
+    .spinner .dot2 {
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        background-color: #333;
+        animation: bounce 2s infinite ease-in-out;
+    }
+
+    .spinner .dot2 {
+        animation-delay: -1s;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translate(0, 0);
+        }
+
+        50% {
+            transform: translate(0, 1em);
+        }
+
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+</style>

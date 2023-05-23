@@ -9,7 +9,7 @@
                     <div class="card bg-transparent border-0 text-center">
                         <div class="card-body">
                             <div class="rounded">
-                                <img src="{{asset('images/Ellipse 5.png')}}" alt="">
+                                <img width="80" height="80" class="rounded-circle" src="{{$user->avatar}}" alt="">
                             </div>
                             <p class="mt-2">{{$user->first_name. ' '. $user->last_name}}</p>
                             <ul class="d-flex justify-content-center">
