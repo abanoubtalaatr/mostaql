@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h5 class="card-title">الرصيد المعلق</h5>
                     <h2 class="card-title">
-                        <span class="d-inline-block">  دولار </span>
+                        <span class="d-inline-block">  ريال  </span>
                         <span
                             class="d-inline-block">{{ $user->wallets()->where('can_withdraw', 0)->sum('amount')}} </span>
                     </h2>
@@ -22,7 +22,7 @@
                     <h5 class="card-title">الرصيد الكلي</h5>
                     <h2 class="card-title">
                         <span class="d-inline-block">
-                            دولار
+                            ريال
                         </span>
                         <span class="d-inline-block">
                         {{$user->wallets()->sum('amount')}}
@@ -37,7 +37,7 @@
                 <div class="card-body">
                     <h5 class="card-title">الرصيد القابل للسحب</h5>
                     <h2 class="card-title">
-                        <span class="d-inline-block">دولار </span>
+                        <span class="d-inline-block">ريال  </span>
                         <span class="d-inline-block"> {{$user->wallets()->where('can_withdraw', 1)->sum('amount')}}</span>
                     </h2>
                 </div>
@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <h5 class="card-title">الرصيد المتاح</h5>
                     <h2 class="card-title">
-                        <span class="d-inline-block">دولار </span>
+                        <span class="d-inline-block">ريال  </span>
                         <span class="d-inline-block">{{$user->wallets()->sum('amount')}}</span>
                     </h2>
                 </div>

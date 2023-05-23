@@ -180,7 +180,7 @@
                                             @endif
                                         </div>
 
-                                        <a href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}">
+                                        <a class="text-dark" href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}">
                                             {{$proposal->user?$proposal->user->first_name:''}}
                                         </a>
                                     </div>
