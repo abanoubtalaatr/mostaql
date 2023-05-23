@@ -25,11 +25,11 @@ class Index extends Component
     protected $projects = [];
     protected $ads = [];
 
-    public $loading = false;
+    public $loading = true;
 
     public function loadMore()
     {
-        $this->perPage += 10;
+        $this->perPage += 20;
     }
 
     public function render()
@@ -40,14 +40,14 @@ class Index extends Component
 //        ->whereHas('skills', function ($query) {
 //        $query->whereIn('skill_id', auth()->user()->skills->pluck('id'));
 //    })
+        $this->loading = false;
         if (auth()->user()) {
             $projects = $projects->when(count($this->filters), function ($q) {
                 $this->loading = true;
                 $q->whereIn('category_id', $this->filters);
             })->when($this->title, function ($q) {
                 $q->where('title', 'like', '%' . $this->title . '%');
-            })
-                ->latest()->paginate($this->perPage);
+            })->latest()->paginate($this->perPage);
             $this->loading = false;
         } else {
             $projects = Project::query()
@@ -59,7 +59,6 @@ class Index extends Component
                 })->latest()->paginate($this->perPage);
             $this->loading = false;
         }
-
         $ads = Ad::active();
         return view('livewire.user.project.index', compact('categories', 'projects', 'ads'));
     }

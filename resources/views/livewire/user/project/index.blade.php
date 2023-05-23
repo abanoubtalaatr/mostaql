@@ -141,7 +141,12 @@
             </div>
         </div>
     @endforeach
+
     <div class="container mt-5 projects-card">
+        @if($loading==true)
+            <div class="loader" style="margin: auto;padding-bottom: 30px;margin-bottom: 30px;">
+            </div>
+        @endif
         <div class="row row-cols-1 row-cols-md-2 text-right">
 
             @foreach($projects as $project)
@@ -196,12 +201,6 @@
                     </a>
                 </div>
             @endforeach
-            @if($loading)
-                <div class="spinner">
-                    <div class="dot1"></div>
-                    <div class="dot2"></div>
-                </div>
-            @endif
 
         </div>
         <div class="text-center mt-4">
@@ -216,36 +215,32 @@
 </div>
 
 <style>
-    .spinner {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .spinner .dot1,
-    .spinner .dot2 {
-        width: 1em;
-        height: 1em;
+    .loader {
+        border: 10px solid #f3f3f3;
         border-radius: 50%;
-        background-color: #333;
-        animation: bounce 2s infinite ease-in-out;
+        border-top: 10px solid var(---green);
+        width: 100px;
+        height: 100px;
+        -webkit-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
     }
 
-    .spinner .dot2 {
-        animation-delay: -1s;
-    }
-
-    @keyframes bounce {
+    @-webkit-keyframes spin {
         0% {
-            transform: translate(0, 0);
+            -webkit-transform: rotate(0deg);
         }
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
 
-        50% {
-            transform: translate(0, 1em);
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
         }
 
         100% {
-            transform: translate(0, 0);
+            transform: rotate(360deg);
         }
     }
 </style>

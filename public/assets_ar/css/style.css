@@ -187,6 +187,34 @@ footer p {
     direction: rtl;
 }
 
+.loader {
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid var(---green);
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
 button, .extra-purple, .extra-green {
     color: #fff;
     font-weight: 400;
@@ -559,7 +587,7 @@ html {
 .projects-card .row .card .card-body .d-flex h6 {
     color: #47325B !important;
     width: 79%;
-    height: 45px;
+    height: 42px;
     line-height: 20px;
     overflow: hidden;
 }

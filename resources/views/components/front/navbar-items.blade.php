@@ -66,7 +66,8 @@
             </li>
             @if(!auth()->user() || auth()->user()->user_type !='freelancer' )
                 <li class="nav-item mx-4">
-                    <a class="nav-link" href="/{{app()->getLocale()}}/user/create-project">اضف مشروع</a>
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/create-project">
+                        اضف مشروع <i style="    font-size: 13px;" class="fas fa-plus"></i></a>
                 </li>
             @endif
         </ul>
