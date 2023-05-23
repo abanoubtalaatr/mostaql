@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Admin\Feature;
 
 use App\Models\Ad;
 use App\Models\Camp;
-use App\Models\feature;
+use App\Models\Feature;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,7 +21,7 @@ class Index extends Component
     }
 
 
-    public function destroy(feature $feature)
+    public function destroy(Feature $feature)
     {
         $feature->delete();
     }
