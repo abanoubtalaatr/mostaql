@@ -164,51 +164,58 @@
                 <h5> العروض علي هذا المشروع</h5>
             @endif
             @foreach($project->proposals as $proposal)
-                    <div class="card mb-3 purposal border">
-                        <div class="card-body">
+                <div class="card mb-3 purposal border">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                @if($project->status_id != 3 )
+                                    @if($userType !='freelancer')
+                                        <a href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}"
+                                           class="btn extra-green">التفاصيل</a>
+                                    @endif
+                                @endif
+                            </div>
                             <div class="d-flex justify-content-between">
-                                <div>
-                                    <a href="/{{app()->getLocale()}}/proposal/{{$proposal->id}}" class="btn extra-green">التفاصيل</a>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="mx-2 d-flex">
-                                        <div class="mx-1">
-                                            @if($proposal->user)
-                                                @for ($i = 1; $i <= $proposal->user->averageRates(); $i++)
-                                                    <img src="{{asset('images/Star 1.png')}}" alt="">
-                                                @endfor
-                                            @endif
-                                        </div>
+                                <div class="mx-2 d-flex">
+                                    <div class="mx-1">
+                                        @if($proposal->user)
+                                            @for ($i = 1; $i <= $proposal->user->averageRates(); $i++)
+                                                <img src="{{asset('images/Star 1.png')}}" alt="">
+                                            @endfor
+                                        @endif
+                                    </div>
 
-                                        <a class="text-dark" href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}">
-                                            {{$proposal->user?$proposal->user->first_name:''}}
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <img class="rounded-circle" height="50" width="50" src="{{$proposal->user->avatar}}" alt="">
-                                    </div>
+                                    <a class="text-dark"
+                                       href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}">
+                                        {{$proposal->user?$proposal->user->first_name:''}}
+                                    </a>
+                                </div>
+                                <div>
+                                    <img class="rounded-circle" height="50" width="50" src="{{$proposal->user->avatar}}"
+                                         alt="">
                                 </div>
                             </div>
-                            <ul class="maker-details">
-                                <li>
-                                    <i class="fas fa-briefcase"></i>
-
-                                    {{$proposal->user->job_title}}
-                                </li>
-                                <li>
-                                    <i class="fas fa-home"></i>
-                                    {{$proposal->user->city->name_ar??''}}
-                                </li>
-                                <li>
-                                    <i class="fas fa-clock"></i>
-                                    {{$proposal->created_at->diffForHumans()}}
-                                </li>
-                            </ul>
-                            <p class="card-text mt-2">
-                                {{$proposal->description}}
-                            </p>
                         </div>
+                        <ul class="maker-details">
+                            <li>
+                                <i class="fas fa-briefcase"></i>
+
+                                {{$proposal->user->job_title}}
+                            </li>
+                            <li>
+                                <i class="fas fa-home"></i>
+                                {{$proposal->user->city->name_ar??''}}
+                            </li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                {{$proposal->created_at->diffForHumans()}}
+                            </li>
+                        </ul>
+                        <p class="card-text mt-2">
+                            {{$proposal->description}}
+                        </p>
                     </div>
+                </div>
             @endforeach
 
 
