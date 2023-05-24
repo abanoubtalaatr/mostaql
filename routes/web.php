@@ -66,24 +66,11 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::get('ads/{ad}/fatorah_pay', [MyFatoorahController::class, 'pay'])->name('pay_fatorah');
 
 Route::get('abanoub', function () {
-    $filter = "ga:pagePath=@/" . 'ad/47';
-    $google_data = GoogleAnalyticsService::getAdOperatingSystems($filter);
+    $payLink = new \App\Services\PayLinkService();
+    $user = User::find(103);
+   $response = $payLink->pay(20, $user, 'payForProject');
+   dd($response);
 
-    //sync data (delete old data for ads)
-    $oldData = AdDevices::where('ad_id', 47)->where('key', 'operating_system')->get();
-
-    foreach ($oldData as $data) {
-        $data->delete();
-    }
-
-    foreach ($google_data as $data) {
-        AdDevices::create([
-            'ad_id' => 47,
-            'key' => $data['key'],
-            'name' => $data['name'],
-            'count' => $data['count'],
-        ]);
-    }
 });
 
 Route::get('my_fatoorah_view', function () {
@@ -96,36 +83,10 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
 ], function () {
 
-    Route::get('ads/sucess/{ad}', function (Request $request, $id) {
-        $paid_ad = Ad::where('id', $id)->first();
-        if (!$paid_ad) {
-            return;
-        }
-
-        if ($paid_ad->update(['payment_id' => $request['id'], 'remaining_budget' => $paid_ad->budget, 'status' => 'reviewing', 'payment_info' => $request->all()])) {
-            return redirect()->to(route('user.show_ad', $paid_ad->id) . '?status=ad-payment-completed');
-        }
-
-        return 'success payment';
-    });
-
-    Route::get('ads/fail', function (Request $request) {
-        return ' fail, Please try again';
-    })->name('payment.error');
-
     Route::get('/', [HomeController::class, 'index'])->name('homepage');
     Route::get('contact-us', ContactUs::class)->name('contact_us');
     Route::get('page/{page}', [HomeController::class, 'showPage'])->name('show_page');
 
-
-//    Route::get('short-link/{shortLink}', [ShortLinkController::class, 'show'])->name('short_link.show');
-    Route::get('ad/{ad}/{utm?}', [LibraryController::class, 'showAd'])->name('show_ad');
-    Route::get('library/{library}/{utm?}', [LibraryController::class, 'show'])->name('show_library');
-
-//    Route::get('ad/{ad}/{utm?}/visit-ad', [LibraryController::class, 'showAd'])->name('show_ad');
-//    Route::get('library/{library}/{utm?}/visit-library', [LibraryController::class, 'show'])->name('show_library');
-
-    Route::post('/ad/{ad}/increase-clicks', [LibraryController::class, 'increaseClicks'])->name('increase_clicks_of_ad');
     Route::get('support', function () {
         $settings = \App\Models\Setting::first();
         $support = \App\Models\Page::find(1);
@@ -150,11 +111,20 @@ Route::group([
 
         Route::get('reset-password/{token}', [AuthController::class,'showResetPassword'])->name('show.reset_password');
 
-        Route::get('payment', function () {
-            //if notes package
-            //I want to check the response if for package or for project fees
-            return 'success';
-        })->name('payment');
+            Route::get('/payment', function (Request $request) {
+                $package = \App\Models\Package::find($request->package);
+                $project = \App\Models\Project::find($request->project);
+                $user = User::find($request->ur);
+                if($package) {
+                    // make the user subscribe to package and give him features,
+                }
+                if($project) {
+                    // make it paid and make update
+                }
+                //if notes package
+                //I want to check the response if for package or for project fees
+                return 'success';
+            })->name('payment');
 
         Route::get('cancel', function () {
             return 'cancel';
