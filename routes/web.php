@@ -149,67 +149,16 @@ Route::group([
         Route::post('send-verify-code', [AuthController::class, 'resendOtpCode'])->name('resend_verification_code');
 
         Route::get('reset-password/{token}', [AuthController::class,'showResetPassword'])->name('show.reset_password');
-        /**Confirm payment */
-        Route::get('payment/status/web', function (Request $request) {
-            $payment_service = new HyperpayService;
-            $response = $payment_service->getPaymentStatus(request('id'));
-            $paid_ad = Ad::where('checkout_id', $response['ndc'])->first();
-            if ($response['result']['code'] != '000.100.112') {
-                return redirect()->to(route('user.show_ad', $paid_ad->id) . '?status=ad-payment-failed');
-                return $response['result']['description'] . ' - ' . $response['result']['code'];
-            }
 
-            if (!$paid_ad) {
-                return;
-            }
-
-            if ($paid_ad->update(['payment_id' => $response['id'], 'remaining_budget' => $paid_ad->budget, 'status' => 'reviewing', 'payment_info' => $response])) {
-                return redirect()->to(route('user.show_ad', $paid_ad->id) . '?status=ad-payment-completed');
-            }
-
-        })->name('confirm_pay_ad');
-        /**Confirm payment */
-
-        Route::get('success_payment', function () {
+        Route::get('payment', function () {
+            //if notes package
+            //I want to check the response if for package or for project fees
             return 'success';
-        })->name('success_pay');
+        })->name('payment');
 
-        Route::get('ads/{ad}/pay', [UserAdController::class, 'pay'])->name('pay_ad');
-
-        Route::get('ads/{ad}/fatorah_pay', [MyFatoorahController::class, 'pay'])->name('pay_fatorah');
-        Route::get('ads/sucess/{ad}', function (Request $request, $id) {
-            $paid_ad = Ad::where('id', $id)->first();
-            if (!$paid_ad) {
-                return;
-            }
-
-            if ($paid_ad->update([
-                'payment_id' => $request['id'],
-                'remaining_budget' => $paid_ad->budget,
-                'discount_info_ar' => session()->get('discount_info_ar') ?? null,
-                'discount_info_en' => session()->get('discount_info_en') ?? null,
-                'status' => 'reviewing',
-                'payment_info' => $request->all()
-            ])) {
-                if (session()->has('user_discount')) {
-                    $discount = Discount::where('discount_code', session()->get('discount_code'))->first();
-                    if ($discount) {
-                        $discount->update([
-                            'number_of_times' => $discount->number_of_times -= 1,
-                            'number_of_times_is_used' => $discount->number_of_times_is_used += 1,
-                        ]);
-                    }
-                }
-                return redirect()->to(route('user.show_ad', $paid_ad->id) . '?status=ad-payment-completed');
-            }
-
-            return 'success payment';
-        })->name('fatorah_sucess');
-
-        Route::get('ads/fail/{id}', function (Request $request, $id) {
-            $paid_ad = Ad::where('id', $id)->first();
-            return redirect()->to(route('user.show_ad', $paid_ad->id) . '?status=ad-payment-failed');
-        })->name('fatorah_error');
+        Route::get('cancel', function () {
+            return 'cancel';
+        })->name('cancel');
 
         Route::get('all-users', [\App\Http\Controllers\User\UserController::class, 'index'])->name('all_users');
 
