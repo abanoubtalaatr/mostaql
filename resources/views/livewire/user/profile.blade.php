@@ -11,6 +11,7 @@
                             <div class="rounded">
                                 <img width="80" height="80" class="rounded-circle" src="{{$user->avatar}}" alt="">
                             </div>
+                            
                             <p class="mt-2">{{$user->first_name. ' '. $user->last_name}}</p>
                             <ul class="d-flex justify-content-center">
                                 <li class="mx-1">

@@ -39,6 +39,15 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->hasMany(Rate::class);
     }
 
+    public function activePackage()
+    {
+        return $this->belongsToMany(Package::class, 'package_users')
+            ->withPivot('end_at')
+            ->wherePivot('end_at', '>', now())
+            ->latest('pivot_end_at')
+            ->first();
+    }
+
     public function proposals()
     {
         return $this->hasMany(Proposal::class);

@@ -68,8 +68,8 @@ Route::get('ads/{ad}/fatorah_pay', [MyFatoorahController::class, 'pay'])->name('
 Route::get('abanoub', function () {
     $payLink = new \App\Services\PayLinkService();
     $user = User::find(103);
-   $response = $payLink->pay(20, $user, 'payForProject');
-   dd($response);
+    $response = $payLink->pay(20, $user, 'payForProject');
+    dd($response);
 
 });
 
@@ -90,7 +90,7 @@ Route::group([
     Route::get('support', function () {
         $settings = \App\Models\Setting::first();
         $support = \App\Models\Page::find(1);
-        return view('livewire.user.support', compact('settings','support'));
+        return view('livewire.user.support', compact('settings', 'support'));
     })->name('support');
 
     Route::get('terms', \App\Http\Livewire\User\Terms::class)->name('terms');
@@ -109,22 +109,29 @@ Route::group([
         Route::post('verify-register-code', [AuthController::class, 'verifyRegisterCodePost'])->name('verify_registration_code');
         Route::post('send-verify-code', [AuthController::class, 'resendOtpCode'])->name('resend_verification_code');
 
-        Route::get('reset-password/{token}', [AuthController::class,'showResetPassword'])->name('show.reset_password');
+        Route::get('reset-password/{token}', [AuthController::class, 'showResetPassword'])->name('show.reset_password');
 
-            Route::get('/payment', function (Request $request) {
-                $package = \App\Models\Package::find($request->package);
-                $project = \App\Models\Project::find($request->project);
-                $user = User::find($request->ur);
-                if($package) {
-                    // make the user subscribe to package and give him features,
-                }
-                if($project) {
-                    // make it paid and make update
-                }
-                //if notes package
-                //I want to check the response if for package or for project fees
-                return 'success';
-            })->name('payment');
+        Route::get('/payment', function (Request $request) {
+            $package = \App\Models\Package::find($request->package);
+            $project = \App\Models\Project::find($request->project);
+
+            if ($package) {
+                \App\Models\PackageUser::create([
+                    'user_id' => \auth()->id(),
+                    'package_id' => $package->id,
+                    'end_at' => \Carbon\Carbon::now()->addMonths($package->period),
+                ]);
+
+                return redirect()->route('user.get_profile', \auth()->id());
+            }
+            if ($project) {
+
+
+                return redirect()->route('user.get_profile', \auth()->id());
+            }
+
+            return 'success';
+        })->name('payment');
 
         Route::get('cancel', function () {
             return 'cancel';
@@ -162,14 +169,13 @@ Route::group([
             Route::get('category', UserCategoryIndex::class)->name('category');
             Route::get('library/{library}', UserShowLibrary::class)->name('library.show');
 
-            Route::get('wallet', [\App\Http\Controllers\User\WalletController::class,'index'])->name('wallet');
-            Route::get('packages',[\App\Http\Controllers\User\PackageController::class, 'index'])->name('packages');
+            Route::get('wallet', [\App\Http\Controllers\User\WalletController::class, 'index'])->name('wallet');
+            Route::get('packages', [\App\Http\Controllers\User\PackageController::class, 'index'])->name('packages');
             Route::get('contact', [UserContactController::class, 'index'])->name('contact_us');
 
         });/*authenticated users*/
 
     });
-
 
     //Admin
     Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -295,15 +301,15 @@ Route::group([
 });
 
 
-Route::post('contact-us', function (Request $request){
-   if($request->email && $request->message) {
-       \App\Models\Contact::create([
-           'sender_name' => auth()->user()->first_name .' '. auth()->user()->last_name,
-           'sender_email' => $request->email,
-           'message' => $request->message,
-       ]);
-       return redirect('/ar/support');
-   }
+Route::post('contact-us', function (Request $request) {
+    if ($request->email && $request->message) {
+        \App\Models\Contact::create([
+            'sender_name' => auth()->user()->first_name . ' ' . auth()->user()->last_name,
+            'sender_email' => $request->email,
+            'message' => $request->message,
+        ]);
+        return redirect('/ar/support');
+    }
     return redirect('/ar/support');
 
 })->middleware('auth')->name('user.contact_us');

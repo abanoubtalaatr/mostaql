@@ -42,7 +42,7 @@ class PayLinkService
         ])->post($url, $postFields);
 
         if ($response->ok()) {
-            return $response['url'];
+            redirect( $response['url']);
         }
     }
 

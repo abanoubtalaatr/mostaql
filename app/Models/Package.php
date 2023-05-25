@@ -11,6 +11,8 @@ class Package extends Model
 
     protected $guarded = [];
 
+    protected $with = ['features'];
+
     public function features()
     {
         return $this->belongsToMany(Feature::class, 'feature_packages');
