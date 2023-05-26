@@ -50,7 +50,7 @@
                         <th class="text-center">@lang('validation.attributes.username')</th>
                         <th class="text-center">@lang('validation.attributes.email')</th>
                         <th class="text-center">@lang('validation.attributes.user_type')</th>
-                        <td class="text-center">@lang('validation.attributes.payment_number')</td>
+                        <td class="text-center">الرصيد المتاح للسحب</td>
                         <th class="text-center">@lang('site.status')</th>
                         <th>@lang('site.actions')</th>
                     </tr>
@@ -62,7 +62,7 @@
                             <td class='text-center'>{{$record->first_name . ' ' .$record->last_name}}</td>
                             <td class='text-center'>{{$record->email}}</td>
                             <td class="text-center">@lang('site.'.$record->user_type)</td>
-                            <td class="text-center">{{$record->payment_number}}</td>
+                            <td class="text-center">{{round($record->wallets()->where('can_withdraw', 1)->sum('amount'),2)}}</td>
                             <td class='text-center'>
                                 <div class="status {{$record->status_class}}">
                                     <span>@lang('site.'.$record->status)</span>
@@ -76,7 +76,7 @@
                                         class="no-btn">
                                         <i class="fas @if($record->status=='active') fa-lock red @else fa-unlock green @endif"></i>
                                     </button>
-                                    <a href='{{route('admin.users.edit',$record->id)}}' class="no-btn"><i class="far fa-edit blue"></i></a>
+{{--                                    <a href='{{route('admin.users.edit',$record->id)}}' class="no-btn"><i class="far fa-edit blue"></i></a>--}}
 
                                 </div>
                             </td>

@@ -29,15 +29,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function favourites()
-    {
-        return $this->hasMany(Favourite::class);
-    }
-
-    public function rates()
-    {
-        return $this->hasMany(Rate::class);
-    }
 
     public function activePackage()
     {
@@ -48,6 +39,26 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             ->first();
     }
 
+    public function isSubscribed()
+    {
+        // Check if the user has a package assigned
+        if (!$this->activePackage()) {
+            return false;
+        }
+        return true;
+    }
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class);
+    }
+
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
+    }
+
+
     public function proposals()
     {
         return $this->hasMany(Proposal::class);
@@ -55,7 +66,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function acceptedProposals()
     {
-        return $this->hasMany(Proposal::class)->where('status_id',3);
+        return $this->hasMany(Proposal::class)->where('status_id', 3);
     }
 
     public function skills()
@@ -65,12 +76,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function getAvatarAttribute($value)
     {
-        return url('uploads/pics/' .$value);
+        return url('uploads/pics/' . $value);
     }
 
     public function getMinimizedPictureAttribute($value)
     {
-        return url('uploads/pics/' .$value);
+        return url('uploads/pics/' . $value);
     }
 
     public function projects()
@@ -85,12 +96,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function processingProposals()
     {
-        return $this->hasMany(Proposal::class)->where('status_id',Statuses::ACCEPTPROPOSAL);
+        return $this->hasMany(Proposal::class)->where('status_id', Statuses::ACCEPTPROPOSAL);
     }
 
     public function rejectedProposals()
     {
-        return $this->hasMany(Proposal::class)->where('status_id',Statuses::REJECTPORPOSAL);
+        return $this->hasMany(Proposal::class)->where('status_id', Statuses::REJECTPORPOSAL);
     }
 
     public function averageRates()
@@ -98,10 +109,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         // sum of of rate for this user divided by rate rows
         $sumRate = $this->rates()->sum('rate');
         $countRate = $this->rates()->count();
-        if($sumRate > 0 && $countRate > 0) {
+        if ($sumRate > 0 && $countRate > 0) {
             return round($sumRate / $countRate);
         }
-        return  0;
+        return 0;
     }
 
     public function medals()

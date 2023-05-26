@@ -41,8 +41,8 @@ class Create extends Component
             'form.price' => ['required'],
             'form.period' => ['required', 'integer'],
             'form.features' => ['required', 'array'],
-            'form.number_of_project' => ['required', 'integer'],
-            'form.number_of_proposal' => ['required', 'integer'],
+//            'form.number_of_project' => ['required', 'integer'],
+//            'form.number_of_proposal' => ['required', 'integer'],
         ];
     }
 

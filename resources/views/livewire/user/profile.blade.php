@@ -11,7 +11,6 @@
                             <div class="rounded">
                                 <img width="80" height="80" class="rounded-circle" src="{{$user->avatar}}" alt="">
                             </div>
-                            
                             <p class="mt-2">{{$user->first_name. ' '. $user->last_name}}</p>
                             <ul class="d-flex justify-content-center">
                                 <li class="mx-1">
@@ -161,20 +160,26 @@
                                     الملف الشخصي
                                 </button>
                             </li>
-                            <li class="nav-item mx-0" role="presentation">
-                                <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile"
-                                        type="button" role="tab" aria-controls="profile" aria-selected="false">
-                                    <i class="fas fa-star"></i>
-                                    التقييمات
-                                </button>
-                            </li>
-                            <li class="nav-item mx-0" role="presentation">
-                                <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact"
-                                        type="button" role="tab" aria-controls="contact" aria-selected="false">
-                                    <i class="fas fa-briefcase"></i>
-                                    سابقه اعمالي
-                                </button>
-                            </li>
+                            @if(isset($user->activePackage()->id) &&$user->activePackage()->hasFeature(4))
+                                <li class="nav-item mx-0" role="presentation">
+
+                                    <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile"
+                                            type="button" role="tab" aria-controls="profile" aria-selected="false">
+                                        <i class="fas fa-star"></i>
+                                        التقييمات
+                                    </button>
+
+                                </li>
+                            @endif
+                            @if(isset($user->activePackage()->id) && $user->activePackage()->hasFeature(3))
+                                <li class="nav-item mx-0" role="presentation">
+                                    <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact"
+                                            type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                        <i class="fas fa-briefcase"></i>
+                                        سابقه اعمالي
+                                    </button>
+                                </li>
+                            @endif
                         </ul>
                         <div class="tab-content border-0" id="myTabContent">
                             <div class="tab-pane fade show active my-5" id="home" role="tabpanel"

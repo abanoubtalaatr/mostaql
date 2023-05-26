@@ -45,8 +45,7 @@
                         بعد تسليم العمل بشكل كامل حيث في تلك الفتره هذه يضمن لك الموقع
                         استعاده اموالك في حاله اذا حدثت عمليه نصب من خلال المستقل
                     </p>
-                    <button type="submit" class="btn extra-green mb-2" wire:click.prevent="pay"
-                            onclick="console.log('Button clicked!')">التوظيف وحجز المبلغ للتنفيذ
+                    <button type="submit" class="btn extra-green mb-2" wire:click.prevent="pay">التوظيف وحجز المبلغ للتنفيذ
                     </button>
                     <a href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}"
                        class="btn extra-purple mb-2 text-decoration-none">

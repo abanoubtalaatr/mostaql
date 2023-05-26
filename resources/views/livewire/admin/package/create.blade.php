@@ -36,22 +36,22 @@
                         @error('form.period') <p class="text-danger">{{$message}}</p> @enderror
                         <hr/>
                     </div>
-                    <div class="col-6">
-                        <input
-                            wire:model='form.number_of_project'
-                            class="@error('form.number_of_project') is-invalid @enderror form-control contact-input"
-                            type="text" placeholder="@lang('site.number_of_project')"/>
-                        @error('form.number_of_project') <p class="text-danger">{{$message}}</p> @enderror
-                        <hr/>
-                    </div>
-                    <div class="col-6">
-                        <input
-                            wire:model='form.number_of_proposal'
-                            class="@error('form.number_of_proposal') is-invalid @enderror form-control contact-input"
-                            type="text" placeholder="@lang('site.number_of_proposal')"/>
-                        @error('form.number_of_proposal') <p class="text-danger">{{$message}}</p> @enderror
-                        <hr/>
-                    </div>
+{{--                    <div class="col-6">--}}
+{{--                        <input--}}
+{{--                            wire:model='form.number_of_project'--}}
+{{--                            class="@error('form.number_of_project') is-invalid @enderror form-control contact-input"--}}
+{{--                            type="text" placeholder="@lang('site.number_of_project')"/>--}}
+{{--                        @error('form.number_of_project') <p class="text-danger">{{$message}}</p> @enderror--}}
+{{--                        <hr/>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-6">--}}
+{{--                        <input--}}
+{{--                            wire:model='form.number_of_proposal'--}}
+{{--                            class="@error('form.number_of_proposal') is-invalid @enderror form-control contact-input"--}}
+{{--                            type="text" placeholder="@lang('site.number_of_proposal')"/>--}}
+{{--                        @error('form.number_of_proposal') <p class="text-danger">{{$message}}</p> @enderror--}}
+{{--                        <hr/>--}}
+{{--                    </div>--}}
                 </div>
 
                 <div class="form-group" wire:ignore>
@@ -86,30 +86,32 @@
             $('select').select2();
         });
 
-        $(document).ready(()=>{
-           $('select').select2();
-            $('#features').change(e=>{
-                @this.set('form.features', $('#features').select2('val'));
+        $(document).ready(() => {
+            $('select').select2();
+            $('#features').change(e => {
+            @this.set('form.features', $('#features').select2('val'));
             });
         });
     </script>
 @endpush
 @push('styles')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     {{-- <link rel="stylesheet" href="{{asset('frontAssets/css/multiselect.css')}}"> --}}
     <style>
-        .whats-p{
+        .whats-p {
             /* background: url('whats-app-b.png'); */
             width: 100%;
             float: right;
             padding-bottom: 15px;
         }
-        .w-det{
-            background: rgb(0, 0, 0,.05);
-            border-radius:5px ;
+
+        .w-det {
+            background: rgb(0, 0, 0, .05);
+            border-radius: 5px;
             overflow: hidden;
         }
-        .chat{
+
+        .chat {
             background: #dbf8c7;
             /* margin: 10px 25px 3px 0px; */
             padding: 10px;
@@ -122,8 +124,16 @@
             position: relative;
             box-shadow: 0px 2px 1px rgb(0 0 0 / 20%);
         }
-        .chat p,.chat h5,.chat h4{color: rgb(89, 89, 89);text-decoration: none;}
-        .chat a{text-decoration: none;}
+
+        .chat p, .chat h5, .chat h4 {
+            color: rgb(89, 89, 89);
+            text-decoration: none;
+        }
+
+        .chat a {
+            text-decoration: none;
+        }
+
         .chat .bubble-arrow.alt {
             position: absolute;
             bottom: 20px;
@@ -132,6 +142,7 @@
             float: right;
             top: 0;
         }
+
         .chat .bubble-arrow:after {
             content: "";
             position: absolute;
@@ -142,7 +153,13 @@
             width: 0;
 
         }
-        .chat a{color: #4285f3;}
-        .chat img{max-width: 100%;}
+
+        .chat a {
+            color: #4285f3;
+        }
+
+        .chat img {
+            max-width: 100%;
+        }
     </style>
 @endpush

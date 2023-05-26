@@ -63,14 +63,9 @@
                     </div>
                     <div class="col-md-6 my-2">
                         <label for="">الميزانية المتوقعة</label>
-                        <select id="" class="form-control text-right" wire:model.defer="form.money_id">
-                            <option selected="">...اختار</option>
-                            @foreach($moneys as $item)
-                                <option value="{{$item->id}}">{{$item->name_ar}}</option>
-                            @endforeach
-                        </select>
-                        <small>اختر ميزانية مناسبة لتحصل على عروض جيدة</small>
-                        @error('form.money_id') <span
+                        <input wire:model.defer="form.price" type="number" class="form-control text-right">
+                        <small>اكتب ميزانية مناسبة لتحصل على عروض جيدة</small>
+                        @error('form.price') <span
                             class="error text-danger text-danger">{{ $message }}</span> @enderror
                     </div>
 

@@ -19,8 +19,8 @@
                             <th>@lang('site.title_ar')</th>
                             <th>@lang('site.price')</th>
                             <th>@lang('site.period')</th>
-                            <th>@lang('site.number_of_project')</th>
-                            <th>@lang('site.number_of_proposal')</th>
+{{--                            <th>@lang('site.number_of_project')</th>--}}
+{{--                            <th>@lang('site.number_of_proposal')</th>--}}
                             <th>@lang('site.actions')</th>
                         </tr>
                         </thead>
@@ -31,8 +31,8 @@
                                 <td>{{$record->title_ar}}</td>
                                 <td>{{$record->price}}</td>
                                 <td>{{$record->period}}</td>
-                                <td>{{$record->number_of_project}}</td>
-                                <td>{{$record->number_of_proposal}}</td>
+{{--                                <td>{{$record->number_of_project}}</td>--}}
+{{--                                <td>{{$record->number_of_proposal}}</td>--}}
                                 <td>
                                     <div class="actions">
                                         <a class="no-btn" href='{{route('admin.package.edit',$record)}}'><i

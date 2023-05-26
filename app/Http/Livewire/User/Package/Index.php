@@ -14,7 +14,11 @@ class Index extends Component
 
     public function mount()
     {
-        $this->packages = Package::latest()->with('features')->get();
+        $user = User::find(auth()->id());
+
+        $currentPackageIdForUser = $user->activePackage() ? $user->activePackage()->id : 0;
+
+        $this->packages = Package::where('id', '!=', $currentPackageIdForUser)->latest()->with('features')->get();
     }
 
     public function subscribe($packageId)
@@ -23,8 +27,9 @@ class Index extends Component
         $package = Package::find($packageId);
         $user = User::find(auth()->id());
 
+
         if ($package) {
-            $pay->pay($package->price, $user, 'payForPackage', $package);
+            $pay->pay($package->price, $user, 'payForPackage', $package, null, null);
         }
     }
 

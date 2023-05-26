@@ -36,10 +36,10 @@ class Create extends Component
             'form.title' => 'required|max:500',
             'form.description_ar' => ['required', 'string', 'min:4'],
             'form.category_id' => ['required', 'exists:categories,id'],
-            'form.money_id' => ['required', 'exists:money,id'],
             'form.file' => ['nullable', 'mimes:png,jpg', 'max:2048'],
             'form.number_of_days' => ['required', 'integer'],
             'form.skills' => ['required', 'array'],
+            'form.price'=> ['required', 'integer']
         ];
     }
 
@@ -52,18 +52,10 @@ class Create extends Component
             $imagePath = $this->form['file']->store('public/images');
         }
 
-
-        $money = Money::find($this->form['money_id']);
-        if ($money) {
-            $moneyName = $money->name_ar;
-        } else {
-            $moneyName = '';
-        }
-
         $project = Project::create([
             'title' => $this->form['title'],
             'description_ar' => $this->form['description_ar'],
-            'price' => $moneyName,
+            'price' => $this->form['price'],
             'category_id' => $this->form['category_id'],
             'file' => $imagePath ?? '',
             'number_of_days' => $this->form['number_of_days'],

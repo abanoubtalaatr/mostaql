@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'RedirectInactiveUser'=>CheckActive::class,
         'acceptLocale'=>AcceptLocale::class,
         'logoutInactiveUser'=>LogoutInactiveUser::class,
+        'checkFeatureAccess' => \App\Http\Middleware\CheckFeatureAccess::class,
     ];
 }

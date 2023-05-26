@@ -12,8 +12,10 @@ use App\Models\Setting;
 use App\Models\Skill;
 use App\Models\Status;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Kreait\Firebase\Http\Middleware;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Category;
@@ -55,17 +57,15 @@ class Show extends Component
     {
         if (auth()->user()) {
 
-            $user = User::where('id', '!=', $this->user->id)->where('id', auth()->id())->first();
+            $proposal = Proposal::where('user_id',  \auth()->id())
+                ->where('project_id', $this->project->id)
+                ->where('status_id', 12)
+                ->first();
 
-            if ($user) {
-                $proposal = Proposal::where('user_id', $user->id)
-                    ->where('project_id', $this->project->id)
-                    ->where('status_id', 12)
-                    ->first();
-                if ($proposal && $this->project->status_id == 2) {
-                    $this->showDeliverProject = true;
-                }
+            if ($proposal && $this->project->status_id == 2) {
+                $this->showDeliverProject = true;
             }
+
         }
     }
 
@@ -84,10 +84,11 @@ class Show extends Component
 
     public function checkShowAddProposal()
     {
-        if(auth()->user()) {
+
+        if (auth()->user()) {
             $IHaveProposalForThisProject = Proposal::where('user_id', auth()->id())->where('project_id', $this->project->id)->exists();
 
-            if ($this->project->user_id == auth()->id() || auth()->user()->user_type == 'owner' || $IHaveProposalForThisProject) {
+            if ($this->project->user_id == auth()->id() && auth()->user()->user_type == 'owner' && $IHaveProposalForThisProject) {
                 $this->showAddProposal = false;
             }
         }
@@ -117,8 +118,22 @@ class Show extends Component
 
     public function addProposal()
     {
+
+        $user = Auth::user();
+        // Check if the user is subscribed to the package containing the feature
+        if (!$user->isSubscribed()) {
+            abort(403, 'انت غير مشترك في باقة لعمل هذا الاجراء');
+        }
+
+        // Check if the package has the specified feature
+        if (!$user->activePackage()->hasFeature(2)) {
+            abort(403, 'باقاتك الحاليه لاتسمح لك بعمل هذا الاجراء برجاء شراء باقة تدعم هذا الاجراء');
+        }
+
+
         $this->validate();
 
+        //
         Proposal::create([
             'user_id' => auth()->id(),
             'project_id' => $this->project->id,

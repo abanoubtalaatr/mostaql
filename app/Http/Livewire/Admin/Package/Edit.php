@@ -43,8 +43,8 @@ class Edit extends Component
             'form.price' => ['required'],
             'form.period' => ['required','integer'],
             'form.features' => ['sometimes', 'array'],
-            'form.number_of_project' => ['required', 'integer'],
-            'form.number_of_proposal' => ['required', 'integer'],
+//            'form.number_of_project' => ['required', 'integer'],
+//            'form.number_of_proposal' => ['required', 'integer'],
         ];
     }
 

@@ -15,6 +15,15 @@ class Package extends Model
 
     public function features()
     {
-        return $this->belongsToMany(Feature::class, 'feature_packages');
+        return $this->belongsToMany(Feature::class, 'feature_packages');;
+    }
+
+    public function hasFeature($featureId)
+    {
+
+        if($this->features->where('id', $featureId)->first()) {
+            return true;
+        }
+        return false;
     }
 }

@@ -14,7 +14,7 @@ class Show extends Component
 
     public function mount(Package $package)
     {
-        $this->package= $package;
+        $this->package = $package;
     }
 
     public function render()

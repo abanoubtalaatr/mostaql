@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Package;
 use App\Models\Project;
+use App\Models\Proposal;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -11,12 +12,13 @@ use Illuminate\Support\Str;
 class PayLinkService
 {
 
-    public function pay($amount, User $user, $note = 'payForProject', Package $package = null, Project $project = null)
+    public function pay($amount, User $user, $note = 'payForProject', $package, $project, $proposal)
     {
         $url = env('PAYLINK_URL');
         $token = $this->authRequest();
         $projectId = 'test';
         $packageId = 'test';
+        $proposalId = 'test';
         if ($project) {
             $projectId = $project->id;
         }
@@ -24,9 +26,14 @@ class PayLinkService
         if ($package) {
             $packageId = $package->id;
         }
+
+        if ($proposal) {
+            $proposalId = $proposal->id;
+        }
+
         $postFields = [
             'amount' => $amount,
-            'callBackUrl' => route('user.payment',"&ur=$user->id&project=$projectId&package=$packageId"),
+            'callBackUrl' => route('user.payment', "&ur=$user->id&project=$projectId&package=$packageId&proposal=$proposalId"),
             'cancelUrl' => route('user.cancel'),
             'clientEmail' => $user->email,
             'clientMobile' => $user->mobile,
@@ -41,8 +48,10 @@ class PayLinkService
             'Authorization' => "Bearer $token",
         ])->post($url, $postFields);
 
+
         if ($response->ok()) {
-            redirect( $response['url']);
+
+            redirect($response['url']);
         }
     }
 

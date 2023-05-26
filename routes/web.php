@@ -54,9 +54,12 @@ use App\Http\Livewire\User\Library\Show as UserShowLibrary;
 use App\Http\Livewire\User\PaybackRequests\Index as WalletIndex;
 use App\Models\Ad;
 use App\Models\Discount;
+use App\Models\Notification;
+use App\Models\Project;
 use App\Models\User;
 use App\Services\GoogleAnalyticsService;
 use App\Services\HyperpayService;
+use App\Services\Statuses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -71,10 +74,6 @@ Route::get('abanoub', function () {
     $response = $payLink->pay(20, $user, 'payForProject');
     dd($response);
 
-});
-
-Route::get('my_fatoorah_view', function () {
-    return view('payment.my_fatorah');
 });
 
 //Auth::routes();
@@ -115,6 +114,7 @@ Route::group([
             $package = \App\Models\Package::find($request->package);
             $project = \App\Models\Project::find($request->project);
 
+
             if ($package) {
                 \App\Models\PackageUser::create([
                     'user_id' => \auth()->id(),
@@ -125,8 +125,26 @@ Route::group([
                 return redirect()->route('user.get_profile', \auth()->id());
             }
             if ($project) {
+                $proposal = \App\Models\Proposal::find($request->proposal);
+                $user = User::find($proposal->user->id);
 
 
+                $proposal->update(['status_id' => 12]);
+                $project->update(['status_id' => 2]);
+
+                $userProposal = User::find($proposal->user->id);
+                //        Mail::to($userProposal->email)->send(new ProposalEmail($project,'تم قبول عرضك علي مشروع'));
+                $title_ar = "تم قبول عرضك";
+                $content_ar = "تم قبول عرضك علي مشروع $project->title";
+                $user_id = $user->id;
+                $type = 'proposal';
+
+                Notification::create([
+                    'title_ar' => $title_ar,
+                    'content_ar' => $content_ar,
+                    'user_id' => $user_id,
+                    'type' => $type
+                ]);
                 return redirect()->route('user.get_profile', \auth()->id());
             }
 
@@ -151,9 +169,10 @@ Route::group([
             //            Route::get('favourites/{favourite}/delete', Fa::class)->name('delete_discount');
 
             //project
-//            Route::get('/projects/create', \App\Http\Livewire\User\Project\Create::class);
-//            Route::post('save-profile', [AuthController::class, 'saveProfile'])->name('save_profile');
-            Route::get('create-project', [\App\Http\Controllers\User\ProjectController::class, 'showCreateProject'])->name('create_project');
+            Route::get('create-project', [\App\Http\Controllers\User\ProjectController::class, 'showCreateProject'])
+                ->middleware('checkFeatureAccess:1')
+                ->name('create_project');
+
             Route::get('my-proposals', [\App\Http\Controllers\User\ProposalController::class, 'index'])->name('my_proposals');
             Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class, 'show'])->name('show.proposal');
 

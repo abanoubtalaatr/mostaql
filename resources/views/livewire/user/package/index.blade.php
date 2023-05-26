@@ -1,4 +1,4 @@
-<div>
+<div style="direction: rtl">
     <div class="packedges mt-0">
         <div class="container-fluid">
             <div class="row row-cols-1 row-cols-md-2">
@@ -50,6 +50,7 @@
                                 </div>
                             @endforeach
                             <hr class="text-white bg-white">
+
                             <div class="text-center">
                                 <button wire:click="subscribe({{$package->id}})"
                                         class="btn small-btn-border text-white border">
