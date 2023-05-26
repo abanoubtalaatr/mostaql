@@ -48,18 +48,34 @@
 <div class="container-mobile">
     <ul class="nav-mobile">
         <li>
-            <a href="{{app()->getLocale()}}/user/projects"><i class="fas fa-home"></i></a>
+            <a href="{{app()->getLocale()}}/user/projects"><i class="fas fa-home"></i> </a>
+            <br/>
+            <span>الرئيسيه</span>
         </li>
         @if(!auth()->user() || auth()->user()->user_type !='freelancer' )
             <li>
                 <a href="/{{app()->getLocale()}}/user/create-project"><i class="fas fa-plus"></i></a>
+                <br/>
+                <span> اضف</span>
             </li>
         @endif
         <li>
             <a href="/{{app()->getLocale()}}/user/all-users"><i class="fas fa-search"></i></a>
+            <br/>
+            <span>البحث</span>
         </li>
-        <li>
-            <a href="/{{app()->getLocale()}}/terms"><i class="fas fa-info-circle"></i></a>
+        <li
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <a href="javascript:void(0)"><i class="fas fa-list"></i></a>
+            <br/>
+            <span>قائمتي</span>
         </li>
     </ul>
 </div>

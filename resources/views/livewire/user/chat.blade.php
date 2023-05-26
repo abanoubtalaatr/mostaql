@@ -36,6 +36,10 @@
                                 </div>
                                 <!-- Customer message -->
                                 <p class="card-text mt-2">{{$message['message']}}</p>
+                                @if(isset($message['file']) && !empty($message['file']))
+                                    <i class="fas fa-file"></i>
+                                    <a target="_blank" href="{{url('uploads/pics/' .$message['file'])}}">ملف</a>
+                                @endif
                             </div>
                             <hr>
                         @else
@@ -49,6 +53,10 @@
                                 </div>
                                 <!-- freelancer resbonse -->
                                 <p class="card-text mt-2">{{$message['message']}}</p>
+                                @if(isset($message['file'])  && !empty($message['file']))
+                                    <i class="fas fa-file"></i>
+                                    <a target="_blank" href="{{url('uploads/pics/' .$message['file'])}}">ملف</a>
+                                @endif
                             </div>
                             <hr>
                         @endif
@@ -67,6 +75,11 @@
                                           rows="3"></textarea>
                                 @error('message') <span class="error text-danger">{{ $message }}</span> @enderror
                                 @error('receiver') <span class="error text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                                <label for="">اضافه ملفات</label>
+                                <input type="file" wire:model="file">
+                                @error('file') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <button type="submit" class="btn extra-purple my-3">ارسال الان</button>

@@ -18,7 +18,6 @@
             </div>
         </div>
     </div>
-
     <div class="row row-cols-1 row-cols-md-2 text-right">
         @foreach($users as $user)
             <div class="col mb-4">
@@ -32,11 +31,9 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div class="mx-2 mt-1 d-flex">
-                                    <div class="mx-1">
-                                        @for ($i = 1; $i <= $user->averageRates(); $i++)
-                                            <img src="{{asset('images/Star 1.png')}}" alt="">
-                                        @endfor
-                                    </div>
+                                    @for ($i = 1; $i <= $user->averageRates(); $i++)
+                                        <img src="{{asset('images/Star 1.png')}}" alt="">
+                                    @endfor
                                     <strong>{{$user->first_name.' '. $user->last_name}}.</strong>
                                 </div>
                                 <div>
@@ -51,8 +48,8 @@
                 </div>
             </div>
         @endforeach
-
     </div>
+
     <div class="text-center mt-4">
         @if ($users->hasMorePages())
             <div class="text-center mt-4">

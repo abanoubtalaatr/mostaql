@@ -4,17 +4,21 @@ namespace App\Http\Livewire\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Pusher\Pusher;
 
 class Chat extends Component
 {
+    use WithFileUploads;
 
     public $message;
     public $messages = [];
     public $receiver;
     public $users;
     public $lastMessage = '';
+    public $file;
 
     public function mount()
     {
@@ -37,6 +41,10 @@ class Chat extends Component
     {
         $this->validate();
 
+        if (isset($this->file)) {
+            $this->file = $this->file->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->file->extension(), 'public');
+        }
+
         if (!$this->receiver) {
             $this->addError('receiver', 'برجاء اختيار عضو لبدء المجادثه.');
             return;
@@ -45,6 +53,8 @@ class Chat extends Component
         $message->sender_id = Auth::id();
         $message->receiver_id = $this->receiver->id;
         $message->message = $this->message;
+        $message->file = $this->file;
+
         $message->save();
 
         $pusher = new Pusher(
@@ -65,6 +75,7 @@ class Chat extends Component
         $pusher->trigger('chat', "message$message->receiver_id", $data);
 
         $this->message = '';
+        $this->file = '';
     }
 
     public function getListeners()
@@ -83,6 +94,7 @@ class Chat extends Component
     {
         return [
             'message' => 'required',
+            'file' => 'nullable',
         ];
     }
 
