@@ -164,12 +164,17 @@
                             </div>
                             <ul class="owner-details">
                                 <li>
-                                    <i class="fas fa-user"></i>
-                                    {{$project->user->first_name . ' ' . $project->user->last_name}}
+                                    <a href="/{{app()->getLocale()}}/user/profile/{{$project->user->id}}"
+                                       class="text-dark">
+                                        <i class="fas fa-user"></i>
+
+                                        {{$project->user->first_name . ' ' . $project->user->last_name}}
+                                    </a>
+
                                 </li>
                                 <li>
                                     <i class="fas fa-paperclip"></i>
-                                    {{$project->user->projects->count()}} <span class="d-inline-block">عرض  </span>
+                                    {{$project->proposals->count()}} <span class="d-inline-block">عرض  </span>
                                 </li>
                             </ul>
                             <button class="mx-2 mb-2 btn small-btn-border">

@@ -63,9 +63,15 @@
                     <span>صاحب المشروع</span>
                     <hr>
                     <div class="mt-3">
-                        <span>{{$user? $user->first_name:''}}</span>
+                        <a class="text-white" href="/{{app()->getLocale()}}/user/profile/{{$user->id}}">
+                            <span>{{$user? $user->first_name:''}} {{$user->last_name}}</span>
+                        </a>
                         <img width="50" height="50" class="rounded-circle" src="{{$user?$user->avatar:""}}" alt="">
                     </div>
+                    <ul class="d-flex justify-content-between mt-2 mb-0">
+                        <li>{{$user? $user->city->name_ar:"" }} - {{$user? $user->country->value:''}}</li>
+                        <li>{{$user->job_title}}</li>
+                    </ul>
                 </div>
             </div>
             @if(auth()->user())
@@ -153,7 +159,12 @@
                             @if(auth()->user())
                                 <button class="btn extra-purple my-3">اضف الان</button>
                             @else
-                                <h6 class="text-danger">سجل دخول اولا لتتمكن من اضافة عرض</h6>
+                                <a href="/{{app()->getLocale()}}/user/login">
+                                    <div class="alert alert-danger">
+                                        سجل دخول اولا لتتمكن من اضافة عرض
+                                    </div>
+                                </a>
+                                {{--                                <h6 class="text-danger"></h6>--}}
                             @endif
                         </div>
                     </form>
@@ -187,7 +198,7 @@
 
                                     <a class="text-dark"
                                        href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}">
-                                        {{$proposal->user?$proposal->user->first_name:''}}
+                                        {{$proposal->user?$proposal->user->first_name:'' .$proposal->user->last_name}}
                                     </a>
                                 </div>
                                 <div>

@@ -15,7 +15,7 @@
                             <div class="notif  bg-white p-3 d-flex">
                                 <img width="30" height="30" src="{{$record->image_url}}" alt="">
                                 <div class="notif-info text-right">
-                                    <h4>@lang('site.'.$record->type) <span class="float-start notif-time">{{$record->created_at}}</span></h4>
+                                    <h4>@lang('site.'.$record->type) <span class="float-start notif-time">{{$record->created_at->diffForHumans()}}</span></h4>
                                     <p>{{$record->{"content_".app()->getLocale()} }}</p>
                                 </div>
                             </div>
