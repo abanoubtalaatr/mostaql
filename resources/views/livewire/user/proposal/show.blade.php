@@ -48,7 +48,7 @@
                     @endif
                     <a href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}"
                        class="btn extra-purple mb-2 text-decoration-none">
-                        عرض ملف المستقل
+                        عرض الملف الشخصي
                     </a>
                 </div>
             </div>

@@ -127,12 +127,12 @@
                                 <div>
                                     <p class="mx-1 mb-2" style="font-size: 15px">
                                         @if($user->isOnline())
-                                            <i class="fas fa-check"></i>
                                             <span class="text-success">أونلاين الان</span>
                                         @else
                                             <span class="text-danger">غير متاح الان</span>
                                         @endif
                                     </p>
+                                    <hr>
                                 </div>
                             <div>
                                 <p class="mx-1 mb-2" style="font-size: 15px">

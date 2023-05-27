@@ -9,7 +9,6 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-3">
                             <h6 class="card-title">{{$project->title}}</h6>
-                            <small class="small">{{$project->created_at->diffForHumans()}}</small>
                         </div>
 {{--                        @if($project->request_to_delivered && $project->status_id ==2 )--}}
 {{--                            <button wire:click="acceptDelivery({{$project->id}})" class="btn btn-danger mb-2">--}}
