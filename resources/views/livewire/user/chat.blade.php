@@ -10,6 +10,11 @@
                          wire:click="setReceiver({{$user->id}})">
                         <h5 class="card-title d-inline-block">{{$user->first_name . ' ' . $user->last_name}}</h5>
                         <img height="40" width="40" class="rounded-circle border" src="{{$user->avatar}}">
+                        @if($user->isOnline())
+                            <span class="online-point"></span>
+                        @else
+                            <span class="text-danger">غير متاح الان</span>
+                        @endif
                     </div>
 
                     <hr style="margin: 1px">

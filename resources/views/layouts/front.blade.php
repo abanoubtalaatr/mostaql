@@ -21,6 +21,17 @@
           href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <!-- start responsive -->
     {{--        <link rel="stylesheet" href="{{asset('assets_'.app()->getLocale())}}/css/responsive.css"/>--}}
+  <style>
+      .online-point {
+          display: inline-block;
+
+          width: 20px;
+          height: 20px;
+          background-color: green;
+          border-radius: 50%;
+          margin-right: 5px;
+      }
+  </style>
     @livewireStyles()
 </head>
 <!-- start body -->

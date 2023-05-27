@@ -5,16 +5,19 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\Factory as ViewFactory;
+use Illuminate\Http\Response;
 
 class CheckFeatureAccess
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
+    protected $view;
+
+    public function __construct(ViewFactory $view)
+    {
+        $this->view = $view;
+    }
+
+
     public function handle(Request $request, Closure $next, $featureId)
     {
         $user = Auth::user();
@@ -22,12 +25,17 @@ class CheckFeatureAccess
 
         // Check if the user is subscribed to the package containing the feature
         if (!$user->isSubscribed()) {
-            abort(403, 'انت غير مشترك في باقة لعمل هذا الاجراء');
+            $message = 'انت غير مشترك في باقة لعمل هذا الاجراء';
+            $view = $this->view->make('front.not_found', compact('message'));
+            return new Response($view->render());
         }
 
         // Check if the package has the specified feature
         if (!$user->activePackage()->hasFeature($featureId)) {
-            abort(403, 'باقاتك الحاليه لاتسمح لك بعمل هذا الاجراء برجاء شراء باقة تدعم هذا الاجراء');
+            $message = 'باقاتك الحاليه لاتسمح لك بعمل هذا الاجراء برجاء شراء باقة تدعم هذا الاجراء';
+            $view = $this->view->make('front.not_found', compact('message'));
+
+            return new Response($view->render());
         }
 
         return $next($request);

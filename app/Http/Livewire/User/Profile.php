@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\User;
 use App\Services\GenerateCodeService;
 use App\Services\OTPService;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
@@ -21,10 +22,12 @@ class Profile extends Component
     public $user;
     public $completedProject;
     public $underWork;
+    public $lastActiveAt;
 
     public function mount(User $user)
     {
         $this->user = $user;
+        $this->lastActiveAt = $user->last_active_at;
 
         $this->completedProject = $user->proposals()
             ->where('status_id', 12)
@@ -41,6 +44,7 @@ class Profile extends Component
             ->count();
 
     }
+
 
     public function render()
     {

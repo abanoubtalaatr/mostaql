@@ -42,30 +42,21 @@
             </a>
         </div>
     </div>
-    <div class="container mt-2">
+{{--    <div class="container mt-2">--}}
 {{--        <div class="row row-cols-2 row-cols-md-3 text-center" style="direction: rtl">--}}
-{{--            @if(auth()->id() != $user->id )--}}
 {{--                <div class="col mb-1">--}}
 {{--                    <div class="card bg-transparent border-0">--}}
 {{--                        <div class="card-body">--}}
-{{--                            <button class="btn extra-purple mb-3" id="idUser" onclick="copyContent()"--}}
-{{--                                    title="يمكنك من خلال رقم العضويه البحث عن المستخدم او ابلاغ الاداره من خلال رقم العضويه - اضغط للطباعه">--}}
-{{--                                {{$user->id}}--}}
+{{--                            <button class="btn extra-purple mb-3"--}}
+{{--                                    >--}}
+{{--                                --}}
 {{--                            </button>--}}
 {{--                        </div>--}}
 {{--                    </div>--}}
 {{--                </div>--}}
-{{--                <div class="col mb-1">--}}
-{{--                    <div class="card bg-transparent border-0">--}}
-{{--                        <div class="card-body">--}}
-{{--                            <a href="{{route('user.chats',['chat' => $user->id])}}" class="btn extra-green px-3 mb-3">تواصل--}}
-{{--                                الان</a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            @endif--}}
+
 {{--        </div>--}}
-    </div>
+{{--    </div>--}}
     <div class="container-fluid left-side-user mt-5">
         <div class="row row-cols-1 row-cols-md-1 text-right" style="direction: rtl">
             <div class="col-md-5 mb-4">
@@ -132,6 +123,17 @@
                         <h5 class="card-title">توثيقات</h5>
                         <div class="row row-cols-2 text-right mx-2 row-cols-lg-1 row-cols-md-1 row-cols-sm-1"
                              style="direction: rtl">
+
+                                <div>
+                                    <p class="mx-1 mb-2" style="font-size: 15px">
+                                        @if($user->isOnline())
+                                            <i class="fas fa-check"></i>
+                                            <span class="text-success">أونلاين الان</span>
+                                        @else
+                                            <span class="text-danger">غير متاح الان</span>
+                                        @endif
+                                    </p>
+                                </div>
                             <div>
                                 <p class="mx-1 mb-2" style="font-size: 15px">
                                     <i class="fas fa-check"></i>
@@ -156,6 +158,7 @@
                                     عضو موثوق
                                 </p>
                             </div>
+
                         </div>
                     </div>
                 </div>

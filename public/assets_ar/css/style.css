@@ -1285,3 +1285,25 @@ html {
         display: none;
     }
 }
+.page_404 {
+    padding: 20px 0;
+    background: transparent;
+}
+
+.page_404 img {
+    width: 100%;
+}
+
+.four-zero-four-bg {
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 400px;
+    background-position: center;
+}
+
+.four-zero-four-bg h1 {
+    font-size: 80px;
+}
+
+.contant-box-404 {
+    margin-top: -50px;
+}

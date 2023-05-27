@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Camp;
 use App\Services\Statuses;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Services\FCMService;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,6 +47,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             return false;
         }
         return true;
+    }
+
+    public function isOnline()
+    {
+        return $this->last_active_at && Carbon::parse($this->last_active_at)->diffInMinutes() < 5;
     }
 
     public function favourites()

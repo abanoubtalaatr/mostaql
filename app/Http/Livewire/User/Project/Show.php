@@ -135,12 +135,14 @@ class Show extends Component
         $user = Auth::user();
         // Check if the user is subscribed to the package containing the feature
         if (!$user->isSubscribed()) {
-            abort(403, 'انت غير مشترك في باقة لعمل هذا الاجراء');
+            $message = 'انت غير مشترك في باقة لعمل هذا الاجراء';
+            return view('front.403', compact('message'));
         }
 
         // Check if the package has the specified feature
         if (!$user->activePackage()->hasFeature(2)) {
-            abort(403, 'باقاتك الحاليه لاتسمح لك بعمل هذا الاجراء برجاء شراء باقة تدعم هذا الاجراء');
+            $message =  'باقاتك الحاليه لاتسمح لك بعمل هذا الاجراء برجاء شراء باقة تدعم هذا الاجراء';
+            return view('front.403', compact('message'));
         }
 
 
