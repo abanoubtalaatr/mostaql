@@ -16,6 +16,7 @@ class Index extends Component
     {
 
     }
+
     public function loadMore()
     {
         $this->perPage += 10;
@@ -24,12 +25,16 @@ class Index extends Component
 
     public function render()
     {
-        $users = User::where('user_type', 'freelancer')->where('id', '!=', auth()->id())
-            ->when(isset($this->search), function ($q) {
-                $q->where('first_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('last_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('id', $this->search);
-            })->paginate($this->perPage);
+        $users = User::when(isset($this->search), function ($q) {
+            $q->where('user_type', 'freelancer')
+                ->where('id', '!=', auth()->id())
+                ->where('first_name', 'like', '%' . $this->search . '%')
+                ->orWhere('last_name', 'like', '%' . $this->search . '%')
+                ->orWhere('id', $this->search);
+        })->when(!isset($this->search), function ($q) {
+            $q->where('user_type', 'freelancer')
+                ->where('id', '!=', auth()->id());
+        })->paginate($this->perPage);
 
         return view('livewire.user.user.index', compact('users'));
     }

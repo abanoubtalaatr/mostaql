@@ -6,6 +6,7 @@ use App\Http\Livewire\Traits\ValidationTrait;
 use App\Models\Money;
 use App\Models\Skill;
 use App\Services\Statuses;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Category;
@@ -49,7 +50,7 @@ class Create extends Component
         $validatedData = $this->validate();
 
         if (isset($this->form['file'])) {
-            $imagePath = $this->form['file']->store('public/images');
+            $imagePath = $this->form['file']->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->form['file']->extension(), 'public');
         }
 
         $project = Project::create([
@@ -66,7 +67,7 @@ class Create extends Component
         $project->skills()->sync($this->form['skills']);
         session()->flash('success', 'تم انشاء مشروعك بنجاج.');
 
-        return redirect(route('user.my_proposals'));
+        return redirect(route('user.my_projects'));
     }
 
 

@@ -17,6 +17,10 @@
                     <p class="card-text">
                         {{$project->description_ar??''}}
                     </p>
+                    <hr>
+                    @if(isset($project->file))
+                        <a target="_blank" class="text-white" href="{{url('uploads/pics/' . $project->file)}}"> <i class="fa fa-file mx-3"></i>مرفقات المشروع</a>
+                    @endif
                 </div>
             </div>
 
@@ -97,6 +101,9 @@
             @endif
         </div>
         <div class="col-md-8 mb-4">
+            @if(!empty($messageToTellUserCanNotAddProposalOrAdd))
+                <div class="alert alert-danger">{{$messageToTellUserCanNotAddProposalOrAdd}}</div>
+            @endif
             @if($showAddProposal)
                 <div class="card">
                     <form wire:submit.prevent="addProposal">

@@ -11,7 +11,12 @@
                             <div class="rounded">
                                 <img width="80" height="80" class="rounded-circle" src="{{$user->avatar}}" alt="">
                             </div>
-                            <p class="mt-2">{{$user->first_name. ' '. $user->last_name}}</p>
+                            <p class="mt-2">
+                                {{$user->first_name. ' '. $user->last_name}}
+                                <img class="verified-account"
+                                     style="width: 15px !important; height: 15px !important"
+                                     src="{{asset('images/certi.svg')}}" alt="">
+                            </p>
 
                             <ul class="d-flex justify-content-center">
                                 <li class="mx-1">
@@ -32,38 +37,34 @@
                     </div>
                 </div>
             </div>
+            <a href="/{{app()->getLocale()}}/user/chats?chat={{$user->id}}" class="btn extra-green px-3" style="position: absolute; top: 10px; left: 20px">
+                <i class="fas fa-envelope"></i>
+            </a>
         </div>
     </div>
     <div class="container mt-2">
-        <div class="row row-cols-2 row-cols-md-3 text-center" style="direction: rtl">
-            <div class="col mb-1">
-                <div class="card bg-transparent border-0">
-                    <div class="card-body">
-                        <button class="btn extra-green px-3 mb-3">عضو موثوق</button>
-                    </div>
-                </div>
-            </div>
-            @if(auth()->id() != $user->id )
-                <div class="col mb-1">
-                    <div class="card bg-transparent border-0">
-                        <div class="card-body">
-                            <button class="btn extra-purple mb-3" id="idUser" onclick="copyContent()"
-                                    title="يمكنك من خلال رقم العضويه البحث عن المستخدم او ابلاغ الاداره من خلال رقم العضويه - اضغط للطباعه">
-                                {{$user->id}}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-1">
-                    <div class="card bg-transparent border-0">
-                        <div class="card-body">
-                            <a href="{{route('user.chats',['chat' => $user->id])}}" class="btn extra-green px-3 mb-3">تواصل
-                                الان</a>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        </div>
+{{--        <div class="row row-cols-2 row-cols-md-3 text-center" style="direction: rtl">--}}
+{{--            @if(auth()->id() != $user->id )--}}
+{{--                <div class="col mb-1">--}}
+{{--                    <div class="card bg-transparent border-0">--}}
+{{--                        <div class="card-body">--}}
+{{--                            <button class="btn extra-purple mb-3" id="idUser" onclick="copyContent()"--}}
+{{--                                    title="يمكنك من خلال رقم العضويه البحث عن المستخدم او ابلاغ الاداره من خلال رقم العضويه - اضغط للطباعه">--}}
+{{--                                {{$user->id}}--}}
+{{--                            </button>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col mb-1">--}}
+{{--                    <div class="card bg-transparent border-0">--}}
+{{--                        <div class="card-body">--}}
+{{--                            <a href="{{route('user.chats',['chat' => $user->id])}}" class="btn extra-green px-3 mb-3">تواصل--}}
+{{--                                الان</a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
     </div>
     <div class="container-fluid left-side-user mt-5">
         <div class="row row-cols-1 row-cols-md-1 text-right" style="direction: rtl">
@@ -72,6 +73,10 @@
                     <div class="card-body">
                         <h5 class="card-title">إحصائيات</h5>
                         <div class="row row-cols-2 text-right mx-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-2">
+                            <h6 class="my-2">رقم العضويه</h6>
+                            <h6 class="my-2" title="يمكنك من خلال رقم العضويه البحث عن المستخدم او ابلاغ الاداره من خلال رقم العضويه - اضغط للطباعه">
+                                {{$user->id}}
+                            </h6>
                             <h6 class="my-2">التقييمات</h6>
                             <h6 class="my-2">
 
@@ -143,6 +148,12 @@
                                 <p class="mx-1 mb-2" style="font-size: 15px">
                                     <i class="fas fa-check"></i>
                                     الهوية الشخصية
+                                </p>
+                            </div>
+                            <div>
+                                <p class="mx-1 mb-2" style="font-size: 15px">
+                                    <i class="fas fa-check"></i>
+                                    عضو موثوق
                                 </p>
                             </div>
                         </div>

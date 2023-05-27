@@ -40,6 +40,7 @@ class Show extends Component
     public $user;
     public $userType;
     public $showDeliverProject = false;
+    public $messageToTellUserCanNotAddProposalOrAdd = '';
 
     public function mount(Project $project)
     {
@@ -57,7 +58,7 @@ class Show extends Component
     {
         if (auth()->user()) {
 
-            $proposal = Proposal::where('user_id',  \auth()->id())
+            $proposal = Proposal::where('user_id', \auth()->id())
                 ->where('project_id', $this->project->id)
                 ->where('status_id', 12)
                 ->first();
@@ -85,12 +86,25 @@ class Show extends Component
     public function checkShowAddProposal()
     {
 
-        if (auth()->user()) {
-            $IHaveProposalForThisProject = Proposal::where('user_id', auth()->id())->where('project_id', $this->project->id)->exists();
+        // we need if this user has proposal on this project if ok can edit it else can create
+        $this->proposal = Proposal::where('user_id', \auth()->id())
+            ->where('project_id', $this->project->id)
+            ->first();
 
-            if ($this->project->user_id == auth()->id() && auth()->user()->user_type == 'owner' && $IHaveProposalForThisProject) {
-                $this->showAddProposal = false;
+        if ($this->proposal && $this->proposal->status_id != 0) {
+            $this->showAddProposal = false;
+            $this->messageToTellUserCanNotAddProposalOrAdd = 'لاتستطيع ان تقدم عرض او تقوم بالتعديل لان هذا المشروع ليس في مرحله تقديم العروض';
+        }
+
+        if (empty($this->messageToTellUserCanNotAddProposalOrAdd)) {
+            if ($this->proposal) {
+                $this->form = $this->proposal->toArray();
+                $this->showAddProposal = true;
             }
+
+        }
+        if (\auth()->user()->user_type == 'owner' || $this->project->user_id == \auth()->id()) {
+            $this->showAddProposal = false;
         }
     }
 
@@ -118,7 +132,6 @@ class Show extends Component
 
     public function addProposal()
     {
-
         $user = Auth::user();
         // Check if the user is subscribed to the package containing the feature
         if (!$user->isSubscribed()) {
@@ -133,24 +146,42 @@ class Show extends Component
 
         $this->validate();
 
-        //
-        Proposal::create([
-            'user_id' => auth()->id(),
-            'project_id' => $this->project->id,
-            'number_of_days' => $this->form['number_of_days'],
-            'price' => $this->form['price'],
-            'description' => $this->form['description'],
-            'dues' => $this->dues,
-        ]);
+        if ($this->proposal) {
 
-        $user = User::find($this->project->user_id);
+            $this->proposal->update([
+                'number_of_days' => $this->form['number_of_days'],
+                'price' => $this->form['price'],
+                'description' => $this->form['description'],
+                'dues' => $this->dues,
+            ]);
+            $user = User::find($this->project->user_id);
 
 
 //        Mail::to($user->email)->send(new ProposalEmail($this->project, 'عرض جديد علي مشروعك'));
 
-        $this->createNotification($user, $this->project, 'عرض جديد علي مشروعك', 'عرض جديد علي مشروعك يمكنك الان تصفحة');
+            $this->createNotification($user, $this->project, ' تحديث العرض علي مشروعك', 'تحديث العرض علي مشروعك');
 
-        session()->flash('proposal_created', 'تم ارسال عرضك');
+            session()->flash('proposal_created', 'تم تحديث عرضك');
+        } else {
+            Proposal::create([
+                'user_id' => auth()->id(),
+                'project_id' => $this->project->id,
+                'number_of_days' => $this->form['number_of_days'],
+                'price' => $this->form['price'],
+                'description' => $this->form['description'],
+                'dues' => $this->dues,
+            ]);
+            $user = User::find($this->project->user_id);
+
+
+//        Mail::to($user->email)->send(new ProposalEmail($this->project, 'عرض جديد علي مشروعك'));
+
+            $this->createNotification($user, $this->project, 'عرض جديد علي مشروعك', 'عرض جديد علي مشروعك يمكنك الان تصفحة');
+
+            session()->flash('proposal_created', 'تم ارسال عرضك');
+        }
+
+
         return redirect("user/projects/" . $this->project->id);
     }
 

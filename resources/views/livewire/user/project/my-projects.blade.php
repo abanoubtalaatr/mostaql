@@ -1,6 +1,6 @@
 <div class="container mt-5 projects-card">
     <div class="text-right">
-        <h4 class="card-title">عروضي </h4>
+        <h4 class="card-title"> مشاريعي</h4>
     </div>
     <div class="row row-cols-1 row-cols-md-2 text-right">
         @foreach($projects as $project)
@@ -11,12 +11,12 @@
                             <h6 class="card-title">{{$project->title}}</h6>
                             <small class="small">{{$project->created_at->diffForHumans()}}</small>
                         </div>
-{{--                        @if($project->request_to_delivered && $project->status_id ==2 )--}}
-{{--                            <button wire:click="acceptDelivery({{$project->id}})" class="btn btn-danger mb-2">--}}
-{{--                                المواقفة علي استلام المشروع--}}
-{{--                                <i class="fas fa-briefcase"></i>--}}
-{{--                            </button>--}}
-{{--                        @endif--}}
+                        @if($project->request_to_delivered && $project->status_id ==2 )
+                            <button wire:click="acceptDelivery({{$project->id}})" class="btn btn-danger mb-2">
+                                المواقفة علي استلام المشروع
+                                <i class="fas fa-briefcase"></i>
+                            </button>
+                        @endif
                         <div>
 
                             <button class="mx-2 mb-2 btn small-btn-border">

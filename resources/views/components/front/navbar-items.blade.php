@@ -1,36 +1,45 @@
-<nav class="navbar navbar-expand-lg py-5 navbar-dark" dir="ltr" xmlns="http://www.w3.org/1999/html">
+<nav class="navbar navbar-expand-lg py-5 navbar-dark">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        @if(auth()->user())
-            <ul class="navbar-nav my-2 my-lg-0 on-responsive">
+        <ul class="navbar-nav my-2 my-lg-0 on-responsive">
+            @if(auth()->user())
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                       aria-expanded="false">
-                        <img width="40" height="40" class="rounded-circle" src="{{auth()->user()->avatar}}" alt="">
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/profile/{{auth()->id()}}"> حسابي </a>
-                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/my-favourite"> مفضلتي </a>
-                        <a class="dropdown-item" href="/{{app()->getLocale()}}/terms"> ضمان الحقوق </a>
-                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/wallet"> الرصيد </a>
-                        <a class="dropdown-item" href="/{{app()->getLocale()}}/user/edit-profile">
-                            تعديل الحساب
+                    <ul class="on-responsive-circle-img">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <img width="40" height="40" class="rounded-circle" src="{{auth()->user()->avatar}}" alt="">
                         </a>
-                        <a class="dropdown-item" href="/{{app()->getLocale()}}/support"> الدعم الفني </a>
-                        <div class="dropdown-divider"></div>
-                        <form action="{{route('user.logout')}}" method="get">
-                            @csrf
-                            <button type="submit" class="dropdown-item text-white"> تسجيل خروج</button>
-                        </form>
-
-                    </div>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"
+                                   href="/{{app()->getLocale()}}/user/profile/{{auth()->id()}}">حسابي</a>
+                                <a class="dropdown-item" href="/{{app()->getLocale()}}/user/my-favourite">مفضلتي</a>
+                                <a class="dropdown-item" href="/{{app()->getLocale()}}/user/wallet">الرصيد</a>
+                                <a class="dropdown-item" href="/{{app()->getLocale()}}/user/edit-profile"
+                                >تعديل الحساب</a
+                                >
+                                <a class="dropdown-item" href="/{{app()->getLocale()}}/support">الدعم الفني</a>
+                                <div class="dropdown-divider"></div>
+                                <form action="{{route('user.logout')}}" method="get">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-white"> تسجيل خروج</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
+
                 <li class="nav-item mx-2 mt-1">
                     <a class="nav-link" href="/{{app()->getLocale()}}/user/notifications">
-                        <i class="fas fa-bell"></i><span class="text-danger" > {{auth()->user()->notifications->where('when_read', null)->count()}}</span>
+                        <i class="fas fa-bell"></i>
+                        <span
+                            class="text-danger">{{auth()->user()->notifications()->whereNull('when_read')->count()}}</span>
                     </a>
                 </li>
                 <li class="nav-item mx-2 mt-1">
-                    <a hre class="nav-link" href="/{{app()->getLocale()}}/user/chats">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/chats">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </li>
@@ -39,49 +48,74 @@
                         <i class="fas fa-search"></i>
                     </a>
                 </li>
-            </ul>
-        @endif
-        @if(!auth()->user())
-            <ul class="navbar-nav my-2 my-lg-0 text-right">
-                <li class="nav-item mx-4">
-                    <a class="nav-link" href="/{{app()->getLocale()}}/user/register">انشاء حساب</a>
-                </li>
-                <li class="nav-item mx-4">
-                    <a class="nav-link" href="/{{app()->getLocale()}}/user/login">تسجيل دخول</a>
-                </li>
-            </ul>
-        @endif
+            @endif
+
+            @if(!auth()->user()) {
+            <li class="nav-item mx-2 mt-1">
+                <a class="nav-link" href="/{{app()->getLocale()}}/user/register">
+                    أنشاء حساب
+                </a>
+            </li>
+            <li class="nav-item mx-2 mt-1">
+                <a class="nav-link" href="/{{app()->getLocale()}}/user/login">
+                    تسجيل دخول
+                </a>
+            </li>
+
+            @endif
+        </ul>
         <ul class="navbar-nav ml-auto text-right">
             <li class="nav-item mx-4">
                 <a class="nav-link" href="/{{app()->getLocale()}}/terms"> حقوقك</a>
             </li>
+            <div class="data-usr-aftr-access-hole">
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/profile/{{auth()->id()}}"> حسابي</a>
+                </li>
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/my-favourite"> مفضلتي</a>
+                </li>
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/terms"> ضمان الحقوق</a>
+                </li>
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/wallet"> الرصيد</a>
+                </li>
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/edit-profile"> تعديل الحساب </a>
+                </li>
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/support"> الدعم الفني </a>
+                </li>
+            </div>
             <li class="nav-item mx-4">
                 <a class="nav-link" href="/{{app()->getLocale()}}/user/packages">الباقات</a>
             </li>
-            <li class="nav-item mx-4">
-                <a class="nav-link" href="/{{app()->getLocale()}}/user/my-proposals">عروضي</a>
-            </li>
+            @if(isset(auth()->user()->user_type) &&  auth()->user()->user_type !='owner')
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/my-proposals">عروضي</a>
+                </li>
+            @endif
+            @if(isset(auth()->user()->user_type) && auth()->user()->user_type !='freelancer')
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/my-projects">مشاريعي</a>
+                </li>
+            @endif
             <li class="nav-item mx-4">
                 <a class="nav-link" href="/{{app()->getLocale()}}/user/projects">تصفح المشاريع</a>
             </li>
             @if(!auth()->user() || auth()->user()->user_type !='freelancer' )
                 <li class="nav-item mx-4">
-                    <a class="nav-link" href="/{{app()->getLocale()}}/user/create-project">
-                        اضف مشروع </a>
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/create-project">اضف مشروع</a>
                 </li>
             @endif
+            <div class="dropdown-divider"></div>
+            <li class="nav-item mx-4 logout">
+                <form action="{{route('user.logout')}}" method="get">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-white"> تسجيل خروج</button>
+                </form>
+            </li>
         </ul>
     </div>
-    <a class="navbar-brand" href="#">LOGO</a>
-    <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-    >
-        <span class="navbar-toggler-icon"></span>
-    </button>
 </nav>

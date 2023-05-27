@@ -29,13 +29,6 @@ class Index extends Component
 
     public function getRecords()
     {
-        $createdProjects = DB::table('projects')
-            ->where('user_id', auth()->id())
-            ->select('id')
-            ->get()
-            ->pluck('id')
-            ->toArray();
-
         $proposedProjects = DB::table('proposals')
             ->where('user_id', auth()->id())
             ->select('project_id as id')
@@ -43,9 +36,7 @@ class Index extends Component
             ->pluck('id')
             ->toArray();
 
-        $projectIds = array_merge($createdProjects, $proposedProjects);
-
-        return Project::whereIn('id', $projectIds)->latest()->get();
+        return Project::whereIn('id', $proposedProjects)->latest()->get();
     }
 
     public function acceptDelivery(Project $project)

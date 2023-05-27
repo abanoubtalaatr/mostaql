@@ -20,7 +20,11 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-
         return view('front.user.project.show', compact('project'));
+    }
+
+    public function myProjects()
+    {
+        return view('front.user.project.my_projects');
     }
 }
