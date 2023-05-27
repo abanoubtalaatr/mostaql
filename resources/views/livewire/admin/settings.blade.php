@@ -160,12 +160,12 @@
 {{--                        </div>--}}
                     </div>
                     <div class="row">
-{{--                        <div class="col-4">--}}
-{{--                            <label for="">@lang('validation.attributes.min_ad_view_duration')</label>--}}
-{{--                            <input wire:model='form.min_ad_view_duration'  placeholder="@lang('validation.attributes.min_ad_view_duration')" class="@error('form.min_ad_view_duration') is-invalid @enderror form-control contact-input" type="text"/>--}}
-{{--                            @error('form.min_ad_view_duration') <p class="text-danger">{{$message}}</p> @enderror--}}
-{{--                            <hr/>--}}
-{{--                        </div>--}}
+                        <div class="col-12">
+                            <label for="">@lang('site.text_fo_accept_deal')</label>
+                            <textarea rows="4" wire:model='form.text_fo_accept_deal'  placeholder="@lang('site.text_fo_accept_deal')" class="@error('form.text_fo_accept_deal') is-invalid @enderror form-control contact-input" ></textarea>
+                            @error('form.text_fo_accept_deal') <p class="text-danger">{{$message}}</p> @enderror
+                            <hr/>
+                        </div>
 
 {{--                        <div class="col-4">--}}
 {{--                            <label for="">@lang('validation.attributes.solider_ad_max_profit')</label>--}}

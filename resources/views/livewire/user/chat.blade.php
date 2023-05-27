@@ -11,9 +11,9 @@
                         <h5 class="card-title d-inline-block">{{$user->first_name . ' ' . $user->last_name}}</h5>
                         <img height="40" width="40" class="rounded-circle border" src="{{$user->avatar}}">
                         @if($user->isOnline())
-                            <span class="online-point"></span>
+                            <div class="online-user"></div>
                         @else
-                            <span class="text-danger">غير متاح الان</span>
+                            <div class="offline-user"></div>
                         @endif
                     </div>
 

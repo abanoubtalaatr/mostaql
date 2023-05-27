@@ -58,10 +58,8 @@
                     <div class="card bg-transparent">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-3">
-                                <a href="">
+                                <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}">
                                     <h6 class="card-title">{{$project->title}}</h6>
-
-                                    <small class="small">{{$project->created_at->diffForHumans()}}</small>
                                 </a>
                             </div>
 {{--                            <ul class="owner-details">--}}
@@ -79,10 +77,10 @@
 {{--                                    {{$project->proposals->count()}} <span class="d-inline-block">عرض  </span>--}}
 {{--                                </li>--}}
 {{--                            </ul>--}}
-                            <button class="mx-2 mb-2 btn small-btn-border">
+                            <a href="/{{app()->getLocale()}}/user/profile/{{$project->user->id}}" class="mx-2 mb-2 btn small-btn-border">
                                 {{$project->user->first_name . ' ' . $project->user->last_name}}
                                 <i class="fas fa-user"></i>
-                            </button>
+                            </a>
                             <button class="mx-2 mb-2 btn small-btn-border">
                                 {{$project->proposals->count()}}  <span class="d-inline-block">عرض  </span>
                                 <i class="fas fa-paperclip"></i>

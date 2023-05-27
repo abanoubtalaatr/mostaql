@@ -42,7 +42,8 @@ class Settings extends Component
             'twitter' => 'string|min:10|max:1000',
             'snap_chat' => 'string|min:10|max:255',
             'taxes' => 'integer',
-            'platform_dues' => 'integer'
+            'platform_dues' => 'integer',
+            'text_fo_accept_deal' => 'nullable'
         ];
     }
 

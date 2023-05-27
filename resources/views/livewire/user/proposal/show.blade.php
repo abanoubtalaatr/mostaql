@@ -37,16 +37,15 @@
                 <div class="card-body text-right">
                     <h5 class="card-title">الموافقه علي الصفقه</h5>
                     <p class="card-text my-4">
-                        في حاله الموافقه علي الصفقه سوف يتم ارسال الاموال من خلال جهتكم
-                        ليتم الاحتفاظ بها عن طريق الموقع ولن يتم تسليمها الي المستقل الا
-                        في حاله تمت الموافقه علي تسليم الصفقه من خلالكم مع العلم سوف
-                        يضمن لك الموقع الاحتفاظ بالاموال لمده 14 يوم من بعد نزولها في
-                        حساب المستقل حيث لن يتمكن من سحب الارباح الا بعد مرور 14 يوما
-                        بعد تسليم العمل بشكل كامل حيث في تلك الفتره هذه يضمن لك الموقع
-                        استعاده اموالك في حاله اذا حدثت عمليه نصب من خلال المستقل
+                        {{\App\Models\Setting::first()->text_fo_accept_deal}}
                     </p>
-                    <button type="submit" class="btn extra-green mb-2" wire:click.prevent="pay">تنفيذ العمل وحجز المبلغ
-                    </button>
+                    @if(auth()->check())
+                        @if($proposal->project->user->id == auth()->id() && $proposal->project->status_id !=3 )
+                            <button type="submit" class="btn extra-green mb-2" wire:click.prevent="pay">تنفيذ العمل وحجز
+                                المبلغ
+                            </button>
+                        @endif
+                    @endif
                     <a href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}"
                        class="btn extra-purple mb-2 text-decoration-none">
                         عرض ملف المستقل

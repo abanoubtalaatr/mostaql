@@ -59,7 +59,7 @@
 <div class="container-mobile">
     <ul class="nav-mobile">
         <li>
-            <a href="{{app()->getLocale()}}/user/projects"><i class="fas fa-home"></i> </a>
+            <a href="/{{app()->getLocale()}}/user/projects"><i class="fas fa-home"></i> </a>
             <br/>
             <span>الرئيسيه</span>
         </li>

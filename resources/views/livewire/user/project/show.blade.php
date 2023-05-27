@@ -19,7 +19,8 @@
                     </p>
                     <hr>
                     @if(isset($project->file))
-                        <a target="_blank" class="text-white" href="{{url('uploads/pics/' . $project->file)}}"> <i class="fa fa-file mx-3"></i>مرفقات المشروع</a>
+                        <a target="_blank" class="text-white" href="{{url('uploads/pics/' . $project->file)}}"> <i
+                                class="fa fa-file mx-3"></i>مرفقات المشروع</a>
                     @endif
                 </div>
             </div>
@@ -186,12 +187,27 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                @if($project->status_id != 3 )
-                                    @if($userType !='freelancer')
-                                        <a href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}"
-                                           class="btn extra-green">التفاصيل</a>
-                                    @endif
-                                @endif
+
+                                <ul class="navbar-nav fr-user-settings">
+                                    <li class="nav-item dropdown">
+                                        <a
+                                            class="nav-link dropdown-toggle"
+                                            href="#"
+                                            role="button"
+                                            data-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            التفاصيل
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}">تفاصيل العرض</a>
+                                            <a class="dropdown-item" href="/{{app()->getLocale()}}/user/projects/{{$project->id}}">تعديل العرض</a>
+                                            <a class="dropdown-item" href="/{{app()->getLocale()}}/support"
+                                            >ارسال بلاغ</a
+                                            >
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div class="mx-2 d-flex">

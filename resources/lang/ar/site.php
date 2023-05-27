@@ -446,5 +446,6 @@ return [
     'number_of_project' => 'عدد المشاريع',
     'number_of_proposal' => 'عدد العروض',
     'period' => 'المدة بالاشهر',
-    'price' => 'السعر'
+    'price' => 'السعر',
+    'text_fo_accept_deal' => 'الموافقة علي تسليم الصفقة'
 ];
