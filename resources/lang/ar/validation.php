@@ -611,6 +611,7 @@ return [
         'period'  =>'المدة بالاشهر',
         'number_of_project' => 'عدد المشاريع',
         'number_of_proposal' => 'عدد العروض',
-        'features' => 'المميزات'
+        'features' => 'المميزات',
+        'code'  => 'الكود'
      ],
 ];

@@ -17,7 +17,7 @@
                 </div>
                 <div class="card mt-4 px-2 pb-3 mb-4 descripe-project text-right">
                     <div class="text-right mt-4 mb-2">
-                        <h5 class="card-title">إضافة عمل جديد</h5>
+                        <h5 class="card-title">إضافة عمل سابق</h5>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2">
                         <div class="col-lg-12 col-md-12 mb-2">
@@ -44,7 +44,7 @@
                             <div class="text-right">نوع الحساب</div>
 
                             <label class="form-check-label chossen" for="user_type1">
-                                صاحب مشاريع (أبحث عن مستقلين لتنفيذ مشاريعي)
+                                صاحب مشاريع (أبحث عن منفذين لتنفيذ مشاريعي)
                             </label>
                             <input wire:model.defer="form.user_type" class="form-check-input" type="radio"
                                    name="user_type" id="user_type1" value="owner">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-check">
                             <label class="form-check-label chossen" for="user_type2">
-                                مستقل (أبحث عن مشاريع لتنفيذها)
+                                منفذين (أبحث عن مشاريع لتنفيذها)
                             </label>
                             <input wire:model.defer="form.user_type" class="form-check-input" type="radio"
                                    name="user_type" id="user_type2"
@@ -60,7 +60,7 @@
                         </div>
                         <div class="form-check">
                             <label class="form-check-label chossen" for="user_type3">
-                                صاحب مشاريع ومستقل
+                                صاحب مشاريع منفذ
                             </label>
                             <input wire:model.defer="form.user_type" class="form-check-input" type="radio"
                                    name="user_type" id="user_type3"

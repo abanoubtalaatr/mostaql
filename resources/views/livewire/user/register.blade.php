@@ -9,22 +9,22 @@
                     <h4 class="card-title">معلومات عنا</h4>
                     <p class="card-text">
                         موقع .. هو أكبر منصة للعمل الحر في المملكه العربيه السعوديه يعمل
-                        موقع ..على وصل الشركات وأصحاب المشاريع بأفضل المستقلين المحترفين
+                        موقع ..على وصل الشركات وأصحاب المشاريع بأفضل المنفذين المحترفين
                         لمساعدتهم على تنفيذ أفكارهم ومشاريعهم او توظيفهم بشكل دائم ، وفي
-                        الوقت نفسه يتيح للمستقلين مكانا لإيجاد مشاريع يعملون عليها
+                        الوقت نفسه يتيح للمنفذين مكانا لإيجاد مشاريع يعملون عليها
                         وزيادة مصادر دخلهم.
                     </p>
                     <p class="card-text">
                         تستطيع من خلال موقع .. إضافة مشروعك الذي ترغب بتنفيذه بالاشتراك
                         في باقه من ضمن الباقات المتاحه لتحصل على عشرات العروض من أفضل
-                        المستقلين بداخل المملكه
+                        المنفذين بداخل المملكه
 
                         <br>
                         <br>
                         ، وتتمكن ايضا من الاشتراك في باقه للاعلان عن خدمتك داخل الموقع
-                        يمكنك ايضا اختيار العرض المناسب لمشروعك ليبدأ المستقل العمل على
-                        تنفيذه. تضمن لك منصة .. حقوقك كصاحب مشروع أو مستقل، حيث يعمل
-                        مستقل كوسيط بين الطرفين إلى أن يتم تسليم العمل كاملاً
+                        يمكنك ايضا اختيار العرض المناسب لمشروعك ليبدأ المنفذ العمل على
+                        تنفيذه. تضمن لك منصة .. حقوقك كصاحب مشروع أو منفذ، حيث يعمل
+                        منفذ كوسيط بين الطرفين إلى أن يتم تسليم العمل كاملاً
                     </p>
                     <a href="/{{app()->getLocale()}}/user/login" class="btn extra-green" style="text-decoration: none">هل
                         لديك حساب ؟</a>
@@ -56,6 +56,7 @@
                         </select>
                         @error('form.country_id') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
+
                     <div class="col-md-6 my-2">
                         <label for="">المدينه</label>
                         <select wire:model.defer="form.city_id" id="" class="form-control text-right">
@@ -66,12 +67,22 @@
                         </select>
                         @error('form.city_id') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
+
                     <div class="col-md-6 my-2">
                         <label for="">رقم الجوال</label>
                         <input wire:model.defer="form.mobile" type="tel" class="form-control text-right" maxlength="9"
                                placeholder="ادخل الرقم السعودي الخاص بك فقط">
 
                         @error('form.mobile') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for="">رقم الجوال</label>
+                        <div class="input-group mb-3">
+                            <input  wire:model.defer="form.mobile" class="form-control" placeholder="ادخل الرقم الخاص بك فقط" aria-describedby="" type="tel">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">{{$countryCode ??'+966'}}</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6 my-2">
                         <label for="">البريد الالكتروني</label>

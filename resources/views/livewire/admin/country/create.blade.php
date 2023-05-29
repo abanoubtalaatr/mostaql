@@ -18,6 +18,14 @@
                             @error('form.value') <p class="text-danger">{{$message}}</p> @enderror
                             <hr/>
                         </div>
+                        <div class="col-6">
+                            <input
+                                wire:model='form.code'
+                                class="@error('form.code') is-invalid @enderror form-control contact-input"
+                                type="text" placeholder="@lang('validation.attributes.code')"/>
+                            @error('form.code') <p class="text-danger">{{$message}}</p> @enderror
+                            <hr/>
+                        </div>
 
 
 {{--                        <div class="col-6">--}}

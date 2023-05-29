@@ -10,8 +10,8 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $user_type, $status, $username, $email, $page_title,$first_name,$last_name;
-    protected $queryString = ['status', 'email', 'email', 'first_name', 'user_type'];
+    public $user_type, $status, $username, $email, $page_title,$first_name,$last_name, $mobile;
+    protected $queryString = ['status', 'email', 'email', 'first_name', 'user_type', 'mobile'];
 
     protected $paginationTheme = 'bootstrap';
 
@@ -29,6 +29,8 @@ class Index extends Component
                 return $query->whereUserType($this->user_type);
             })->when(!empty($this->username), function ($query) {
                 return $query->where('first_name', 'LIKE', '%' . $this->first_name . '%');
+            })->when(!empty($this->mobile), function ($query) {
+                return $query->where('mobile', 'LIKE', '%' . $this->mobile . '%');
             })->when(!empty($this->email), function ($query) {
                 return $query->where('email', 'LIKE', '%' . $this->email . '%');
             })->paginate();
@@ -47,11 +49,6 @@ class Index extends Component
     public function render()
     {
         $records = $this->getRecords();
-        if ($records->count() == 0) {
-            $this->reset(['email', 'username', 'user_type', 'status']);
-            $this->resetPage();
-            $records = $this->getAllWithoutFilter();
-        }
 
         return view('livewire.admin.users.index', compact('records'))->layout('layouts.admin');
     }

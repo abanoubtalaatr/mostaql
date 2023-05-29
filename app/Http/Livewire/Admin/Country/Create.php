@@ -30,7 +30,7 @@ class Create extends Component{
     public function getRules(){
         return [
             'form.value'=>'required|max:500',
-//            'form.title_en'=>'required|max:500',
+            'form.code'=>'required|max:500',
 //            'picture'=>'required|file|mimes:png,jpg,jpeg|max:10240'
         ];
     }

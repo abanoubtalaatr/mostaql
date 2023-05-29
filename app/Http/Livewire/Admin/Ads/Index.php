@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Ads;
 
 use App\Models\Ad;
 use App\Models\Camp;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -40,9 +41,12 @@ class Index extends Component
 
     public function getRecords()
     {
-
-        return
-            Ad::latest()->paginate();
+        $now = Carbon::now();
+        $ads = Ad::paginate();
+        foreach ($ads as $ad) {
+            $ad->status = $ad->end_at > $now ? 'active' : 'finish';
+        }
+        return $ads;
     }
 
     public function render()

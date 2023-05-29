@@ -35,7 +35,7 @@
                     <a class="nav-link" href="/{{app()->getLocale()}}/user/notifications">
                         <i class="fas fa-bell"></i>
                         <span
-                            class="text-danger">{{auth()->user()->notifications()->whereNull('when_read')->count()}}</span>
+                            class="text-white" style="Font-weight : bold;">{{auth()->user()->notifications()->whereNull('when_read')->count()}}</span>
                     </a>
                 </li>
                 <li class="nav-item mx-2 mt-1">
@@ -69,21 +69,25 @@
                 <a class="nav-link" href="/{{app()->getLocale()}}/terms"> حقوقك</a>
             </li>
             <div class="data-usr-aftr-access-hole">
-                <li class="nav-item mx-4">
-                    <a class="nav-link" href="/{{app()->getLocale()}}/user/profile/{{auth()->id()}}"> حسابي</a>
-                </li>
-                <li class="nav-item mx-4">
-                    <a class="nav-link" href="/{{app()->getLocale()}}/user/my-favourite"> مفضلتي</a>
-                </li>
+
                 <li class="nav-item mx-4">
                     <a class="nav-link" href="/{{app()->getLocale()}}/terms"> ضمان الحقوق</a>
                 </li>
+                @if(auth()->check())
+                    <li class="nav-item mx-4">
+                        <a class="nav-link" href="/{{app()->getLocale()}}/user/profile/{{auth()->id()}}"> حسابي</a>
+                    </li>
+                    <li class="nav-item mx-4">
+                        <a class="nav-link" href="/{{app()->getLocale()}}/user/my-favourite"> مفضلتي</a>
+                    </li>
                 <li class="nav-item mx-4">
                     <a class="nav-link" href="/{{app()->getLocale()}}/user/wallet"> الرصيد</a>
                 </li>
+
                 <li class="nav-item mx-4">
                     <a class="nav-link" href="/{{app()->getLocale()}}/user/edit-profile"> تعديل الحساب </a>
                 </li>
+                @endif
                 <li class="nav-item mx-4">
                     <a class="nav-link" href="/{{app()->getLocale()}}/support"> الدعم الفني </a>
                 </li>

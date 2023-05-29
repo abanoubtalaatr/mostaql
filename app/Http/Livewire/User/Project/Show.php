@@ -103,7 +103,7 @@ class Show extends Component
             }
 
         }
-        if (\auth()->user()->user_type == 'owner' || $this->project->user_id == \auth()->id()) {
+        if (auth()->check() && \auth()->user()->user_type == 'owner' || $this->project->user_id == \auth()->id()) {
             $this->showAddProposal = false;
         }
     }

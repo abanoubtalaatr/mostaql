@@ -18,6 +18,11 @@ class ProjectController extends Controller
         return view('front.user.project.create');
     }
 
+    public function showEditProject(Project $project)
+    {
+        return view('front.user.project.edit', compact('project'));
+    }
+
     public function show(Project $project)
     {
         return view('front.user.project.show', compact('project'));

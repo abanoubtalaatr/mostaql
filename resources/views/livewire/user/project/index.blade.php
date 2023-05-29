@@ -52,69 +52,56 @@
         @endif
         <div class="row row-cols-1 row-cols-md-2 text-right">
             @foreach($projects as $project)
-
                 <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
-
                     <div class="card bg-transparent">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
+                            <div class="top-pj-color">
                                 <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}">
                                     <h6 class="card-title">{{$project->title}}</h6>
                                 </a>
+                                <button class="mx-2 mb-1 btn small-btn-border">
+                                    <a href="/{{app()->getLocale()}}/user/profile/{{$project->user->id}}">
+                                        {{$project->user->first_name .' '. $project->user->last_name}}
+                                        <i class="fas fa-user"></i>
+                                    </a>
+                                </button>
+                                <button class="mx-2 mb-1 btn small-btn-border">
+                                    <a href="javascript:void(0)">
+                                        {{($project->user?$project->user->city->name_ar:'')}}
+                                        <i class="fas fa-home"></i>
+                                    </a>
+                                </button>
+                                <button class="mx-2 mb-1 btn small-btn-border">
+                                    <a href="javascript:void(0)">
+                                        {{\Carbon\Carbon::parse($project->created)->diffForHumans()}}
+                                        <i class="fas fa-clock"></i>
+                                    </a>
+                                </button>
+
+                                <button class="mx-2 mb-1 btn small-btn-border">
+                                    <a href="javascript:void(0)">
+                                        {{$project->price}}
+                                        <i class="far fa-money-bill-alt"></i>
+                                    </a>
+                                </button>
                             </div>
-{{--                            <ul class="owner-details">--}}
-{{--                                <li>--}}
-{{--                                    <a href="/{{app()->getLocale()}}/user/profile/{{$project->user->id}}"--}}
-{{--                                       class="text-dark">--}}
-{{--                                        <i class="fas fa-user"></i>--}}
 
-{{--                                        {{$project->user->first_name . ' ' . $project->user->last_name}}--}}
-{{--                                    </a>--}}
-
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <i class="fas fa-paperclip"></i>--}}
-{{--                                    {{$project->proposals->count()}} <span class="d-inline-block">عرض  </span>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-                            <a href="/{{app()->getLocale()}}/user/profile/{{$project->user->id}}" class="mx-2 mb-2 btn small-btn-border">
-                                {{$project->user->first_name . ' ' . $project->user->last_name}}
-                                <i class="fas fa-user"></i>
-                            </a>
-                            <button class="mx-2 mb-2 btn small-btn-border">
-                                {{$project->proposals->count()}}  <span class="d-inline-block">عرض  </span>
-                                <i class="fas fa-paperclip"></i>
-                            </button>
-                            <button class="mx-2 mb-2 btn small-btn-border">
-                                {{($project->user?$project->user->city->name_ar:'')}}
-
-                                <i class="fas fa-home"></i>
-                            </button>
-                            <button class="mx-2 mb-2 btn small-btn-border">
-                                {{$project->created_at->diffForHumans()}}
-                                <i class="fas fa-clock"></i>
-                            </button>
-                            <button class="mx-2 mb-2 btn small-btn-border">
-                                {{$project->price}}
-                                <i class="fas fa-money-check-alt"></i>
-                            </button>
-
-                            <p class="card-text my-4 content">
-                                <span class="dots">{{$project->title}}</span>
-                                <span class="hide more">{{$project->description_ar}}</span>
+                            <p class="card-text my-3 content">
+                                {{$project->description_ar}}
                             </p>
 
                             <button class="btn extra-purple mb-2" onclick="readMore(this)">
                                 اقرا المزيد
                             </button>
-
-                            <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}"
-                               style="text-decoration: none" class="btn extra-green more mb-2">
-                                تصفح المشروع
+                            <a
+                                href="/{{app()->getLocale()}}/user/projects/{{$project->id}}"
+                                style="text-decoration: none"
+                                class="btn extra-green more mb-2"
+                            >
+                                اضف عرضك الان
                             </a>
                         </div>
                     </div>
-
                 </div>
             @endforeach
 
@@ -143,55 +130,67 @@
                     <img height="250" src="{{asset($ad->photo_url)}}" width="100%" alt="">
                     <div
                         class="row row-cols-3 row-cols-lg-3 text-center row-cols-md-3 row-cols-sm-3">
-                        <div class="col mb-1">
-                            <div class="card bg-transparent border-0">
-                                <div class="card-body">
-                                    <a target="_blank" href="{{$ad->snap_chat}}" class="join-us"><i
-                                            class="fab fa-snapchat-ghost"></i></a>
+                        @if(!empty($ad->snap_chat))
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->snap_chat}}" class="join-us"><i
+                                                class="fab fa-snapchat-ghost"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col mb-1">
-                            <div class="card bg-transparent border-0">
-                                <div class="card-body">
-                                    <a target="_blank" href="{{$ad->website}}" class="join-us"><i
-                                            class="fas fa-globe-europe"></i></a>
+                        @endif
+                        @if(!empty($ad->website))
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->website}}" class="join-us"><i
+                                                class="fas fa-globe-europe"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col mb-1">
-                            <div class="card bg-transparent border-0">
-                                <div class="card-body">
-                                    <a target="_blank" href="{{$ad->location}}" class="join-us"><i
-                                            class="fas fa-map-marker-alt"></i>
-                                    </a>
+                        @endif
+                        @if(!empty($ad->location))
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->location}}" class="join-us"><i
+                                                class="fas fa-map-marker-alt"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col mb-1">
-                            <div class="card bg-transparent border-0">
-                                <div class="card-body">
-                                    <a target="_blank" href="{{$ad->facebook}}" class="join-us"><i
-                                            class="fab fa-facebook-square"></i></a>
+                        @endif
+                        @if(!empty($ad->facebook))
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->facebook}}" class="join-us"><i
+                                                class="fab fa-facebook-square"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col mb-1">
-                            <div class="card bg-transparent border-0">
-                                <div class="card-body">
-                                    <a target="_blank" href="{{$ad->instagram}}" class="join-us"><i
-                                            class="fab fa-instagram"></i></a>
+                        @endif
+                        @if(!empty($ad->instagram))
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->instagram}}" class="join-us"><i
+                                                class="fab fa-instagram"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col mb-1">
-                            <div class="card bg-transparent border-0">
-                                <div class="card-body">
-                                    <a target="_blank" href="{{$ad->twitter}}" class="join-us"><i
-                                            class="fab fa-twitter"></i></a>
+                        @endif
+                        @if(!empty($ad->twitter))
+                            <div class="col mb-1">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{$ad->twitter}}" class="join-us"><i
+                                                class="fab fa-twitter"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -207,9 +206,10 @@
 @endforeach
 
 <style>
-    .modal{
+    .modal {
         z-index: 400000;
     }
+
     .loader {
         border: 10px solid #f3f3f3;
         border-radius: 50%;

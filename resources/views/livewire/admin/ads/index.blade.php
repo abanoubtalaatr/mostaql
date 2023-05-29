@@ -19,7 +19,7 @@
                         <th>@lang('messages.Ad_Title')</th>
                         <th>@lang('messages.start_at')</th>
                         <th>@lang('messages.end_at')</th>
-                        {{-- <th>@lang('messages.description')</th> --}}
+                        <th>@lang('messages.status')</th>
 
                         <th>@lang('site.actions')</th>
                     </tr>
@@ -30,16 +30,26 @@
                             <td>{{$record->title}}</td>
                             <td>{{\Carbon\Carbon::parse($record->start_at)->format('Y-m-d')}}</td>
                             <td>{{\Carbon\Carbon::parse($record->end_at)->format('Y-m-d')}}</td>
+                            @if($record->status =='active')
+                                <td>
+                                    <button class="btn btn-success">فعال</button>
+                                </td>
+                            @else
+                                <td>
+                                    <button class="btn btn-danger">منتهي</button>
+                                </td>
+                            @endif
                             <td>
                                 <div class="actions">
 
-{{--                                    <a href="{{route('admin.ads.delete',$record)}}" class='no-btn'><i--}}
-{{--                                            class="far fa-user green"></i></a>--}}
+                                    {{--                                    <a href="{{route('admin.ads.delete',$record)}}" class='no-btn'><i--}}
+                                    {{--                                            class="far fa-user green"></i></a>--}}
 
 
                                     <a href="{{route('admin.advertisements.edit',$record)}}" class='no-btn'><i
                                             class="far fa-edit red"></i></a>
-                                    <button class="no-btn" wire:click='destroy({{$record->id}})'><i class="fas fa-trash red"></i></button>
+                                    <button class="no-btn" wire:click='destroy({{$record->id}})'><i
+                                            class="fas fa-trash red"></i></button>
 
                                 </div>
                             </td>

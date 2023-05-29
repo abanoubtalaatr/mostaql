@@ -58,11 +58,12 @@ a {
 
 .disabled {
     cursor: not-allowed !important;
-    background: #E3E1DE !important;
+    background: #e3e1de !important;
     color: #000;
 }
 
-h4, h5 {
+h4,
+h5 {
     color: var(---purple);
 }
 
@@ -254,14 +255,17 @@ a {
     margin-top: -50px;
 }
 
-button, .extra-purple, .extra-green {
+button,
+.extra-purple,
+.extra-green {
     color: #fff;
     font-weight: 400;
     border-radius: 4px;
     text-decoration: none;
 }
 
-a, .join-us {
+a,
+.join-us {
     font-size: 18px;
     font-weight: 500;
     text-decoration: underline;
@@ -283,21 +287,7 @@ a, .join-us {
 }
 
 .small-btn-border {
-    color: var(--text) !important;
-    padding: 0px;
-}
-.small-btn-border a, .small-btn-border .join-us {
-    font-size: 15px !important;
-    color: var(--text);
-}
-.small-btn-border a :hover, .small-btn-border .join-us :hover {
-    color: var(--text) !important;
-}
-.small-btn-border a i, .small-btn-border .join-us i {
-    font-size: 13px;
-}
-.small-btn-border a i :hover, .small-btn-border .join-us i :hover {
-    color: var(--text) !important;
+    padding: 5px;
 }
 
 .btn-light {
@@ -332,19 +322,20 @@ a, .join-us {
     color: #131418;
 }
 .join-us .fa-facebook-square {
-    color: #1877F2;
+    color: #1877f2;
 }
 .join-us .fa-twitter {
-    color: #1DA1F2;
+    color: #1da1f2;
 }
 .join-us .fa-instagram {
-    color: #E4405F;
+    color: #e4405f;
 }
 .join-us .fa-snapchat-ghost {
-    color: #FFFC00;
+    color: #fffc00;
 }
 
-input, input.form-control,
+input,
+input.form-control,
 textarea.form-control {
     border-radius: 4px;
     padding: 20px;
@@ -362,19 +353,23 @@ small {
     font-size: 13px;
 }
 
-input.form-control::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeholder {
+input.form-control::-webkit-input-placeholder,
+textarea.form-control::-webkit-input-placeholder {
     color: var(---purple);
 }
 
-input.form-control::-moz-placeholder, textarea.form-control::-moz-placeholder {
+input.form-control::-moz-placeholder,
+textarea.form-control::-moz-placeholder {
     color: var(---purple);
 }
 
-input.form-control:-ms-input-placeholder, textarea.form-control:-ms-input-placeholder {
+input.form-control:-ms-input-placeholder,
+textarea.form-control:-ms-input-placeholder {
     color: var(---purple);
 }
 
-input.form-control::-ms-input-placeholder, textarea.form-control::-ms-input-placeholder {
+input.form-control::-ms-input-placeholder,
+textarea.form-control::-ms-input-placeholder {
     color: var(---purple);
 }
 
@@ -391,12 +386,12 @@ select.form-control:focus,
     box-shadow: 0 0 0 0.25rem rgba(71, 50, 91, 0.2) !important;
 }
 
-input[type=file],
-textarea[type=file].form-control {
+input[type="file"],
+textarea[type="file"].form-control {
     padding: 6px;
 }
-input[type=file]:hover,
-textarea[type=file].form-control:hover {
+input[type="file"]:hover,
+textarea[type="file"].form-control:hover {
     cursor: pointer;
 }
 
@@ -408,13 +403,13 @@ select.form-control {
 
 html {
     --body: #fafafa;
-    --border: #C0C0C0;
+    --border: #c0c0c0;
     --label: #000000;
     --text: #000000;
     --text-2: #000000;
-    ---green: #1f9946;
-    ---purple: #47325B;
-    ---pink: #FDC2B0;
+    ---green: #1073c0;
+    ---purple: #47325b;
+    ---pink: #fdc2b0;
 }
 
 .signup form .row {
@@ -442,7 +437,8 @@ html {
 .signup .showBtn-password {
     position: relative;
 }
-.signup .showBtn-password #showBtn-p, .signup .showBtn-password #showBtn-Re-p {
+.signup .showBtn-password #showBtn-p,
+.signup .showBtn-password #showBtn-Re-p {
     position: absolute;
     top: 50%;
     padding: 0px;
@@ -459,6 +455,17 @@ html {
 .signup #messageStrength {
     font-size: 14px;
     display: none;
+}
+
+.bg-inputs-phones .row .col-md-8 input {
+    width: 150% !important;
+}
+.bg-inputs-phones .row .col-md-4 label {
+    margin-right: 60px !important;
+}
+.bg-inputs-phones .row .col-md-4 input {
+    margin-right: 80px !important;
+    width: 10%;
 }
 
 .login .form-check-label {
@@ -564,7 +571,11 @@ html {
 
 .packedges {
     direction: ltr !important;
-    background: linear-gradient(90.24deg, var(---pink) 50.04%, rgba(253, 194, 176, 0) 174.6%);
+    background: linear-gradient(
+        90.24deg,
+        var(---pink) 50.04%,
+        rgba(253, 194, 176, 0) 174.6%
+    );
 }
 .packedges .container-fluid .row .content-1 img {
     position: absolute;
@@ -573,7 +584,8 @@ html {
     -webkit-filter: drop-shadow(25px -5px 4px rgba(0, 0, 0, 0.25));
     filter: drop-shadow(25px -5px 4px rgba(0, 0, 0, 0.25));
 }
-.packedges .container-fluid .row .card-body h4, .packedges .container-fluid .row .card-body p {
+.packedges .container-fluid .row .card-body h4,
+.packedges .container-fluid .row .card-body p {
     color: var(--text-2);
 }
 .packedges .container-fluid .row .card-body p {
@@ -583,7 +595,8 @@ html {
 .packedge-cards .row .card {
     background: var(---purple);
 }
-.packedge-cards .row .card .card-body h5, .packedge-cards .row .card .card-body p {
+.packedge-cards .row .card .card-body h5,
+.packedge-cards .row .card .card-body p {
     color: #fff;
 }
 .packedge-cards .row .card .card-body p {
@@ -618,6 +631,28 @@ html {
     height: 100px;
 }
 
+.projects-card .top-pj-color {
+    background: rgba(230, 230, 250, 0.568);
+    padding: 10px;
+    border-radius: 5px;
+}
+.projects-card .top-pj-color .small-btn-border {
+    color: var(--text) !important;
+    padding: 0px;
+}
+.projects-card .top-pj-color .small-btn-border a {
+    font-size: 15px !important;
+    color: var(--text);
+}
+.projects-card .top-pj-color .small-btn-border a :hover {
+    color: var(--text) !important;
+}
+.projects-card .top-pj-color .small-btn-border a i {
+    font-size: 13px;
+}
+.projects-card .top-pj-color .small-btn-border a i :hover {
+    color: var(--text) !important;
+}
 .projects-card .owner-details {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -804,7 +839,8 @@ html {
 .project-id .row .descripe-project .row-cols-lg-2 img {
     text-align: right !important;
 }
-.project-id .row .descripe-project h5, .project-id .row .descripe-project p {
+.project-id .row .descripe-project h5,
+.project-id .row .descripe-project p {
     color: #fff;
 }
 .project-id .row .descripe-project p {
@@ -858,24 +894,6 @@ html {
     align-items: center;
 }
 
-.maker-details {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    direction: rtl;
-    margin: 10px 0;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-}
-.maker-details li {
-    display: inline-block;
-    color: var(--text);
-}
-.maker-details li i {
-    color: var(--text);
-    font-size: 13px;
-}
-
 .project-id .col-md-4 .pb-3 {
     text-align: right !important;
 }
@@ -884,6 +902,79 @@ html {
 }
 .project-id .col-md-4 .row-cols-lg-2 .col-md-12 label {
     text-align: center !important;
+}
+
+.fa-pj-id-details {
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 5px;
+    background: rgba(230, 230, 250, 0.637);
+}
+.fa-pj-id-details .maker-details {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    direction: rtl;
+    margin: 15px 0;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.fa-pj-id-details .maker-details li {
+    font-size: 14px;
+    display: inline-block;
+    color: var(--text);
+}
+.fa-pj-id-details .maker-details li i {
+    color: var(--text);
+    font-size: 12px;
+}
+
+.new-proposal-card .profile-img-usr-crcl span img {
+    width: 35px;
+    height: 35px;
+}
+.new-proposal-card p {
+    width: 100% !important;
+    color: #000;
+}
+.new-proposal-card .details-propsal-of-usrr {
+    margin: 10px 0;
+}
+.new-proposal-card .details-propsal-of-usrr ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.new-proposal-card .details-propsal-of-usrr ul li {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 15px;
+}
+.new-proposal-card .details-propsal-of-usrr ul li i {
+    font-size: 12px !important;
+    color: #000;
+}
+.new-proposal-card .details-propsal-of-usrr ul li a {
+    color: #000;
+    font-size: 15px;
+    text-decoration: none;
+}
+.new-proposal-card .resit-drop-down {
+    direction: rtl;
+}
+.new-proposal-card .resit-drop-down .dropdown-menu a {
+    text-align: right;
+    font-size: 15px;
 }
 
 .user {
@@ -998,12 +1089,25 @@ html {
     font-size: 20px;
 }
 
-.data-usr-aftr-access-hole, .logout {
+.data-usr-aftr-access-hole,
+.logout {
     display: none !important;
 }
 
 .on-responsive-circle-img {
     display: block !important;
+}
+
+.fr-user-settings {
+    direction: rtl;
+    padding: 0 4px;
+}
+.fr-user-settings li :hover {
+    color: #000;
+}
+.fr-user-settings a {
+    font-size: 15px;
+    text-align: right;
 }
 
 .support .row .col .card .card-body a {
@@ -1088,7 +1192,8 @@ html {
     background: var(--body) !important;
 }
 
-.stay-tuned, .footer-stay-tuned {
+.stay-tuned,
+.footer-stay-tuned {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1096,15 +1201,18 @@ html {
     transform: translate(-50%, -50%);
     text-align: center;
 }
-.stay-tuned h1, .footer-stay-tuned h1 {
+.stay-tuned h1,
+.footer-stay-tuned h1 {
     color: #ffffff;
 }
-.stay-tuned h1 i, .footer-stay-tuned h1 i {
+.stay-tuned h1 i,
+.footer-stay-tuned h1 i {
     color: var(---green);
     -webkit-animation: loveheart 0.3s linear 0.5s backwards;
     animation: loveheart 0.3s linear 0.5s backwards;
 }
-.stay-tuned p, .footer-stay-tuned p {
+.stay-tuned p,
+.footer-stay-tuned p {
     color: var(--label);
 }
 
@@ -1213,7 +1321,8 @@ html {
         right: 0% !important;
         border: 0px;
     }
-    .data-usr-aftr-access-hole, .logout {
+    .data-usr-aftr-access-hole,
+    .logout {
         display: block !important;
     }
     .on-responsive-circle-img .dropdown {
@@ -1228,7 +1337,8 @@ html {
         bottom: 0px;
         background: var(---purple);
     }
-    .details-proposal .col-md-5 button, .details-proposal .col-md-5 a {
+    .details-proposal .col-md-5 button,
+    .details-proposal .col-md-5 a {
         text-align: center !important;
         width: 100% !important;
     }

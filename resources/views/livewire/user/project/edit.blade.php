@@ -1,6 +1,6 @@
 <div class="container add-project mt-5">
     <div class="box-title text-right">
-        <h5 class="card-title">أضف مشروع</h5>
+        <h5 class="card-title">تعديل مشروع</h5>
     </div>
     <div class="row row-cols-1 row-cols-md-1">
         <div class="col mb-12">
@@ -74,9 +74,14 @@
                         <input type="file" class="form-control-file"  wire:model.defer="form.file">
                         @error('form.file') <span
                             class="error text-danger text-danger">{{ $message }}</span> @enderror
+                        @if(!empty($project->file))
+
+                            <a target="_blank" class="my-4 d-block" href="{{url('uploads/pics/' . $project->file)}}"> <i
+                                    class="fa fa-file mx-3"></i>مرفقات المشروع</a>
+                        @endif
                     </div>
                 </div>
-                <button type="submit" class="btn extra-green my-3">اضف الان</button>
+                <button type="submit" class="btn extra-green my-3">حفظ</button>
             </form>
         </div>
         <div class="col mb-12 text-right">

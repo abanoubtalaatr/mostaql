@@ -11,6 +11,10 @@
 
                 <div class="row">
                     <div class="form-group col-3">
+                        <label for="status-select">@lang('site.user_mobile')</label>
+                        <input wire:model='mobile' type="text" class="form-control contact-input">
+                    </div>
+                    <div class="form-group col-3">
                         <label for="status-select">@lang('validation.attributes.username')</label>
                         <input wire:model='first_name' type="text" class="form-control contact-input">
                     </div>
@@ -21,7 +25,7 @@
                     </div>
 
 
-                    <div class="form-group col-3">
+                    <div class="form-group col-2">
                         <label for="status-select">@lang('site.status')</label>
                         <select wire:model='status' id='status-select' class="form-control  contact-input">
                             <option value>@lang('site.status')</option>
@@ -30,7 +34,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-3">
+                    <div class="form-group col-2 my-3">
                         <label for="status-select">@lang('general.user_type')</label>
                         <select wire:model='user_type' id='status-select' class="form-control  contact-input">
                             <option value>@lang('general.user_type')</option>
@@ -51,6 +55,7 @@
                         <th class="text-center">@lang('validation.attributes.email')</th>
                         <th class="text-center">@lang('validation.attributes.user_type')</th>
                         <td class="text-center">الرصيد المتاح للسحب</td>
+                        <th class="text-center">@lang('site.user_mobile')</th>
                         <th class="text-center">@lang('site.status')</th>
                         <th>@lang('site.actions')</th>
                     </tr>
@@ -63,6 +68,7 @@
                             <td class='text-center'>{{$record->email}}</td>
                             <td class="text-center">@lang('site.'.$record->user_type)</td>
                             <td class="text-center">{{round($record->wallets()->where('can_withdraw', 1)->sum('amount'),2)}}</td>
+                            <td class="text-center">{{$record->mobile}}</td>
                             <td class='text-center'>
                                 <div class="status {{$record->status_class}}">
                                     <span>@lang('site.'.$record->status)</span>

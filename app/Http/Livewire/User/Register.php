@@ -23,6 +23,7 @@ class Register extends Component
 
     public $form = [];
     public $cities = [];
+    public $countryCode;
 
     public function mount()
     {
@@ -102,6 +103,7 @@ class Register extends Component
     public function getCities()
     {
         $this->cities = City::where('country_id', $this->form['country_id'])->get();
+        $this->countryCode = Country::find($this->form['country_id'])->code;
     }
 
     public function getMessages()

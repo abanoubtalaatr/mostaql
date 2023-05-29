@@ -98,8 +98,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 <script src="{{asset('js/main.js')}}"></script>
+
 <script>
-    let noOfCharac = 350;
+    let noOfCharac = 250;
     let contents = document.querySelectorAll(".content");
 
     contents.forEach((content) => {
@@ -112,16 +113,16 @@
           <span class="hide more">${moreText}</span>`;
         }
     });
-
     function readMore(btn) {
         let post = btn.parentElement;
         post.querySelector(".dots").classList.toggle("hide");
         post.querySelector(".more").classList.toggle("hide");
-        btn.textContent == "اقرا المزيد"
-            ? (btn.textContent = "اقرا اقل")
-            : (btn.textContent = "اقرا المزيد");
+        btn.textContent == "اقرا اقل"
+            ? (btn.textContent = "اقرا المزيد")
+            : (btn.textContent = "اقرا اقل");
     }
 </script>
+
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
     Pusher.logToConsole = false;

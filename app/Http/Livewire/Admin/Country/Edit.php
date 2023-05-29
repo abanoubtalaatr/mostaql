@@ -44,7 +44,7 @@ class Edit extends Component{
     public function getRules(){
         return [
             'form.value'=>'required|max:300',
-//            'form.title_en'=>'required|max:300',
+            'form.code'=>'required|max:300',
 
 //            'picture'=>'nullable|file|mimes:png,jpg,jpeg|max:10240'
         ];

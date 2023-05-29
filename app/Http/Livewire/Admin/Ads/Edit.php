@@ -57,12 +57,12 @@ class Edit extends Component
             'form.title' => ['required', 'string'],
             'photo' => 'nullable|file|mimes:png,jpg,jpeg|max:10240', // max size 1M
             'form.photo' => 'nullable',
-            'form.snap_chat' => ['required', 'url'],
-            'form.location' => ['required'],
-            'form.website' => ['required', 'url'],
-            'form.facebook' => ['required', 'url'],
-            'form.instagram' => ['required', 'url'],
-            'form.twitter' => ['required', 'url'],
+            'form.snap_chat' => ['nullable', 'url'],
+            'form.location' => ['nullable'],
+            'form.website' => ['nullable', 'url'],
+            'form.facebook' => ['nullable', 'url'],
+            'form.instagram' => ['nullable', 'url'],
+            'form.twitter' => ['nullable', 'url'],
             'form.start_at' => 'required|date|date-format:Y-m-d|after:yesterday',
             'form.end_at' => ['required']
         ];

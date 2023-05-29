@@ -440,12 +440,13 @@ return [
     'create_medal' => 'أنشاء وسام جديد',
     'edit_medal' => 'تعديل الوسم',
     'proposal' => '',
-    'owner_freelancer' => 'صاحب مشروع ومستقل',
+    'owner_freelancer' => 'صاحب مشروع منفذ',
     'package_features' => 'مميزات الباقة',
     'packages' => 'الباقات',
     'number_of_project' => 'عدد المشاريع',
     'number_of_proposal' => 'عدد العروض',
     'period' => 'المدة بالاشهر',
     'price' => 'السعر',
-    'text_fo_accept_deal' => 'الموافقة علي تسليم الصفقة'
+    'text_fo_accept_deal' => 'الموافقة علي تسليم الصفقة',
+    'code' => 'الكود'
 ];

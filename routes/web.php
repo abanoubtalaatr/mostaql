@@ -173,6 +173,9 @@ Route::group([
                 ->middleware('checkFeatureAccess:1')
                 ->name('create_project');
 
+            Route::get('edit-project/{project}', [\App\Http\Controllers\User\ProjectController::class, 'showEditProject'])
+                ->name('edit_project');
+
 
             Route::get('my-projects', [\App\Http\Controllers\User\ProjectController::class,'myProjects'])->name('my_projects');
 

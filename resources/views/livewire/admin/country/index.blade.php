@@ -17,6 +17,7 @@
                                 <th>#</th>
 {{--                                <th>@lang('site.picture')</th>--}}
                                 <th>@lang('site.name')</th>
+                                <th>@lang('site.code')</th>
 {{--                                <th>@lang('site.title_en')</th>--}}
 {{--                                <th>@lang('site.created_at')</th>--}}
                                 <th>@lang('site.actions')</th>
@@ -28,6 +29,7 @@
                                     <td>#{{$loop->index + 1}}</td>
 {{--                                    <td><img src="{{$record->picture_url}}" style='width:100px;'/></td>--}}
                                     <td>{{$record->value}}</td>
+                                    <td>{{$record->code}}</td>
 {{--                                    <td>{{$record->title_en}}</td>--}}
 {{--                                    <td>{{$record->created_at}}</td>--}}
                                     <td>

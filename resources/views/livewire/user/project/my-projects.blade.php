@@ -46,6 +46,18 @@
                            style="text-decoration: none" class="btn extra-green more mb-2">
                             تصفح المشروع
                         </a>
+                        @if($project->status_id == 0 || $project->status_id == 1)
+                            <a href="/{{app()->getLocale()}}/user/edit-project/{{$project->id}}"
+                               style="text-decoration: none" class="btn btn-info more mb-2">
+                                تعديل المشروع
+                            </a>
+                        @endif
+
+                        <button wire:click="deleteProject({{$project->id}})"
+                                style="text-decoration: none" class="btn btn-danger more mb-2">
+                            حذف المشروع
+                        </button>
+
                     </div>
                 </div>
             </div>
