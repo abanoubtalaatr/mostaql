@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Admin\PaybackRequest;
 
+use App\Models\User;
+use App\Models\Wallet;
 use Livewire\Component;
 use App\Models\PaybackRequest;
 
@@ -17,21 +19,27 @@ class Index extends Component
         $this->page_title = __('site.payback_requests');
     }
 
+    public function payNow(PaybackRequest $paybackRequest)
+    {
+        $paybackRequest->update([
+            'status' => 'paid',
+        ]);
+        $user = User::find($paybackRequest->user_id);
+
+        if ($user) {
+            $wallets = Wallet::where('user_id', $user->id)->where('can_withdraw', 1)->delete();
+        }
+    }
 
     protected function filterRecords()
     {
         return
-            PaybackRequest::query()->whereHas('soldier')
+            PaybackRequest::query()
                 ->when($this->status, function ($query, $status) {
                     return $query->whereStatus($status);
                 })->when(request('user_id'), function ($query, $user_id) {
                     return $query->whereUserId($user_id);
-                })->when($this->payment_method, function ($query) {
-                    return $query->whereHas('soldier', function ($query) {
-                        return $query->wherePaymentMethod($this->payment_method);
-                    });
-                })
-                ->latest()->paginate();
+                })->latest()->paginate();
     }
 
     public function setCurrentRequest($current_request_id)

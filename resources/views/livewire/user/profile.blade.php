@@ -37,26 +37,90 @@
                     </div>
                 </div>
             </div>
-            <a href="/{{app()->getLocale()}}/user/chats?chat={{$user->id}}" class="btn extra-green px-3" style="position: absolute; top: 10px; left: 20px">
+            <a href="/{{app()->getLocale()}}/user/chats?chat={{$user->id}}" class="btn extra-green px-3"
+               style="position: absolute; top: 10px; left: 20px">
                 <i class="fas fa-envelope"></i>
             </a>
         </div>
     </div>
-{{--    <div class="container mt-2">--}}
-{{--        <div class="row row-cols-2 row-cols-md-3 text-center" style="direction: rtl">--}}
-{{--                <div class="col mb-1">--}}
-{{--                    <div class="card bg-transparent border-0">--}}
-{{--                        <div class="card-body">--}}
-{{--                            <button class="btn extra-purple mb-3"--}}
-{{--                                    >--}}
-{{--                                --}}
-{{--                            </button>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+    {{--    <div class="container mt-2">--}}
+    {{--        <div class="row row-cols-2 row-cols-md-3 text-center" style="direction: rtl">--}}
+    {{--                <div class="col mb-1">--}}
+    {{--                    <div class="card bg-transparent border-0">--}}
+    {{--                        <div class="card-body">--}}
+    {{--                            <button class="btn extra-purple mb-3"--}}
+    {{--                                    >--}}
+    {{--                                --}}
+    {{--                            </button>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
 
-{{--        </div>--}}
-{{--    </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
+
+    @if(auth()->check() && auth()->user()->user_type !='freelancer' && auth()->id() != $user->id)
+        <div class="text-center my-5">
+            <button type="button" class="btn extra-purple" data-toggle="modal" data-target="#exampleModal">
+                تقييم المنفذ
+            </button>
+        </div>
+    @endif
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{route('user.rating')}}">
+                        @csrf
+                        @method('post')
+                        <input hidden name="freelancer_id" value="{{$user->id}}">
+                        <div id="full-stars-example-two">
+                            <div class="rating-group mb-2">
+                                <input name="rating" disabled="" checked="" class="rating__input rating__input--none"
+                                       id="rating3-none" value="0" type="radio">
+                                <label aria-label="1 star" class="rating__label" for="rating3-1"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+
+                                <input class="rating__input" name="rating" id="rating3-1" value="1" type="radio">
+                                <label aria-label="2 stars" class="rating__label" for="rating3-2"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating" id="rating3-2" value="2" type="radio">
+                                <label aria-label="3 stars" class="rating__label" for="rating3-3"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating" id="rating3-3" value="3" type="radio">
+                                <label aria-label="4 stars" class="rating__label" for="rating3-4"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating" id="rating3-4" value="4" type="radio">
+                                <label aria-label="5 stars" class="rating__label" for="rating3-5"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating" id="rating3-5" value="5" type="radio">
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right" style="direction: rtl">
+                            <label for="rate-freelancer"> ما هو رايك في منفذ الخدمه ؟ </label>
+                            <textarea name="comment" class="form-control rate-text-clinet" id="rate-freelancer"
+                                      rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                اغلاق
+                            </button>
+                            <button type="submit" class="btn extra-purple">نشر التقييم</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="container-fluid left-side-user mt-5">
         <div class="row row-cols-1 row-cols-md-1 text-right" style="direction: rtl">
             <div class="col-md-5 mb-4">
@@ -65,15 +129,16 @@
                         <h5 class="card-title">إحصائيات</h5>
                         <div class="row row-cols-2 text-right mx-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-2">
                             <h6 class="my-2">رقم العضويه</h6>
-                            <h6 class="my-2" title="يمكنك من خلال رقم العضويه البحث عن المستخدم او ابلاغ الاداره من خلال رقم العضويه - اضغط للطباعه">
+                            <h6 class="my-2"
+                                title="يمكنك من خلال رقم العضويه البحث عن المستخدم او ابلاغ الاداره من خلال رقم العضويه - اضغط للطباعه">
                                 {{$user->id}}
                             </h6>
                             <h6 class="my-2">التقييمات</h6>
                             <h6 class="my-2">
 
-                                @for ($i = 1; $i <= $user->averageRates(); $i++)
-                                    <img src="{{asset('images/Star 1.png')}}" alt="">
-                                @endfor
+                                {{--                                @for ($i = 1; $i <= $user->averageRates(); $i++)--}}
+                                {{--                                    <img src="{{asset('images/Star 1.png')}}" alt="">--}}
+                                {{--                                @endfor--}}
 
                             </h6>
                             <h6 class="my-2">المشاريع المكتملة</h6>
@@ -124,16 +189,16 @@
                         <div class="row row-cols-2 text-right mx-2 row-cols-lg-1 row-cols-md-1 row-cols-sm-1"
                              style="direction: rtl">
 
-                                <div>
-                                    <p class="mx-1 mb-2" style="font-size: 15px">
-                                        @if($user->isOnline())
-                                            <span class="text-white">أونلاين الان</span>
-                                        @else
-                                            <span class="text-white">غير متاح الان</span>
-                                        @endif
-                                    </p>
+                            <div>
+                                <p class="mx-1 mb-2" style="font-size: 15px">
+                                    @if($user->isOnline())
+                                        <span class="text-white">أونلاين الان</span>
+                                    @else
+                                        <span class="text-white">غير متاح الان</span>
+                                    @endif
+                                </p>
 
-                                </div>
+                            </div>
                             <div>
                                 <p class="mx-1 mb-2" style="font-size: 15px">
                                     <i class="fas fa-check"></i>
@@ -175,26 +240,26 @@
                                     الملف الشخصي
                                 </button>
                             </li>
-                            @if(isset($user->activePackage()->id) &&$user->activePackage()->hasFeature(4))
-                                <li class="nav-item mx-0" role="presentation">
+                            {{--                            @if(isset($user->activePackage()->id) &&$user->activePackage()->hasFeature(4))--}}
+                            <li class="nav-item mx-0" role="presentation">
 
-                                    <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile"
-                                            type="button" role="tab" aria-controls="profile" aria-selected="false">
-                                        <i class="fas fa-star"></i>
-                                        التقييمات
-                                    </button>
+                                <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile"
+                                        type="button" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-star"></i>
+                                    التقييمات
+                                </button>
 
-                                </li>
-                            @endif
-                            @if(isset($user->activePackage()->id) && $user->activePackage()->hasFeature(3))
-                                <li class="nav-item mx-0" role="presentation">
-                                    <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact"
-                                            type="button" role="tab" aria-controls="contact" aria-selected="false">
-                                        <i class="fas fa-briefcase"></i>
-                                        سابقه اعمالي
-                                    </button>
-                                </li>
-                            @endif
+                            </li>
+                            {{--                            @endif--}}
+                            {{--                            @if(isset($user->activePackage()->id) && $user->activePackage()->hasFeature(3))--}}
+                            <li class="nav-item mx-0" role="presentation">
+                                <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact"
+                                        type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                    <i class="fas fa-briefcase"></i>
+                                    سابقه اعمالي
+                                </button>
+                            </li>
+                            {{--                            @endif--}}
                         </ul>
                         <div class="tab-content border-0" id="myTabContent">
                             <div class="tab-pane fade show active my-5" id="home" role="tabpanel"
@@ -209,6 +274,7 @@
                             <div class="tab-pane fade my-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="row row-cols-1 text-right mx-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
                                     @foreach($user->rates as $rate)
+
                                         <div class="col">
                                             <div class="card mb-3 border-0">
                                                 <div class="card-body bg-white">
@@ -218,7 +284,7 @@
                                                                 @if($user->avatar)
                                                                     <img width="40" height="40"
                                                                          class="rounded-circle mb-3"
-                                                                         src="{{asset($user->minimized_picture)}}"
+                                                                         src="{{asset($user->avatar)}}"
                                                                          alt="">
                                                                 @else
                                                                     <img width="40" height="40"
@@ -226,11 +292,10 @@
                                                                 @endif
 
                                                             </div>
-                                                            <strong
-                                                                class="m-1">{{$rate->project?$rate->project->user->first_name :''}}</strong>
+
                                                         </div>
                                                         <div class="mx-1">
-                                                            @for ($i = 1; $i <= $rate->rate; $i++)
+                                                            @for ($i = 1; $i <= $rate->rating; $i++)
                                                                 <img src="{{asset('images/Star 1.png')}}" alt="">
                                                             @endfor
 
@@ -247,14 +312,16 @@
                             </div>
                             <div class="tab-pane fade my-5" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                 <div class="row row-cols-1 text-right row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
-                                    @foreach($user->acceptedProposals as $proposal)
+                                    @foreach($user->works as $work)
                                         <div class="col mb-2">
                                             <a data-toggle="modal" data-target="#exampleModal">
                                                 <div class="card border-0 bg-transparent">
                                                     <div class="card-body">
-                                                        <img src="{{asset('images/project-1.png')}}"
+                                                        <img height="200"
+                                                             src="{{asset(url('uploads/pics/' . $work->file))}}"
                                                              class="card-img-top mb-1">
-                                                        <h6 class="card-title">{{$proposal->project->title}}</h6>
+                                                        <hr>
+                                                        <h6 class="card-title">{{$work->name}}</h6>
                                                     </div>
                                                 </div>
                                             </a>

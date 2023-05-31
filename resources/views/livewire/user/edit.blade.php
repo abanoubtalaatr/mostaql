@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12 mb-2">
                             <label for="" class="text-white">صورة مصغرة</label>
-                           <img width='60' height="60" class="rounded-circle my-2" src="{{asset(auth()->user()->minimized_picture)}}">
+{{--                           <img width='60' height="60" class="rounded-circle my-2" src="{{asset(auth()->user()->minimized_picture)}}">--}}
                             <input type="file" wire:model.defer="form.minimized_picture"  class="form-control text-right">
                             @error('form.minimized_picture') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-check">
                             <label class="form-check-label chossen" for="user_type2">
-                                منفذين (أبحث عن مشاريع لتنفيذها)
+                                منفذ (أبحث عن مشاريع لتنفيذها)
                             </label>
                             <input wire:model.defer="form.user_type" class="form-check-input" type="radio"
                                    name="user_type" id="user_type2"

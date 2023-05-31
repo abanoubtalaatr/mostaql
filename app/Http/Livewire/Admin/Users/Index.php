@@ -10,8 +10,11 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $user_type, $status, $username, $email, $page_title,$first_name,$last_name, $mobile;
+    public $user_type, $status, $username, $email, $page_title, $first_name, $last_name, $mobile;
     protected $queryString = ['status', 'email', 'email', 'first_name', 'user_type', 'mobile'];
+    public $showPopup = false;
+    public $currentUser, $de_active_reason, $de_active_from, $de_active_to;
+
 
     protected $paginationTheme = 'bootstrap';
 
@@ -41,9 +44,37 @@ class Index extends Component
         return User::paginate();
     }
 
+
+    public function togglePopup()
+    {
+        $this->showPopup = !$this->showPopup;
+    }
+
     public function toggleStatus(User $user)
     {
-        $user->update(['is_active' => !$user->is_active]);
+        $this->showPopup = !$this->showPopup;
+        $this->currentUser = $user;
+    }
+
+    public function updateUser()
+    {
+        $this->currentUser->update([
+            'is_active' => !$this->currentUser->is_active,
+            'de_active_reason' => $this->de_active_reason,
+            'de_active_from' => $this->de_active_from,
+            'de_active_to' => $this->de_active_to,
+        ]);
+        $this->showPopup = false;
+    }
+
+    public function activeUser(User $user)
+    {
+        $user->update([
+            'is_active' => 1,
+            'de_active_reason' => null,
+            'de_active_from' => null,
+            'de_active_to' => null,
+        ]);
     }
 
     public function render()

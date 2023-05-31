@@ -23,10 +23,6 @@ use App\Http\Livewire\Admin\Pages\Create as PagesCreate;
 use App\Http\Livewire\Admin\Pages\Delete as PagesDelete;
 use App\Http\Livewire\Admin\Pages\Edit as PagesEdit;
 use App\Http\Livewire\Admin\Pages\Index as PagesIndex;
-use App\Http\Livewire\Admin\Partner\Create as PartnerCreate;
-use App\Http\Livewire\Admin\Partner\Delete as PartnerDelete;
-use App\Http\Livewire\Admin\Partner\Edit as PartnerEdit;
-use App\Http\Livewire\Admin\Partner\Index as PartnerIndex;
 use App\Http\Livewire\Admin\PaybackRequest\Index as PaybackRequestsIndex;
 use App\Http\Livewire\Admin\PaybackRequest\Pay as PaybackRequestsPay;
 use App\Http\Livewire\Admin\Role\Create as RoleCreate;
@@ -140,17 +136,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
         Route::get('money/{money}', \App\Http\Livewire\Admin\Money\Edit::class)->name('money.edit');
         Route::get('money/{money}/delete', \App\Http\Livewire\Admin\Money\Index::class)->name('money.delete');
 
-
-        Route::get('library', LibraryIndex::class)->name('library');
-        Route::get('library/create', LibraryCreate::class)->name('library.create');
-        Route::get('library/{library}', LibraryEdit::class)->name('library.edit');
-        Route::get('library/{library}/delete', LibraryDelete::class)->name('library.delete');
-
-
-        Route::get('partner/index', PartnerIndex::class)->name('partner');
-        Route::get('partner/create', PartnerCreate::class)->name('create_partner');
-        Route::get('partner/{partner}/edit', PartnerEdit::class)->name('edit_partner');
-        Route::get('partner/{partner}/delete', PartnerDelete::class)->name('delete_partner');
+        Route::get('payback-requests', PaybackRequestsIndex::class)->name('payback_requests');
+        Route::get('payback-requests/{paybackRequest}/pay', PaybackRequestsPay::class)->name('payback_requests.pay');
 
         Route::get('settings', SettingsIndex::class)->name('settings');
     });

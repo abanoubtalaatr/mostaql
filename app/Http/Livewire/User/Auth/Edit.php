@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\Work;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -45,9 +46,9 @@ class Edit extends Component
             $this->form['avatar'] = $this->form['avatar']->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->form['avatar']->extension(), 'public');
             $user->update(['avatar' => $this->form['avatar']]);
         }
-        if ($this->form['minimized_picture'] && !is_string($this->form['minimized_picture'])) {
+
+        if (isset($this->form['minimized_picture']) && !is_string($this->form['minimized_picture'])) {
             $this->form['minimized_picture'] = $this->form['minimized_picture']->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->form['minimized_picture']->extension(), 'public');
-            $user->update(['minimized_picture' => $this->form['minimized_picture']]);
         }
 
         $user->update([
@@ -58,10 +59,17 @@ class Edit extends Component
             'mobile' => $this->form['mobile'],
             'city_id' => $this->form['city_id'],
             'country_id' => $this->form['country_id'],
-            'address' => $this->form['address'],
             'job_title' => $this->form['job_title'],
             'description' => $this->form['description'],
         ]);
+
+        if(isset($this->form['minimized_picture']) && isset( $this->form['address'])) {
+            Work::create([
+               'user_id' => auth()->id(),
+                'name' => $this->form['address'],
+                'file' => $this->form['minimized_picture'],
+            ]);
+        }
         session()->flash('success', 'تم تعديل ملفك الشخصي بنجاح.');
 
     }
@@ -85,7 +93,7 @@ class Edit extends Component
             'form.avatar' => ['nullable'],
             'form.skills' => ['sometimes', 'array'],
             'form.minimized_picture' => 'nullable',
-            'form.address' => ['required', 'string'],
+            'form.address' => ['nullable', 'string'],
             'form.job_title' => ['required', 'string'],
             'form.description' => ['required', 'string', 'min:4']
         ];

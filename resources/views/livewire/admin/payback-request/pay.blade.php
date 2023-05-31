@@ -1,53 +1,93 @@
- <main class="main-content">
+<main class="main-content">
     <!--head-->
     <x-admin.head/>
     <!--table-->
-    <div class="border-div">
-    <div class="b-btm flex-div-2">
-        <h4>{{$page_title}}</h4>
-    </div>
-    <div class="table-page-wrap">
+    <div class="border-div  print-table">
+        <div class="b-btm flex-div-2">
+            <h4>{{$page_title}}</h4>
+        </div>
+        <div class="table-page-wrap" >
 
-        <div class="row">
+            <div class="row">
 
-            <table class='table table-responsive'>
-                <tr>
-                    <td class='text-bold'>@lang('site.id')</td>
-                    <td>{{$paybackRequest->id}}</td>
+                <table class='table table-responsive'>
+                    <tr>
+                        <td class='text-bold'>@lang('site.created_at')</td>
+                        <td>{{$paybackRequest->created_at}}</td>
+                    </tr>
 
-                    <td class='text-bold'>@lang('site.created_at')</td>
-                    <td>{{$paybackRequest->created_at}}</td>
-                </tr>
+                    <tr>
+                        <td class='text-bold'>@lang('site.user')</td>
+                        <td>{{ $paybackRequest->user->first_name. ' '. $paybackRequest->user->last_name}}</td>
+                    </tr>
 
-                <tr>
-                    <td class='text-bold'>@lang('site.soldier')</td>
-                    <td>{{$paybackRequest->soldier->username}}</td>
+                    <tr>
+                        <td class='text-bold'>@lang('site.email')</td>
+                        <td>{{$paybackRequest->email}}</td>
+                    </tr>
 
-                    <td class='text-bold'>@lang('site.amount')</td>
-                    <td>{{$paybackRequest->amount}}</td>
-                </tr>
+                    <tr>
+                        <td class='text-bold'>@lang('site.address')</td>
+                        <td>{{$paybackRequest->address}}</td>
+                    </tr>
 
-                <tr>
-                    <td class='text-bold'>@lang('validation.attributes.payment_method')</td>
-                    <td>{{$paybackRequest->soldier->payment_method}}</td>
+                    <tr>
+                        <td class='text-bold'>@lang('site.bank_name')</td>
+                        <td>{{$paybackRequest->bank_name}}</td>
+                    </tr>
 
-                    <td class='text-bold'>@lang('validation.attributes.payment_number')</td>
-                    <td>{{$paybackRequest->soldier->payment_number}}</td>
-                </tr>
+                    <tr>
+                        <td class='text-bold'>@lang('site.bank_code')</td>
+                        <td>{{$paybackRequest->bank_code}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class='text-bold'>@lang('site.card_holder')</td>
+                        <td>{{$paybackRequest->card_holder}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class='text-bold'>@lang('site.card_number')</td>
+                        <td>{{$paybackRequest->card_number}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class='text-bold'>@lang('site.amount')</td>
+                        <td>{{$paybackRequest->amount}}</td>
+                    </tr>
+
+                </table>
 
 
-            </table>
 
-            <form wire:submit.prevent='store'>
-                <div class="form-group">
-                    <label for="transaction_id">@lang('validation.attributes.transaction_id')</label>
-                    <input wire:model='form.transaction_id' type="text" class="form-control @error('form.transaction_id') is-invalid @enderror" id='transaction_id'>
-                     @error('form.transaction_id') <p class="text-danger">{{$message}}</p> @enderror
-                </div>
-                <button class="btn btn-success" wire:click='store'>@lang('site.save')</button>
-            </form>
-
+            </div>
         </div>
     </div>
-    </div>
+    <button  class="btn btn-success w-100"  wire:click="printPage">@lang('site.print')</button>
 </main>
+<script>
+    window.addEventListener('printPage', function () {
+        window.print();
+    });
+</script>
+<style>
+    .print-table,
+    .print-table * {
+        visibility: visible;
+    }
+
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .print-table,
+        .print-table * {
+            visibility: visible;
+        }
+        .print-table {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>

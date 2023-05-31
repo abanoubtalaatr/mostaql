@@ -4,6 +4,7 @@ namespace App\Http\Livewire\User;
 
 use App\Mail\VerifyEmail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
@@ -12,7 +13,7 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public $username, $password, $remember_me, $error_message = '';
+    public $username, $password, $remember_me, $error_message = '',$deActiveReason;
 
     public function login()
     {
@@ -35,6 +36,16 @@ class Login extends Component
 
         } else {
             if (auth('users')->attempt(['mobile' => $this->username, 'password' => $this->password], $this->remember_me)) {
+                $user = User::find(auth()->id());
+
+                if ($user->is_active == 0) {
+                    Auth::logout();
+                    $this->deActiveReason = $user->de_active_reason;
+                    $this->error_message = ' معطل من  ' . Carbon::parse($user->de_active_from)->format('Y-m-d') . ' الي ' . Carbon::parse($user->de_active_to)->format('Y-m-d');
+                } else {
+                    return redirect()->to(\url("user/projects"));
+                }
+//
 //                if (!auth()->user()->email_verified_at) {
 //                    // check your mail
 //                    $user = User::find(auth()->id());
@@ -46,7 +57,7 @@ class Login extends Component
 //
 //                    session()->flash('please_check_your_email_we_send_email_verification', trans('site.please_check_your_email_we_send_email_verification'));
 //                }
-                return redirect()->to(\url("user/projects"));
+
             } else {
                 if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
                     if (auth()->user()->is_verified == 0) {

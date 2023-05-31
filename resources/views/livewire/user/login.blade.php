@@ -13,9 +13,15 @@
         <div class="col mb-4 text-right my-1 px-0">
 
             <form wire:submit.prevent="login" class="text-right px-3">
+                @if($deActiveReason)
+                    <div class="row row-cols-1 row-cols-md-2 text-right" style="direction: rtl;">
+                        @if(isset($deActiveReason)) <span class="error text-danger"> السبب :{{ $deActiveReason }}</span>  @endif
+                    </div>
+                @endif
                 <div class="row row-cols-1 row-cols-md-2 text-right" style="direction: rtl;">
                     @if(isset($error_message)) <span class="error text-danger">{{ $error_message }}</span>  @endif
                 </div>
+
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col-md-12 my-2">
                         <label for="">رقم الجوال</label>

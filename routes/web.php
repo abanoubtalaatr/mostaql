@@ -14,67 +14,16 @@ use App\Http\Controllers\User\AdController as UserAdController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ContactController as UserContactController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
-use App\Http\Controllers\User\TaskController as UserTaskController;
-use App\Http\Livewire\Admin\Admins\Create as AdminCreate;
-use App\Http\Livewire\Admin\Admins\Edit as AdminEdit;
-use App\Http\Livewire\Admin\Admins\Index as AdminIndex;
-use App\Http\Livewire\Admin\Category\Create as CategoryCreate;
-use App\Http\Livewire\Admin\Category\Edit as CategoryEdit;
-use App\Http\Livewire\Admin\Category\Index as CategoryIndex;
-use App\Http\Livewire\Admin\Discount\Create as DiscountCrate;
-use App\Http\Livewire\Admin\Discount\Delete as DiscountDelete;
-use App\Http\Livewire\Admin\Discount\Edit as DiscountEdit;
-use App\Http\Livewire\Admin\Discount\Index as DiscountIndex;
-use App\Http\Livewire\Admin\Library\Create as LibraryCreate;
-use App\Http\Livewire\Admin\Library\Delete as LibraryDelete;
-use App\Http\Livewire\Admin\Library\Edit as LibraryEdit;
-use App\Http\Livewire\Admin\Library\Index as LibraryIndex;
-use App\Http\Livewire\Admin\Pages\Create as PagesCreate;
-use App\Http\Livewire\Admin\Pages\Delete as PagesDelete;
-use App\Http\Livewire\Admin\Pages\Edit as PagesEdit;
-use App\Http\Livewire\Admin\Pages\Index as PagesIndex;
-use App\Http\Livewire\Admin\Partner\Create as PartnerCreate;
-use App\Http\Livewire\Admin\Partner\Delete as PartnerDelete;
-use App\Http\Livewire\Admin\Partner\Edit as PartnerEdit;
-use App\Http\Livewire\Admin\Partner\Index as PartnerIndex;
-use App\Http\Livewire\Admin\PaybackRequest\Index as PaybackRequestsIndex;
-use App\Http\Livewire\Admin\PaybackRequest\Pay as PaybackRequestsPay;
-use App\Http\Livewire\Admin\Role\Create as RoleCreate;
-use App\Http\Livewire\Admin\Role\Edit as RoleEdit;
-use App\Http\Livewire\Admin\Role\Index as RoleIndex;
-use App\Http\Livewire\Admin\Settings as SettingsIndex;
-use App\Http\Livewire\Admin\Slider\Create as SliderCreate;
-use App\Http\Livewire\Admin\Slider\Delete as SliderDelete;
-use App\Http\Livewire\Admin\Slider\Edit as SliderEdit;
-use App\Http\Livewire\Admin\Slider\Index as SliderIndex;
 use App\Http\Livewire\Front\ContactUs;
 use App\Http\Livewire\User\Category\Index as UserCategoryIndex;
 use App\Http\Livewire\User\Library\Index as UserLibraryIndex;
 use App\Http\Livewire\User\Library\Show as UserShowLibrary;
-use App\Http\Livewire\User\PaybackRequests\Index as WalletIndex;
-use App\Models\Ad;
-use App\Models\Discount;
 use App\Models\Notification;
-use App\Models\Project;
 use App\Models\User;
-use App\Services\GoogleAnalyticsService;
-use App\Services\HyperpayService;
-use App\Services\Statuses;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-
-Route::get('ads/{ad}/fatorah_pay', [MyFatoorahController::class, 'pay'])->name('pay_fatorah');
-
-Route::get('abanoub', function () {
-    $payLink = new \App\Services\PayLinkService();
-    $user = User::find(103);
-    $response = $payLink->pay(20, $user, 'payForProject');
-    dd($response);
-
-});
 
 //Auth::routes();
 Route::group([
@@ -197,6 +146,11 @@ Route::group([
             Route::get('wallet', [\App\Http\Controllers\User\WalletController::class, 'index'])->name('wallet');
             Route::get('packages', [\App\Http\Controllers\User\PackageController::class, 'index'])->name('packages');
             Route::get('contact', [UserContactController::class, 'index'])->name('contact_us');
+
+            Route::post('rating',[\App\Http\Controllers\User\RatingController::class, 'store'])->name('rating');
+
+            Route::post('request-withdrawal', [\App\Http\Controllers\User\WalletController::class,'storeRequest'])
+                ->name('request_withdrawal');
 
         });/*authenticated users*/
 

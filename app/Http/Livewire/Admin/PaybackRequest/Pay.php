@@ -17,22 +17,11 @@ class Pay extends Component{
         $this->page_title = __('site.pay_now');
     }
 
-    public function store(){
-        $this->validate();
-        $this->paybackRequest->update([
-            'transaction_id'=>$this->form['transaction_id'],
-            'status'=>'paid'
-        ]);
-
-        return redirect()->back();
+    public function printPage()
+    {
+        $this->dispatchBrowserEvent('printPage');
     }
 
-
-    public function getRules(){
-        return [
-            'form.transaction_id'=>'required|max:200'
-        ];
-    }
 
     public function render(){
         return view('livewire.admin.payback-request.pay')->layout('layouts.admin');
