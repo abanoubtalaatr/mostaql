@@ -453,5 +453,6 @@ return [
     'bank_code' => 'كود البنك',
     'address' => 'العنوان',
     'card_number' => 'رقم البطاقة',
-    'print' => 'طبع'
+    'print' => 'طبع',
+    'packages_is_active' => 'حالة الباقات ف الموقع'
 ];

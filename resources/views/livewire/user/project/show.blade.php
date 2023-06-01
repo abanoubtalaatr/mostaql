@@ -109,6 +109,9 @@
             @if(!empty($messageToTellUserCanNotAddProposalOrAdd))
                 <div class="alert alert-danger">{{$messageToTellUserCanNotAddProposalOrAdd}}</div>
             @endif
+            @if(!empty($notSubscribeInPackage))
+                <div class="alert alert-danger">{{$notSubscribeInPackage}}</div>
+            @endif
             @if($showAddProposal)
                 <div class="card">
                     <form wire:submit.prevent="addProposal">
@@ -187,81 +190,84 @@
                 <h5> العروض علي هذا المشروع</h5>
             @endif
             @foreach($project->proposals as $proposal)
-                    <div class="card new-proposal-card text-right border mb-2">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <ul class="resit-drop-down">
-                                    <li class="dropdown">
-                                        <a
-                                            role="button"
-                                            data-toggle="dropdown"
-                                            aria-expanded="false"
-                                            href="javascript:void(0)"
-                                        ><i class="fas fa-ellipsis-h"></i>
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}"
-                                            >تفاصيل العرض</a
-                                            >
-                                            @if(auth()->check() && auth()->id() == $proposal->user->id)
-                                            <a class="dropdown-item" href="/{{app()->getLocale()}}/user/projects/{{$proposal->project->id}}">
+                <div class="card new-proposal-card text-right border mb-2">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <ul class="resit-drop-down">
+                                <li class="dropdown">
+                                    <a
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false"
+                                        href="javascript:void(0)"
+                                    ><i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                           href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}"
+                                        >تفاصيل العرض</a
+                                        >
+                                        @if(auth()->check() && auth()->id() == $proposal->user->id)
+                                            <a class="dropdown-item"
+                                               href="/{{app()->getLocale()}}/user/projects/{{$proposal->project->id}}">
                                                 تعديل العرض
                                             </a>
-                                            @endif
+                                        @endif
 
-                                            <a class="dropdown-item" href="/{{app()->getLocale()}}/support"
-                                            >ارسال بلاغ</a
-                                            >
-                                        </div>
-                                    </li>
-                                </ul>
+                                        <a class="dropdown-item" href="/{{app()->getLocale()}}/support"
+                                        >ارسال بلاغ</a
+                                        >
+                                    </div>
+                                </li>
+                            </ul>
 
-                                <a href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}" class="card-title profile-img-usr-crcl">
-                                    {{$proposal->user->first_name .' '. $proposal->user->last_name}}
-                                    <span>
-                                        <img class="rounded-circle" src="{{asset($proposal->user->avatar)}}" alt="" />
+                            <a href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}"
+                               class="card-title profile-img-usr-crcl">
+                                {{$proposal->user->first_name .' '. $proposal->user->last_name}}
+                                <span>
+                                        <img class="rounded-circle" src="{{asset($proposal->user->avatar)}}" alt=""/>
                                     </span>
-                                </a>
-                            </div>
-                            <div class="details-propsal-of-usrr">
-                                <ul>
-                                    <li>
-                                        <a href="javascript:void(0)">مدينه الرياض</a>
-                                        <i class="fas fa-home"></i>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">{{$proposal->user->job_title}}</a>
-                                        <i class="fas fa-briefcase"></i>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <span>{{$proposal->price}} </span> - <span>ريال</span>
-                                        </a>
-                                        <i class="fas fa-money-check-alt"></i>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <span>{{$proposal->number_of_days}} </span> - <span>يوم</span>
-                                            <i class="fas fa-business-time"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <p class="card-text">
-                                {{$proposal->description}}
-                            </p>
-                            <div class="text-right">
-                                <span>({{$proposal->user->averageRates()}})</span>
-                                @if($proposal->user)
-                                    @for ($i = 1; $i <= $proposal->user->averageRates(); $i++)
-                                        <img src="{{asset('images/Star 1.png')}}" alt="">
-                                    @endfor
-                                @endif
-                            </div>
+                            </a>
+                        </div>
+                        <div class="details-propsal-of-usrr">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0)">مدينه الرياض</a>
+                                    <i class="fas fa-home"></i>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">{{$proposal->user->job_title}}</a>
+                                    <i class="fas fa-briefcase"></i>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span>{{$proposal->price}} </span> - <span>ريال</span>
+                                    </a>
+                                    <i class="fas fa-money-check-alt"></i>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span>{{$proposal->number_of_days}} </span> - <span>يوم</span>
+                                        <i class="fas fa-business-time"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="card-text">
+                            {{$proposal->description}}
+                        </p>
+                        <div class="text-right">
+                            <span>({{$proposal->user->averageRates()}})</span>
+                            @if($proposal->user)
+                                @for ($i = 1; $i <= $proposal->user->averageRates(); $i++)
+                                    <img src="{{asset('images/Star 1.png')}}" alt="">
+                                @endfor
+                            @endif
                         </div>
                     </div>
+                </div>
             @endforeach
 
 

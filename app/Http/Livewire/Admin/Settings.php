@@ -43,7 +43,8 @@ class Settings extends Component
             'snap_chat' => 'string|min:10|max:255',
             'taxes' => 'integer',
             'platform_dues' => 'integer',
-            'text_fo_accept_deal' => 'nullable'
+            'text_fo_accept_deal' => 'nullable',
+            'packages_is_active' => 'nullable'
         ];
     }
 

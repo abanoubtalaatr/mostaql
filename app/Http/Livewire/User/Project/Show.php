@@ -41,6 +41,7 @@ class Show extends Component
     public $userType;
     public $showDeliverProject = false;
     public $messageToTellUserCanNotAddProposalOrAdd = '';
+    public $notSubscribeInPackage;
 
     public function mount(Project $project)
     {
@@ -133,18 +134,23 @@ class Show extends Component
     public function addProposal()
     {
         $user = Auth::user();
-        // Check if the user is subscribed to the package containing the feature
-        if (!$user->isSubscribed()) {
-            $message = 'انت غير مشترك في باقة لعمل هذا الاجراء';
-            return view('front.403', compact('message'));
-        }
 
-        // Check if the package has the specified feature
-        if (!$user->activePackage()->hasFeature(2)) {
-            $message =  'باقاتك الحاليه لاتسمح لك بعمل هذا الاجراء برجاء شراء باقة تدعم هذا الاجراء';
-            return view('front.403', compact('message'));
-        }
+        $settings = Setting::first();
+        if ($settings->packages_is_active != 0) {
+            // Check if the user is subscribed to the package containing the feature
+            if (!$user->isSubscribed()) {
+                $this->notSubscribeInPackage = 'انت غير مشترك في باقة لعمل هذا الاجراء';
+                $message = $this->notSubscribeInPackage;
+                return view('front.not_found', compact('message'));
+            }
 
+            // Check if the package has the specified feature
+            if (!$user->activePackage()->hasFeature(2)) {
+                $this->notSubscribeInPackage = 'باقاتك الحاليه لاتسمح لك بعمل هذا الاجراء برجاء شراء باقة تدعم هذا الاجراء';
+                $message = $this->notSubscribeInPackage;
+                return view('front.not_found', compact('message'));
+            }
+        }
 
         $this->validate();
 
