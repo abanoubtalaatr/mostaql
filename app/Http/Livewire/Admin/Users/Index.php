@@ -64,6 +64,9 @@ class Index extends Component
             'de_active_from' => $this->de_active_from,
             'de_active_to' => $this->de_active_to,
         ]);
+        $this->de_active_reason = null;
+        $this->de_active_to = null;
+        $this->de_active_from = null;
         $this->showPopup = false;
     }
 

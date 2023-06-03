@@ -38,6 +38,7 @@ class Create extends Component
         }
         $admin = Admin::create(Arr::except($this->form, ['roles', 'password_confirmation']));
 
+
         foreach ($this->form['roles'] as $role) {
             DB::table('model_has_roles')->insert(['role_id' => $role, 'model_id' => $admin->id, 'model_type' => 'App\Models\Admin']);
         }

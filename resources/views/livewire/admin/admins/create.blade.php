@@ -51,7 +51,7 @@
 
                     <hr>
 
-                    <div class="form-group" wire:ignore>
+                    <div class="form-group" >
                         <label for="">@lang('site.roles')</label>
 {{--                        <br>--}}
 {{--                        <input type="checkbox" id="select_all_roles"/>@lang('site.select_all')--}}
