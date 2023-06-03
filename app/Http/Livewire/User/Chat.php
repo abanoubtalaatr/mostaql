@@ -41,7 +41,7 @@ class Chat extends Component
     {
         $this->validate();
 
-        if (isset($this->file)) {
+        if (isset($this->file) && !empty($this->file)) {
             $this->file = $this->file->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->file->extension(), 'public');
         }
 
