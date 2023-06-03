@@ -56,8 +56,8 @@
 {{--                        <br>--}}
 {{--                        <input type="checkbox" id="select_all_roles"/>@lang('site.select_all')--}}
 {{--                        <br>--}}
-                        <select id='roles' wire:model='form.roles' style="min-height: 300px" multiple
-                                class="@error('roles') is-invalid @enderror form-control contact-input  my-select-2">
+                        <select id='roles' wire:model='form.roles'  multiple
+                                class="@error('roles') is-invalid @enderror form-control contact-input ">
                             @foreach($roles as $role)
                                 <option
                                     value="{{$role->id}}">{{app()->getLocale()=='ar'?$role->name_ar:$role->name}}</option>
@@ -80,7 +80,7 @@
 @push('scripts')
     {{-- <script src='{{asset('frontAssets/js/multiselect.js')}}'></script> --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{--    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>--}}
     <script>
 
         window.addEventListener('onContentChanged', () => {
@@ -88,20 +88,20 @@
         });
 
         $(document).ready(()=>{
-           $('select').select2();
+           // $('select').select2();
 
-            $('#select_all_roles').change(e=>{
-                @this.set('form.select_all_roles', $('#select_all_roles').select2('val'));
-            });
-            $('#select_all_roles').click(e=>{
-                 if($("#select_all_roles").is(':checked') ){
-                    $("#select_all_roles > option").attr("selected","selected");
-                    $("#select_all_roles").trigger("change");
-                }else{
-                    $("#select_all_roles > option").removeAttr("selected");
-                    $("#select_all_roles").trigger("change");
-                }
-            });
+            // $('#select_all_roles').change(e=>{
+            //     @this.set('form.select_all_roles', $('#select_all_roles').select2('val'));
+            // });
+            // $('#select_all_roles').click(e=>{
+            //      if($("#select_all_roles").is(':checked') ){
+            //         $("#select_all_roles > option").attr("selected","selected");
+            //         $("#select_all_roles").trigger("change");
+            //     }else{
+            //         $("#select_all_roles > option").removeAttr("selected");
+            //         $("#select_all_roles").trigger("change");
+            //     }
+            // });
         });
 
 
