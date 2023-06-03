@@ -310,7 +310,7 @@ return [
     'you_must_share_a_library_first' => 'يجب أن تشارك محتوى من المكتبة أولاً لتصبح مؤهلاً لمشاركة الإعلان.',
     'you_must_complete_your_tasks_first' => 'يجب عليك إتمام المهام أولا',
     'no_ads' => 'سيصلك إشعار حال وصول إعلان جديد',
-    'payback_requests' => 'طلب سحب الاموال',
+    'payback_requests' => 'طلبات سحب الاموال',
     'request_date' => 'تاريخ الطلب',
     'soldier' => 'الجندي',
     'pay_now' => 'تفاصيل طلب الدفع',

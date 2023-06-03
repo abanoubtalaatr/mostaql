@@ -66,6 +66,14 @@
                     </a>
                 </li>
             @endcan
+            @can('Manage users')
+                <li>
+                    <a href="{{route('admin.payback_requests')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.payback_requests')
+                    </a>
+                </li>
+            @endcan
 
             @can('Manage ads')
                 <li>

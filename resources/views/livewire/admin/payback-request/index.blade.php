@@ -71,13 +71,13 @@
                             <td>@lang('site.'.$record->status)</td>
                             <td>{{$record->created_at->format('Y-m-d')}}</td>
                             <td>
-                                <div class="actions">
+                                <div class="actions text-center">
                                     @if($record->status =='not_paid')
-                                        <button class="btn btn-success mb-2" wire:click="payNow({{$record->id}})">تغيير
+                                        <button class="btn btn-success mb-2  mx-auto" wire:click="payNow({{$record->id}})">تغيير
                                             الحاله الي تم الدفع
                                         </button>
                                     @endif
-                                        <a href="/admin/payback-requests/{{$record->id}}/pay" class="btn btn-info">
+                                        <a  href="/admin/payback-requests/{{$record->id}}/pay" class="btn btn-info">
                                             طبع
                                         </a>
                                 </div>
