@@ -37,12 +37,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function freelancerRatings()
     {
-        return $this->hasMany(Rating::class,'freelancer_id');
+        return $this->hasMany(Rating::class, 'freelancer_id');
     }
 
     public function ownerRatings()
     {
-        return $this->hasMany(Rating::class,'owner_id');
+        return $this->hasMany(Rating::class, 'owner_id');
     }
 
     public function activePackage()
@@ -126,19 +126,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function averageRates()
     {
-        if($this->user_type == 'owner' ||$this->user_type == 'owner_freelancer'  ) {
-            // sum of of rate for this user divided by rate rows
-            $sumRate = $this->ownerRatings()->sum('rating');
-            $countRate = $this->ownerRatings()->count();
-            if ($sumRate > 0 && $countRate > 0) {
-                return round($sumRate / $countRate);
-            }
-        }else{
-            $sumRate = $this->freelancerRatings()->sum('rating');
-            $countRate = $this->freelancerRatings()->count();
-            if ($sumRate > 0 && $countRate > 0) {
-                return round($sumRate / $countRate);
-            }
+
+        $sumRate = Rating::where('freelancer_id', $this->id)->sum('rating');
+
+        $countRate = Rating::where('freelancer_id', $this->id)->count();
+
+        if ($sumRate > 0 && $countRate > 0) {
+            return round($sumRate / $countRate);
         }
 
         return 0;

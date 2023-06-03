@@ -21,11 +21,14 @@
                                 >تعديل الحساب</a
                                 >
                                 <a class="dropdown-item" href="/{{app()->getLocale()}}/support">الدعم الفني</a>
-                                <div class="dropdown-divider"></div>
-                                <form action="{{route('user.logout')}}" method="get">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item text-white"> تسجيل خروج</button>
-                                </form>
+                                @if(auth()->check())
+                                    <div class="dropdown-divider"></div>
+
+                                    <form action="{{route('user.logout')}}" method="get">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-white"> تسجيل خروج</button>
+                                    </form>
+                                @endif
                             </div>
                         </li>
                     </ul>
@@ -35,7 +38,8 @@
                     <a class="nav-link" href="/{{app()->getLocale()}}/user/notifications">
                         <i class="fas fa-bell"></i>
                         <span
-                            class="text-white" style="Font-weight : bold;">{{auth()->user()->notifications()->whereNull('when_read')->count()}}</span>
+                            class="text-white"
+                            style="Font-weight : bold;">{{auth()->user()->notifications()->whereNull('when_read')->count()}}</span>
                     </a>
                 </li>
                 <li class="nav-item mx-2 mt-1">
@@ -80,13 +84,13 @@
                     <li class="nav-item mx-4">
                         <a class="nav-link" href="/{{app()->getLocale()}}/user/my-favourite"> مفضلتي</a>
                     </li>
-                <li class="nav-item mx-4">
-                    <a class="nav-link" href="/{{app()->getLocale()}}/user/wallet"> الرصيد</a>
-                </li>
+                    <li class="nav-item mx-4">
+                        <a class="nav-link" href="/{{app()->getLocale()}}/user/wallet"> الرصيد</a>
+                    </li>
 
-                <li class="nav-item mx-4">
-                    <a class="nav-link" href="/{{app()->getLocale()}}/user/edit-profile"> تعديل الحساب </a>
-                </li>
+                    <li class="nav-item mx-4">
+                        <a class="nav-link" href="/{{app()->getLocale()}}/user/edit-profile"> تعديل الحساب </a>
+                    </li>
                 @endif
                 <li class="nav-item mx-4">
                     <a class="nav-link" href="/{{app()->getLocale()}}/support"> الدعم الفني </a>
@@ -113,13 +117,15 @@
                     <a class="nav-link" href="/{{app()->getLocale()}}/user/create-project">اضف مشروع</a>
                 </li>
             @endif
-            <div class="dropdown-divider"></div>
-            <li class="nav-item mx-4 logout">
-                <form action="{{route('user.logout')}}" method="get">
-                    @csrf
-                    <button type="submit" class="dropdown-item text-white"> تسجيل خروج</button>
-                </form>
-            </li>
+            @if(auth()->user())
+                <div class="dropdown-divider"></div>
+                <li class="nav-item mx-4 logout">
+                    <form action="{{route('user.logout')}}" method="get">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-white"> تسجيل خروج</button>
+                    </form>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>

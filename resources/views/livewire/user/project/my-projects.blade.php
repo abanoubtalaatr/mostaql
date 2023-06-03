@@ -34,7 +34,6 @@
                         </div>
 
                         <p class="card-text my-4 content">
-                            <span class="dots">{{$project->title}}</span>
                             <span class="hide more">{{$project->description_ar}}</span>
                         </p>
 

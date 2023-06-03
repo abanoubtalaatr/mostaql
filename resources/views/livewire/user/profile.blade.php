@@ -135,10 +135,9 @@
                             </h6>
                             <h6 class="my-2">التقييمات</h6>
                             <h6 class="my-2">
-
-                                {{--                                @for ($i = 1; $i <= $user->averageRates(); $i++)--}}
-                                {{--                                    <img src="{{asset('images/Star 1.png')}}" alt="">--}}
-                                {{--                                @endfor--}}
+                                @for ($i = 1; $i <= $user->averageRates(); $i++)
+                                    <img src="{{asset('images/Star 1.png')}}" alt="">
+                                @endfor
 
                             </h6>
                             <h6 class="my-2">المشاريع المكتملة</h6>
@@ -281,16 +280,20 @@
                                                     <div class="d-flex justify-content-between">
                                                         <div class="d-flex">
                                                             <div>
-                                                                @if($user->avatar)
+
+                                                                @if($rate->owner->avatar)
                                                                     <img width="40" height="40"
-                                                                         class="rounded-circle mb-3"
-                                                                         src="{{asset($user->avatar)}}"
+                                                                         class="rounded-circle "
+                                                                         src="{{asset($rate->owner->avatar)}}"
                                                                          alt="">
                                                                 @else
                                                                     <img width="40" height="40"
                                                                          src="{{asset('images/Group 60.png')}}" alt="">
                                                                 @endif
-
+                                                                <a href="/{{app()->getLocale()}}/user/profile/{{$rate->owner->id}}">
+                                                                    <strong
+                                                                        class="m-1">{{$rate->owner->first_name . ' '.$rate->owner->last_name}}</strong>
+                                                                </a>
                                                             </div>
 
                                                         </div>

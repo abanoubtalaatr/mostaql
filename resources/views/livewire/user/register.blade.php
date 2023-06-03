@@ -71,7 +71,7 @@
                     <div class="col-md-6 my-2">
                         <label for="">رقم الجوال</label>
                         <input wire:model.defer="form.mobile" type="tel" class="form-control text-right" maxlength="9"
-                               placeholder="ادخل الرقم السعودي الخاص بك فقط">
+                               placeholder="ادخل الرقم الخاص بك فقط">
 
                         @error('form.mobile') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
