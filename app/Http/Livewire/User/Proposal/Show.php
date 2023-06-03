@@ -44,7 +44,10 @@ class Show extends Component
         $payLink = new PayLinkService();
         $user = User::find($project->user_id);
 
-        return $payLink->pay($project->price, $user, 'payForProject', null, $project, $this->proposal);
+        $project->update([
+           'price' => $this->proposal->price,
+        ]);
+        return $payLink->pay($this->proposal->price, $user, 'payForProject', null, $project, $this->proposal);
     }
 
     public function createNotification($user, $project)
