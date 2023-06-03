@@ -314,7 +314,7 @@
                                 <div class="row row-cols-1 text-right row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
                                     @foreach($user->works as $work)
                                         <div class="col mb-2">
-                                            <a data-toggle="modal" data-target="#exampleModal">
+                                            <a data-toggle="" data-target="#exampleModal">
                                                 <div class="card border-0 bg-transparent">
                                                     <div class="card-body">
                                                         <img height="200"
