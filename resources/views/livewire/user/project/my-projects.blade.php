@@ -47,15 +47,12 @@
                         </a>
                         @if($project->status_id == 0 || $project->status_id == 1)
                             <a href="/{{app()->getLocale()}}/user/edit-project/{{$project->id}}"
-                               style="text-decoration: none" class="btn btn-info more mb-2">
-                                تعديل المشروع
+                               style="cursor: pointer" class="far fa-edit btn btn-info">
+
                             </a>
                         @endif
 
-                        <button wire:click="deleteProject({{$project->id}})"
-                                style="text-decoration: none" class="btn btn-danger more mb-2">
-                            حذف المشروع
-                        </button>
+                        <i class="fas fa-trash btn btn-danger"  wire:click="deleteProject({{$project->id}})"></i>
 
                     </div>
                 </div>

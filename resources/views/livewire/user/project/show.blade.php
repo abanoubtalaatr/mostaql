@@ -114,7 +114,7 @@
             @endif
             @if($showAddProposal)
                 <div class="card">
-                    <form wire:submit.prevent="addProposal">
+                    <form wire:submit.prevent="addProposal" wire:disabled="disableTheForm">
                         <div class="text-right">
                             <h4 class="card-title">{{$project->category->title_ar}}</h4>
                         </div>

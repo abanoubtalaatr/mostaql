@@ -42,6 +42,7 @@ class Show extends Component
     public $showDeliverProject = false;
     public $messageToTellUserCanNotAddProposalOrAdd = '';
     public $notSubscribeInPackage;
+    public $disableTheForm = false;
 
     public function mount(Project $project)
     {
@@ -154,6 +155,10 @@ class Show extends Component
 
         $this->validate();
 
+
+        if ($this->project->status_id == 2 || $this->project->status_id == 3) {
+            $this->disableTheForm = true;
+        }
         if ($this->proposal) {
 
             $this->proposal->update([

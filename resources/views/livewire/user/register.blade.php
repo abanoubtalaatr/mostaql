@@ -36,7 +36,8 @@
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col-md-6 my-2">
                         <label for="">الاسم الاول</label>
-                        <input wire:model.defer="form.first_name"  type="text" class="form-control text-right" id="first_name" name="first_name">
+                        <input wire:model.defer="form.first_name" type="text" class="form-control text-right"
+                               id="first_name" name="first_name">
                         @error('form.first_name') <span
                             class="error text-danger text-danger">{{ $message }}</span> @enderror
                     </div>
@@ -67,13 +68,16 @@
                         </select>
                         @error('form.city_id') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
-                    
+
                     <div class="col-md-6 my-2">
                         <label for="">رقم الجوال</label>
                         <div class="input-group mb-3">
-                            <input  wire:model.defer="form.mobile" class="form-control" placeholder="ادخل الرقم الخاص بك فقط" aria-describedby="" type="tel">
+                            <input wire:model.defer="form.mobile" class="form-control"
+                                   placeholder="ادخل الرقم الخاص بك فقط" aria-describedby="" type="tel">
                             <div class="input-group-prepend">
+
                                 <span class="input-group-text" id="">{{$countryCode ??'+966'}}</span>
+
                             </div>
                         </div>
                     </div>
@@ -118,7 +122,8 @@
                         @error('form.id_image') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="col-md-12 ml-1 my-3">
-                        <input class="form-check-input" type="checkbox" wire:model.defer="form.terms_accepted" value="1" id="">
+                        <input class="form-check-input" type="checkbox" wire:model.defer="form.terms_accepted" value="1"
+                               id="">
                         <label class="form-check-label mr-4 d-block" for="">
                             <a href="/{{app()->getLocale()}}/terms" class="user-conditions">
                                 لقد قرأت ووافقت على شروط الاستخدام وبيان الخصوصية
@@ -128,7 +133,7 @@
                     </div>
                     <div class="col-md-12 ml-1 my-3">
                         @if(session()->has('check_your_email'))
-                        <div class="text-right alert alert-info">{{session()->get('check_your_email')}}</div>
+                            <div class="text-right alert alert-info">{{session()->get('check_your_email')}}</div>
                         @endif
                     </div>
 
