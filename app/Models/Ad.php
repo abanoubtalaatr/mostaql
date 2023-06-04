@@ -20,6 +20,8 @@ class Ad extends Model
     {
         return static::where('start_at', '<=', now())
             ->where('end_at', '>=', now())
-            ->get();
+            ->inRandomOrder()
+            ->limit(1)
+            ->first();
     }
 }

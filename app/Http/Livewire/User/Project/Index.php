@@ -59,9 +59,9 @@ class Index extends Component
                 })->latest()->paginate($this->perPage);
 
         }
-        $ads = Ad::active();
+        $ad = Ad::active();
         $this->loading = false;
-        return view('livewire.user.project.index', compact('categories', 'projects', 'ads'));
+        return view('livewire.user.project.index', compact('categories', 'projects', 'ad'));
     }
 }
 

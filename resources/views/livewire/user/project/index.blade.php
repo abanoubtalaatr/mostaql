@@ -22,27 +22,35 @@
             </div>
         </div>
     </div>
-    <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-lg-2 row-cols-md-1 text-right">
-            <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
-                <div class="card bg-transparent">
-                    <div class="card-body">
-                        <div class="row advertisement row-cols-2 row-cols-md-4 py-1 text-center">
-                            @foreach($ads as $ad)
-                                <div class="col mb-2">
-                                    <a href="" type="button" data-toggle="modal" data-target="#exampleModal{{$ad->id}}">
-                                        <div class="card border-0">
-                                            <img src="{{asset($ad->photo_url)}}" alt="">
+    @if(isset($ad))
+        <div class="container mt-5">
+            <div class="row row-cols-1 row-cols-lg-2 row-cols-md-1 text-right">
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                    <div class="card bg-transparent">
+                        <div class="card-body">
+                            <div
+                                class="row advertisement row-cols-1 row-cols-md-1 py-1 text-center"
+                            >
+                                <div class="col-md-12 mb-1">
+
+                                    <a
+                                        href=""
+                                        type="button"
+                                        data-toggle="modal"
+                                        data-target="#exampleModal{{$ad->id}}"
+                                    >
+                                        <div class="card border-0 new-img-adds-v2">
+                                            <img src="{{asset($ad->photo_url)}}" class="w-100" alt=""/>
                                         </div>
                                     </a>
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
 
     <div class="container mt-5 projects-card">
@@ -116,7 +124,7 @@
 
     </div>
 </div>
-@foreach($ads as $ad)
+@if($ad)
     <div class="modal fade" id="exampleModal{{$ad->id}}" tabindex="-1"
          aria-labelledby="exampleModalLabel{{$ad->id}}"
          style="display: none;" aria-hidden="true">
@@ -203,7 +211,7 @@
             </div>
         </div>
     </div>
-@endforeach
+@endif
 
 <style>
     .modal {

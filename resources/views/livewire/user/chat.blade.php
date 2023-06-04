@@ -35,7 +35,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <img src="{{asset('images/Group 60.png')}}" alt="">
+                                        <img src="{{asset($message['sender']['avatar'])}}" alt="">
                                         <strong>{{$message['sender']['first_name'].' '. $message['sender']['last_name']}}</strong>
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                             <div class="card-body text-left" style="direction: ltr;">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <img src="{{asset('images/Group 60.png')}}" alt="">
+                                        <img src="{{asset($message['sender']['avatar']}}" alt="">
                                         <strong>{{$message['sender']['first_name'] . ' '. $message['sender']['last_name']}}</strong>
                                     </div>
                                 </div>

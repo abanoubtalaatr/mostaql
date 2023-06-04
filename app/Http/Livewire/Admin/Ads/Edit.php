@@ -63,7 +63,7 @@ class Edit extends Component
             'form.facebook' => ['nullable', 'url'],
             'form.instagram' => ['nullable', 'url'],
             'form.twitter' => ['nullable', 'url'],
-            'form.start_at' => 'required|date|date-format:Y-m-d|after:yesterday',
+            'form.start_at' => 'required|date|date-format:Y-m-d',
             'form.end_at' => ['required']
         ];
     }
