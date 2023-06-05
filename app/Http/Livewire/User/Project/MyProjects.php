@@ -59,7 +59,7 @@ class MyProjects extends Component
 
     public function getRecords()
     {
-        return Project::where('user_id', auth()->id())->latest()->get();
+        return Project::where('user_id', auth()->id())->where('status_from_admin', 'active')->latest()->get();
     }
 
     public function deleteProject(Project $project)

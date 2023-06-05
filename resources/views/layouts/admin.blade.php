@@ -60,6 +60,14 @@
             @endcan
             @can('Manage users')
                 <li>
+                    <a href="{{route('admin.projects.index')}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.projects')
+                    </a>
+                </li>
+            @endcan
+            @can('Manage users')
+                <li>
                     <a href="{{route('admin.users.index')}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
                         @lang('site.users')
@@ -74,6 +82,7 @@
                     </a>
                 </li>
             @endcan
+
 
             @can('Manage ads')
                 <li>

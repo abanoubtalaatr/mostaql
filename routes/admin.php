@@ -139,6 +139,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
         Route::get('payback-requests', PaybackRequestsIndex::class)->name('payback_requests');
         Route::get('payback-requests/{paybackRequest}/pay', PaybackRequestsPay::class)->name('payback_requests.pay');
 
+        Route::get('projects', \App\Http\Livewire\Admin\Project\Index::class)->name('projects.index');
+        Route::get('projects/{project}', \App\Http\Livewire\Admin\Project\Show::class)->name('projects.show');
         Route::get('settings', SettingsIndex::class)->name('settings');
     });
 });
