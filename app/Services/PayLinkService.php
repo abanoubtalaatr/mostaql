@@ -64,7 +64,7 @@ class PayLinkService
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json'
-        ])->post('https://restpilot.paylink.sa/api/auth', $data);
+        ])->post('https://restapi.paylink.sa/api/auth', $data);
 
         if ($response->ok()) {
             return $response['id_token'];
