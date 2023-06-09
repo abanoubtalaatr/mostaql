@@ -11,7 +11,8 @@ use Livewire\Component;
 
 class MyProjects extends Component
 {
-
+    public $showPopup = false;
+    public $project;
 
     public function createNotification($user, $project, $message, $body)
     {
@@ -62,10 +63,16 @@ class MyProjects extends Component
         return Project::where('user_id', auth()->id())->where('status_from_admin', 'active')->latest()->get();
     }
 
+    public function confirmDelete()
+    {
+        $this->project->delete();
+        $this->showPopup = !$this->showPopup;
+    }
+
     public function deleteProject(Project $project)
     {
-         Proposal::where('project_id', $project->id)->delete();
-         $project->delete();
+        $this->project = $project;
+        $this->showPopup = !$this->showPopup;
     }
 
     public function render()

@@ -58,8 +58,8 @@ class PayLinkService
     public function authRequest()
     {
         $data = [
-            'apiId' => "APP_ID_1123453311",
-            'secretKey' => "0662abb5-13c7-38ab-cd12-236e58f43766"
+            'apiId' => "APP_ID_1681303723036",
+            'secretKey' => "e6b717d3-62ff-4f8c-a451-4194c2c5d55a"
         ];
 
         $response = Http::withHeaders([

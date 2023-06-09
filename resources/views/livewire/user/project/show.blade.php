@@ -20,7 +20,7 @@
 
                     @if(!empty($project->file))
                         <hr>
-                        <a target="_blank" class="text-white" href="{{url('uploads/pics/' . $project->file)}}"> <i
+                        <a target="_blank" class="text-yellow" style="color: yellow" href="{{url('uploads/pics/' . $project->file)}}"> <i
                                 class="fa fa-file mx-3"></i>مرفقات المشروع</a>
                     @endif
                 </div>

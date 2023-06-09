@@ -65,7 +65,7 @@ class Create extends Component
         ]);
 
         $project->skills()->sync($this->form['skills']);
-        session()->flash('success', 'تم انشاء مشروعك بنجاج.');
+        session()->flash('success', 'تم ارسال مشروعك الي الاداره وسوف يتم قبول او رفض المشروع خلال 24 ساعة من الان');
 
         return redirect(route('user.my_projects'));
     }

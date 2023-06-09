@@ -29,14 +29,17 @@ class Index extends Component
 
     public function getRecords()
     {
-        $proposedProjects = DB::table('proposals')
-            ->where('user_id', auth()->id())
-            ->select('project_id as id')
-            ->get()
-            ->pluck('id')
-            ->toArray();
+//        $proposedProjects = DB::table('proposals')
+//            ->where('user_id', auth()->id())
+//            ->select('project_id as id')
+//            ->get()
+//            ->pluck('id')
+//            ->toArray();
+//
+//        dd( Project::whereIn('id', $proposedProjects)->latest()->get()->count());
+//
+        return auth()->user()->proposals;
 
-        return Project::whereIn('id', $proposedProjects)->latest()->get();
     }
 
     public function acceptDelivery(Project $project)
@@ -87,8 +90,8 @@ class Index extends Component
     public function render()
     {
         $categories = Category::all();
-        $projects = $this->getRecords();
+        $proposals = $this->getRecords();
 
-        return view('livewire.user.proposal.index', compact('categories', 'projects'))->layout('layouts.front');
+        return view('livewire.user.proposal.index', compact('categories', 'proposals'))->layout('layouts.front');
     }
 }

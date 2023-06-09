@@ -98,12 +98,7 @@
                                 @error('form.job_title') <span class="error text-danger">{{ $message }}</span> @enderror
 
                             </div>
-                            <div class="col-lg-6 col-sm-12 my-2">
-                                <label for="">الجوال</label>
-                                <input wire:model.defer="form.mobile" type="text" class="form-control text-right">
-                                @error('form.mobile') <span class="error text-danger">{{ $message }}</span> @enderror
 
-                            </div>
                             <div class="col-lg-6 col-sm-12 my-2">
                                 <label for="">الدولة</label>
                                 <select wire:model.defer="form.country_id" wire:change="getCities" id=""
@@ -117,26 +112,28 @@
 
                             </div>
                             <div class="col-lg-6 col-sm-12 my-2">
-                                <label for="">المهارات </label>
-                                <div class="dropdown bootstrap-select show-tick select form-control text-right">
-                                    <select wire:model.defer="form.skills"
-                                            class="select form-control text-right selectpicker" multiple=""
-                                            tabindex="-98">
-                                        <option disabled>اختر مهاراتك</option>
-                                        @foreach($skills as $skill)
-                                            <option value="{{$skill->id}}">{{$skill->name_ar}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="dropdown-menu ">
-                                        <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1"
-                                             aria-multiselectable="true">
-                                            <ul class="dropdown-menu inner show" role="presentation"></ul>
-                                        </div>
+                                <label for="">رقم الجوال</label>
+                                <div class="input-group mb-3">
+                                    <input wire:model.defer="form.mobile" class="form-control"
+                                           placeholder="ادخل الرقم الخاص بك فقط" aria-describedby="" type="tel">
+                                    <div class="input-group-prepend">
+
+                                        <span class="input-group-text" id="">{{$countryCode ??'+966'}}</span>
+
                                     </div>
                                 </div>
-                                <small>أضف المهارات ذات الصلة بمجال تخصصك. </small>
-                                @error('form.skills') <span class="error text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-md-6 my-2 " wire:ignore>
+                                <label for="">المهارات المطلوبة</label>
+                                <br>
+                                <select id='skills' wire:model='form.skills' multiple
+                                        class="@error('form.skills') is-invalid @enderror form-control text-right">
+                                    @foreach($skills as $skill)
+                                        <option value="{{$skill->id}}">{{$skill->name_ar}}</option>
+                                    @endforeach
 
+                                </select>
+                                @error('form.skills')<span class="error text-danger text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-lg-6 col-sm-12 my-2">
                                 <label for="">المدينه</label>
@@ -151,7 +148,7 @@
                             </div>
 
                             <div class="col-lg-6 col-sm-12 my-2">
-                                <label for="">الصوره الشخصيه</label>
+                                <label for="">صورة عرض الملف  ( اختياري ).</label>
                                 <input type="file"  wire:model.defer="form.avatar" class="form-control text-right">
                                 @error('form.avatar') <span class="error text-danger">{{ $message }}</span> @enderror
 

@@ -47,7 +47,7 @@
                         <button class="btn extra-green">تسجيل دخول</button>
                     </div>
                     <div class="col-md-6 mb-2 text-right">
-                        <p class="card-text">ساعدني</p>
+{{--                        <p class="card-text">ساعدني</p>--}}
                         <a class="nav-link join-us-login" href="/{{app()->getLocale()}}/user/register">
                             ليس لدي حساب بعد
                         </a>

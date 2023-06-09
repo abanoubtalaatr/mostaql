@@ -113,7 +113,7 @@
                             class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="col-md-12 my-2">
-                        <label for="">البطاقه الشخصيه</label>
+                        <label for="">البطاقه الشخصيه ( اختياري )</label>
                         <input wire:model.defer="form.id_image" type="file" class="form-control-file">
                         <small id="emailHelp" class="form-text text-muted">يجب عليك التقاط صوره لشخصك مع بطاقتك الشخصيه
                             لإثبات هويتك

@@ -105,8 +105,8 @@ footer p {
 }
 
 .chossen {
-    font-size: 14px;
-    margin: 0px 30px;
+    font-size: 14px !important;
+    margin: 0px 30px !important;
 }
 
 .txt-lines {
@@ -300,6 +300,14 @@ a {
 
 .rate-text-clinet {
     height: 130px !important;
+}
+
+.col-md-8 .form-check label {
+    padding: 0px 30px !important;
+}
+
+.login .row .row .col-md-12 .mr-4 {
+    padding-right: 20px !important;
 }
 
 button, .extra-purple, .extra-green {
@@ -666,6 +674,11 @@ html {
 .new-img-adds-v2 img {
     width: 100% !important;
     height: 400px !important;
+}
+
+.modal-body .row-cols-3 {
+    background: rgba(230, 230, 250, 0.568);
+    margin: 0px 5px;
 }
 
 .projects-card .top-pj-color {

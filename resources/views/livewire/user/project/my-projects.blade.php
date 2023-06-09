@@ -2,13 +2,20 @@
     <div class="text-right">
         <h4 class="card-title"> مشاريعي</h4>
     </div>
+    @if(session()->has('success'))
+        <div class="alert alert-success text-right" role="alert">
+          {{session()->get('success')}}
+        </div>
+    @endif
     <div class="row row-cols-1 row-cols-md-2 text-right">
         @foreach($projects as $project)
             <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
                 <div class="card bg-transparent">
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-3">
-                            <h6 class="card-title">{{$project->title}}</h6>
+                            <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}">
+                                <h6 class="card-title">{{$project->title}}</h6>
+                            </a>
                         </div>
                         @if($project->request_to_delivered && $project->status_id ==2 )
                             <button wire:click="acceptDelivery({{$project->id}})" class="btn btn-danger mb-2">
@@ -53,12 +60,44 @@
                             </a>
                         @endif
 
-                        <i class="fas fa-trash btn btn-danger"  wire:click="deleteProject({{$project->id}})"></i>
+                        <i class="fas fa-trash btn btn-danger" wire:click="deleteProject({{$project->id}})"></i>
 
                     </div>
                 </div>
             </div>
         @endforeach
-
     </div>
+    @if($showPopup)
+        <div class="popup">
+            <div class="popup-content text-right">
+                <p>هل انت متاكك من حذف مشروعك</p>
+                <button type="submit" class="btn btn-danger" wire:click="confirmDelete">تاكيد الحذف</button>
+                <button type="button" class="btn btn-secondary" wire:click="deleteProject">الغاء</button>
+            </div>
+        </div>
+    @endif
 </div>
+
+<style>
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        width: 40%;
+        overflow: auto;
+    }
+</style>
