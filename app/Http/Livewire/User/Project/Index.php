@@ -35,7 +35,7 @@ class Index extends Component
     public function render()
     {
         $categories = Category::all();
-        $projects = Project::query()->where('status_from_admin', 'active');
+        $projects = Project::query()->where('request_to_edit', 0)->where('status_from_admin', 'active');
 
 //        ->whereHas('skills', function ($query) {
 //        $query->whereIn('skill_id', auth()->user()->skills->pluck('id'));

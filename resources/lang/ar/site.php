@@ -458,10 +458,15 @@ return [
     'number_of_days' => 'عدد الايام',
     'file' => 'الملف',
     'category' => 'القسم',
-    'description'  =>'الوصف',
+    'description' => 'الوصف',
     'project_details' => 'وصف المشروع',
     '0' => 'مشروع جديد',
     '1' => 'تم قبول المشروع',
     '2' => 'تم رفض المشروع',
     'reject' => 'تم الرفض',
+    'the_project_has_been_rejected' => 'لقد تم رفض مشروعك ',
+    'the_project_has_been_accepted' => 'لقد تم قبول مشروعك',
+    'request_to_edit' => 'طلب تعديل ',
+    'the_request_to_edit_project_has_been_accepted' => 'لقد تمت الموافقة علي طلب التعديل',
+    'the_request_to_edit_project_has_been_rejected'=> 'لقد تم رفض طلب التعديل '
 ];

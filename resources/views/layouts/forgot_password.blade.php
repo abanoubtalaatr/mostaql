@@ -7,11 +7,13 @@
     <meta name="description" content="description">
     <meta name="Sard" content="sard">
     <meta name="robots" content="index">
+      <link rel="stylesheet" href="{{asset('css/bootstrap.rtl.min.css')}}">
     <!-- ******* FavIcon ******* //-->
     <link rel="icon" href="{{asset('admin/assets/img/favicon.ico')}}" type="image/x-icon">
     @if(app()->getLocale()=='ar')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
         <link rel="stylesheet" href="{{asset('frontAssets/assets_ar/css/arStyle.css')}}">
+          <link rel="stylesheet" href="{{asset('css/bootstrap.rtl.min.css')}}">
     @endif
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">

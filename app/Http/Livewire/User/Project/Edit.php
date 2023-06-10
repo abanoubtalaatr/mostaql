@@ -27,7 +27,6 @@ class Edit extends Component
 
     public function mount(Project $project)
     {
-
         $this->skills = Skill::all();
         $this->moneys = Money::all();
         $this->form = $project->toArray();
@@ -53,7 +52,7 @@ class Edit extends Component
 
         $validatedData = $this->validate();
 
-        if (isset($this->form['file'])) {
+        if (isset($this->form['file']) && !is_string($this->form['file'])) {
             $imagePath = $this->form['file']->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->form['file']->extension(), 'public');
         }
 
@@ -66,10 +65,11 @@ class Edit extends Component
             'number_of_days' => $this->form['number_of_days'],
             'user_id' => auth()->id(),
             'status_id' => 1,
+            'request_to_edit' => 1,
         ]);
 
         $this->project->skills()->sync($this->form['skills']);
-        session()->flash('success', 'تم تعديل مشروعك بنجاج.');
+        session()->flash('success', 'تم ارسال الطلب الي الادارة.');
 
         return redirect(route('user.my_projects'));
     }

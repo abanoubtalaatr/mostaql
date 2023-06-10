@@ -60,6 +60,9 @@
             "@php artisan key:generate --ansi"
         ]
     },
+    "files": [
+        "app/helpers.php"
+    ],
     "extra": {
         "laravel": {
             "dont-discover": []

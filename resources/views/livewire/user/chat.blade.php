@@ -10,6 +10,7 @@
                          wire:click="setReceiver({{$user->id}})">
                         <h5 class="card-title d-inline-block">{{$user->first_name . ' ' . $user->last_name}}</h5>
                         <img height="40" width="40" class="rounded-circle border" src="{{$user->avatar}}">
+                        <span class="text-white d-block">{{\App\Models\Chat::unRead($user->id,auth()->id())}}</span>
                         @if($user->isOnline())
                             <div class="online-user"></div>
                         @else
@@ -28,7 +29,7 @@
 
 
         <div class="col-md-8 mb-4">
-            @if(count($messages) > 0)
+            @if(count($messages) > 0 && $receiver)
                 <div class="card available-msg border my-3" style="direction: rtl">
                     @foreach($messages as $message)
                         @if($message['sender_id'] != auth()->id())

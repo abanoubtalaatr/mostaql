@@ -62,13 +62,13 @@
             </div>
         </div>
     </div>
-    @if(round($user->wallets()->where('can_withdraw',1)->sum('amount'),3) > 0 && !\App\Models\PaybackRequest::where('user_id' , auth()->id())->where('status', 'not_paid')->exists())
+{{--    @if(round($user->wallets()->where('can_withdraw',1)->sum('amount'),3) > 0 && !\App\Models\PaybackRequest::where('user_id' , auth()->id())->where('status', 'not_paid')->exists())--}}
         <div class="text-center my-4">
             <button class="btn btn-info small-btn-border" data-toggle="modal" data-target="#staticBackdrop">
                 طلب سحب الرصيد
             </button>
         </div>
-    @endif
+{{--    @endif--}}
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">

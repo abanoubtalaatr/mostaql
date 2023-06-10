@@ -101,6 +101,20 @@ class Chat extends Component
     public function setReceiver($receiverId)
     {
         $this->receiver = User::find($receiverId);
+
+        if (\auth()->id() != $receiverId) {
+            \App\Models\Chat::where('sender_id', $this->receiver->id)
+                ->where('receiver_id', auth()->id())
+                ->whereNull('receiver_read_at')
+                ->update(['receiver_read_at' => now()]);
+
+        } else {
+            \App\Models\Chat::where('sender_id', auth()->id())
+                ->where('receiver_id', $this->receiver->id)
+                ->whereNull('sender_read_at')
+                ->update(['sender_read_at' => now()]);
+        }
+
         $this->removeError();
     }
 

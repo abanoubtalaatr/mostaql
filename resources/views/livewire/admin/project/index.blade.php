@@ -18,6 +18,7 @@
                         <th class="text-center">@lang('site.title')</th>
                         <th class="text-center">@lang('site.number_of_days')</th>
                         <th class="text-center">@lang('site.price')</th>
+                        <th class="text-center">@lang('site.request_to_edit')</th>
                         <th class="text-center">@lang('site.status')</th>
                         <th>@lang('site.actions')</th>
                     </tr>
@@ -30,11 +31,12 @@
                             <td class='text-center'>{{$record->title}}</td>
                             <td class='text-center'>{{$record->number_of_days}}</td>
                             <td class="text-center">{{$record->price}}</td>
+                            <td class="text-center">{{$record->request_to_edit ==1 ?'نعم':''}}</td>
                             <td class="text-center">@lang('site.' . $record->status_from_admin)</td>
                             <td>
                                 <div class="actions">
 
-                                    @if($record->status_from_admin =='pending')
+                                    @if($record->status_from_admin =='pending' || $record->request_to_edit == 1)
                                         <button wire:click='approve({{$record->id}})'
                                                 class="no-btn">
                                             <i class="fa fa-check "></i>

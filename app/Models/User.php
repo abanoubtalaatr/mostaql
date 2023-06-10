@@ -30,6 +30,20 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    //un read message for me
+    public function chats()
+    {
+        $userId = auth()->id();
+     $chats =    User::joinSub(function ($query) use ($userId) {
+            $query->selectRaw('distinct case when sender_id <> ? then sender_id else receiver_id end as user_id', [$userId])
+                ->from('chats')
+                ->where('sender_id', '=', $userId)
+                ->orWhere('receiver_id', '=', $userId);
+        }, 'chats', function ($join) {
+            $join->on('users.id', '=', 'chats.user_id');
+        });
+    }
+
     public function works()
     {
         return $this->hasMany(Work::class);
