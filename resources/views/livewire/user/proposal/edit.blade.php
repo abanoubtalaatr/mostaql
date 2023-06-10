@@ -84,38 +84,11 @@
                     </ul>
                 </div>
             </div>
-            @if(auth()->user())
-                @if(!$isFavourite)
-                    <button wire:click="addToFavourite" class="btn extra-purple">اضف الي المفضله</button>
-                @endif
-            @endif
 
-            @if($showDeliverProject)
-                <button wire:click="deliveryProject" class="btn extra-purple">تسليم الصفقة</button>
-            @endif
-
-            @if (session()->has('favourite'))
-                <div class="alert alert-success w-75 mt-3" style="margin-left: 25%">
-                    {{ session()->get('favourite') }}
-                </div>
-            @endif
-
-            @if (session()->has('request_to_delivered'))
-                <div class="alert alert-success w-75 mt-3" style="margin-left: 25%">
-                    {{ session()->get('request_to_delivered') }}
-                </div>
-            @endif
         </div>
         <div class="col-md-8 mb-4">
-            @if(!empty($messageToTellUserCanNotAddProposalOrAdd))
-                <div class="alert alert-danger">{{$messageToTellUserCanNotAddProposalOrAdd}}</div>
-            @endif
-            @if(!empty($notSubscribeInPackage))
-                <div class="alert alert-danger">{{$notSubscribeInPackage}}</div>
-            @endif
-            @if($showAddProposal)
                 <div class="card">
-                    <form wire:submit.prevent="addProposal" wire:disabled="disableTheForm">
+                    <form wire:submit.prevent="store" wire:disabled="disableTheForm">
                         <div class="text-right">
                             <h4 class="card-title">{{$project->category->title_ar}}</h4>
                         </div>
@@ -174,7 +147,7 @@
                             </div>
                             @if(auth()->user())
                                 @if($proposal)
-                                    <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}/proposal/{{$proposal->id}}/edit" type="button" class="btn extra-purple my-3">هل تريد تعديل عرضك علي هذا المشروع</a>
+                                    <button class="btn extra-purple my-3">تعديل</button>
                                 @else
                                     <button class="btn extra-purple my-3">اضف الان</button>
                                 @endif
@@ -189,93 +162,16 @@
                         </div>
                     </form>
                 </div>
-            @endif
-
-            @if($project->proposals->count() > 0)
-                <h5> العروض علي هذا المشروع</h5>
-            @else
-                <p>لايوجد بيانات حاليا</p>
-            @endif
-            @foreach($project->proposals as $proposal)
-                <div class="card new-proposal-card text-right border mb-2">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <ul class="resit-drop-down">
-                                <li class="dropdown">
-                                    <a
-                                        role="button"
-                                        data-toggle="dropdown"
-                                        aria-expanded="false"
-                                        href="javascript:void(0)"
-                                    ><i class="fas fa-ellipsis-h"></i>
-                                    </a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                           href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}"
-                                        >تفاصيل العرض</a
-                                        >
-                                        @if(auth()->check() && auth()->id() == $proposal->user->id)
-                                            <a class="dropdown-item"
-                                               href="/{{app()->getLocale()}}/user/projects/{{$proposal->project->id}}/proposal/{{$proposal->id}}/edit">
-                                                تعديل العرض
-                                            </a>
-                                        @endif
-
-                                        <a class="dropdown-item" href="/{{app()->getLocale()}}/support"
-                                        >ارسال بلاغ</a
-                                        >
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <a href="/{{app()->getLocale()}}/user/profile/{{$proposal->user->id}}"
-                               class="card-title profile-img-usr-crcl">
-                                {{$proposal->user->first_name .' '. $proposal->user->last_name}}
-                                <span>
-                                        <img class="rounded-circle" src="{{asset($proposal->user->avatar)}}" alt=""/>
-                                    </span>
-                            </a>
-                        </div>
-                        <div class="details-propsal-of-usrr">
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0)">مدينه الرياض</a>
-                                    <i class="fas fa-home"></i>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">{{$proposal->user->job_title}}</a>
-                                    <i class="fas fa-briefcase"></i>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span>{{$proposal->price}} </span> - <span>ريال</span>
-                                    </a>
-                                    <i class="fas fa-money-check-alt"></i>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span>{{$proposal->number_of_days}} </span> - <span>يوم</span>
-                                        <i class="fas fa-business-time"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="card-text">
-                            {{$proposal->description}}
-                        </p>
-                        <div class="text-right">
-                            <span>({{$proposal->user->averageRates()}})</span>
-                            @if($proposal->user)
-                                @for ($i = 1; $i <= $proposal->user->averageRates(); $i++)
-                                    <img src="{{asset('images/Star 1.png')}}" alt="">
-                                @endfor
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            @endforeach
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load', function () {
+            Livewire.on('goBack', function () {
+                history.back();
+            });
+        });
+    </script>
+@endpush

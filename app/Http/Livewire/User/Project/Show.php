@@ -43,6 +43,8 @@ class Show extends Component
     public $messageToTellUserCanNotAddProposalOrAdd = '';
     public $notSubscribeInPackage;
     public $disableTheForm = false;
+    public $enableEdit = false;
+    public $proposal;
 
     public function mount(Project $project)
     {
@@ -53,13 +55,11 @@ class Show extends Component
         $this->user = $this->project->user;
         $this->userType = auth()->user() ? auth()->user()->user_type : '';
         $this->checkShowButtonDeliverProject();
-
     }
 
     public function checkShowButtonDeliverProject()
     {
         if (auth()->user()) {
-
             $proposal = Proposal::where('user_id', \auth()->id())
                 ->where('project_id', $this->project->id)
                 ->where('status_id', 12)
@@ -100,14 +100,14 @@ class Show extends Component
 
         if (empty($this->messageToTellUserCanNotAddProposalOrAdd)) {
             if ($this->proposal) {
-                $this->form = $this->proposal->toArray();
                 $this->showAddProposal = true;
             }
-
         }
+
         if (auth()->check() && \auth()->user()->user_type == 'owner' || $this->project->user_id == \auth()->id()) {
             $this->showAddProposal = false;
         }
+
     }
 
     public function addToFavourite()
@@ -167,6 +167,7 @@ class Show extends Component
                 'description' => $this->form['description'],
                 'dues' => $this->dues,
             ]);
+
             $user = User::find($this->project->user_id);
 
 

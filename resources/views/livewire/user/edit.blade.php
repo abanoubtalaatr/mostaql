@@ -60,7 +60,7 @@
                         </div>
                         <div class="form-check">
                             <label class="form-check-label chossen" for="user_type3">
-                                صاحب مشاريع منفذ
+                                صاحب مشاريع و منفذ
                             </label>
                             <input wire:model.defer="form.user_type" class="form-check-input" type="radio"
                                    name="user_type" id="user_type3"

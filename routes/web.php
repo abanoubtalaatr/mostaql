@@ -130,6 +130,7 @@ Route::group([
 
             Route::get('my-proposals', [\App\Http\Controllers\User\ProposalController::class, 'index'])->name('my_proposals');
             Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class, 'show'])->name('show.proposal');
+            Route::get('projects/{project}/proposal/{proposal}/edit', [\App\Http\Controllers\User\ProposalController::class, 'editProposal']);
 
             Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
             Route::get('ads', [UserAdController::class, 'index'])->name('ads');
