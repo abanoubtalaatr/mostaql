@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\PaybackRequest;
+use App\Models\User;
+use App\Services\PayLinkService;
 use Illuminate\Http\Request;
 
 class WalletController extends Controller
@@ -16,7 +18,7 @@ class WalletController extends Controller
     public function storeRequest(Request $request)
     {
 
-        if($request->address && $request->bank_name && $request->bank_code && $request->email && $request->card_number && $request->card_holder) {
+        if($request->address && $request->bank_name && $request->bank_code && $request->email && $request->card_number && $request->card_holder&& $request->amount) {
             PaybackRequest::create([
                 'user_id' => auth()->id(),
                 'address' => $request->address,
@@ -35,4 +37,14 @@ class WalletController extends Controller
             return redirect()->back();
         }
     }
+
+    public function recharge(Request $request)
+    {
+        $payLink = new PayLinkService();
+
+        if($request->amount) {
+            $user = User::find(auth()->id());
+          return  $payLink->pay($request->amount, $user,'wallet',null,null,null);
+        }
+  }
 }

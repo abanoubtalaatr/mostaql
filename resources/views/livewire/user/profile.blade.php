@@ -66,7 +66,9 @@
             </button>
         </div>
     @endif
-
+    @if(session()->has('message'))
+    <div class="alert alert-success text-right my-2">{{session()->get('message')}}</div>
+    @endif
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;"
          aria-hidden="true">
         <div class="modal-dialog">

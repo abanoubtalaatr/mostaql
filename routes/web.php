@@ -78,9 +78,6 @@ Route::group([
                 $user = User::find($proposal->user->id);
 
 
-                $proposal->update(['status_id' => 12]);
-                $project->update(['status_id' => 2]);
-
                 $userProposal = User::find($proposal->user->id);
                 //        Mail::to($userProposal->email)->send(new ProposalEmail($project,'تم قبول عرضك علي مشروع'));
                 $title_ar = "تم قبول عرضك";
@@ -93,6 +90,25 @@ Route::group([
                     'content_ar' => $content_ar,
                     'user_id' => $user_id,
                     'type' => $type
+                ]);
+                \App\Models\Wallet::create([
+                    'amount' => $request->amount,
+                    'user_id' => $proposal->user->id,
+                    'can_withdraw' => 0,
+                    'project_id' =>$project->id,
+                    'reason_ar' => 'تنفيذ المشروع بنجاح'
+                ]);
+                $proposal->update(['status_id' => 12]);
+                $project->update(['status_id' => 2]);
+
+                return redirect()->route('user.get_profile', \auth()->id());
+            }
+            if($request->wallet==true) {
+                \App\Models\Wallet::create([
+                   'amount' => $request->amount,
+                   'user_id' => auth()->id(),
+                   'can_withdraw' => 1,
+                    'reason_ar' => 'شحن المحفظة'
                 ]);
                 return redirect()->route('user.get_profile', \auth()->id());
             }
@@ -152,6 +168,9 @@ Route::group([
 
             Route::post('request-withdrawal', [\App\Http\Controllers\User\WalletController::class,'storeRequest'])
                 ->name('request_withdrawal');
+
+            Route::post('recharge', [\App\Http\Controllers\User\WalletController::class,'recharge'])->name('recharge');
+
 
         });/*authenticated users*/
 

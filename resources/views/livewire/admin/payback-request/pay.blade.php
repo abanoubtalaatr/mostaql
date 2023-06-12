@@ -52,10 +52,15 @@
                     </tr>
 
                     <tr>
-                        <td class='text-bold'>@lang('site.amount')</td>
+                        <td class='text-bold'>@lang('site.amount_want_to_draw')</td>
                         <td>{{$paybackRequest->amount}}</td>
                     </tr>
 
+
+                    <tr>
+                        <td class='text-bold'>@lang('site.amount_can_draw')</td>
+                        <td>{{$paybackRequest->user->wallets()->where('amount' ,'>',0)->sum('amount')}}</td>
+                    </tr>
                 </table>
 
 

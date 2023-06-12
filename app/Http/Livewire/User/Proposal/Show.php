@@ -10,6 +10,7 @@ use App\Models\Notification;
 use App\Models\Proposal;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\Wallet;
 use App\Services\PayLinkService;
 use App\Services\Statuses;
 use Illuminate\Support\Facades\DB;
@@ -37,17 +38,35 @@ class Show extends Component
 
     public function pay()
     {
+        // check if has enough money to pay with wallet if not redirect him if not
 
-        //must pay first
-        //Must update first and then update
+
         $project = Project::find($this->proposal->project_id);
         $payLink = new PayLinkService();
         $user = User::find($project->user_id);
 
-        $project->update([
-           'price' => $this->proposal->price,
-        ]);
-        return $payLink->pay($this->proposal->price, $user, 'payForProject', null, $project, $this->proposal);
+        $amountFromWallet  = $user->wallets()->where('can_withdraw',1)->sum('amount');
+
+        if($amountFromWallet >= $this->proposal->price) {
+            Wallet::create([
+                'user_id' => $this->proposal->user->id,
+                'amount' => $this->proposal->price,
+                'project_id' => $project->id,
+                'reason_ar' => 'دفع لاجل تنفيذ مشروع',
+            ]);
+
+            Wallet::create([
+               'user_id' => $project->user->id,
+                'amount' => -$this->proposal->price,// here exist minus before the number
+                'project_id' => $project->id,
+                'reason_ar' => 'سحب من المحفظة لدفع مبلغ لتنفيذ المشروع'
+            ]);
+
+            session()->flash('message', 'تم سحب قيمة المشروع من المحفظة');
+            return redirect()->route('user.get_profile', \auth()->id());
+        }else{
+            return $payLink->pay($this->proposal->price, $user, 'payForProject', null, $project, $this->proposal);
+        }
     }
 
     public function createNotification($user, $project)

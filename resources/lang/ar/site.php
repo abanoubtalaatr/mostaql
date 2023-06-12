@@ -468,5 +468,7 @@ return [
     'the_project_has_been_accepted' => 'لقد تم قبول مشروعك',
     'request_to_edit' => 'طلب تعديل ',
     'the_request_to_edit_project_has_been_accepted' => 'لقد تمت الموافقة علي طلب التعديل',
-    'the_request_to_edit_project_has_been_rejected'=> 'لقد تم رفض طلب التعديل '
+    'the_request_to_edit_project_has_been_rejected'=> 'لقد تم رفض طلب التعديل ',
+    'amount_can_draw' => 'الرصيد القابل للسحب',
+    'amount_want_to_draw' => 'الرصيد المطلوب للحسب'
 ];

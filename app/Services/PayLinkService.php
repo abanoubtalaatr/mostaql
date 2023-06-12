@@ -19,6 +19,10 @@ class PayLinkService
         $projectId = 'test';
         $packageId = 'test';
         $proposalId = 'test';
+        $wallet =false;
+        if($note =='wallet') {
+            $wallet =true;
+        }
         if ($project) {
             $projectId = $project->id;
         }
@@ -33,7 +37,7 @@ class PayLinkService
 
         $postFields = [
             'amount' => $amount,
-            'callBackUrl' => route('user.payment', "&ur=$user->id&project=$projectId&package=$packageId&proposal=$proposalId"),
+            'callBackUrl' => route('user.payment', "&ur=$user->id&project=$projectId&package=$packageId&proposal=$proposalId&wallet=$wallet&amount=$amount"),
             'cancelUrl' => route('user.cancel'),
             'clientEmail' => $user->email,
             'clientMobile' => $user->mobile,
@@ -51,20 +55,20 @@ class PayLinkService
 
         if ($response->ok()) {
 
-            redirect($response['url']);
+return            redirect($response['url']);
         }
     }
 
     public function authRequest()
     {
         $data = [
-            'apiId' => "APP_ID_1681303723036",
-            'secretKey' => "e6b717d3-62ff-4f8c-a451-4194c2c5d55a"
+            'apiId' => "APP_ID_1123453311",
+            'secretKey' => "0662abb5-13c7-38ab-cd12-236e58f43766"
         ];
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json'
-        ])->post('https://restapi.paylink.sa/api/auth', $data);
+        ])->post('https://restpilot.paylink.sa/api/auth', $data);
 
         if ($response->ok()) {
             return $response['id_token'];
