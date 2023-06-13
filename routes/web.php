@@ -91,25 +91,23 @@ Route::group([
                     'user_id' => $user_id,
                     'type' => $type
                 ]);
+
                 \App\Models\Wallet::create([
                     'amount' => $request->amount,
                     'user_id' => $proposal->user->id,
                     'can_withdraw' => 0,
                     'project_id' =>$project->id,
-                    'reason_ar' => 'تنفيذ المشروع بنجاح'
+                    'reason_ar' => 'حجز المبلغ لحين تنفيذ المشروع'
                 ]);
+
                 $proposal->update(['status_id' => 12]);
                 $project->update(['status_id' => 2]);
 
                 return redirect()->route('user.get_profile', \auth()->id());
             }
             if($request->wallet==true) {
-                \App\Models\Wallet::create([
-                   'amount' => $request->amount,
-                   'user_id' => auth()->id(),
-                   'can_withdraw' => 1,
-                    'reason_ar' => 'شحن المحفظة'
-                ]);
+               $user = User::find(auth()->id());
+               $user->update(['wallet' => $user->wallet + $request->amount]);
                 return redirect()->route('user.get_profile', \auth()->id());
             }
 

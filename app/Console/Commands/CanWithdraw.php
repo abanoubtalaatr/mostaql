@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Console\Command;
 
@@ -23,7 +24,12 @@ class CanWithdraw extends Command
         $wallets = Wallet::where('created_at', '>=', now()->subDays(14))->get();
 
         foreach ($wallets as $wallet) {
-            $wallet->update(['can_withdraw' => 1]);
+            $user = User::find($wallet->user_id);
+            if($user) {
+                $user->update(['wallet' => $user->wallet + $wallet->amount]);
+                $wallet->delete();
+            }
+
         }
 
         return 0;

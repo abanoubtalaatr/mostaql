@@ -27,7 +27,9 @@ class Index extends Component
         $user = User::find($paybackRequest->user_id);
 
         if ($user) {
-            $wallets = Wallet::where('user_id', $user->id)->where('can_withdraw', 1)->delete();
+            if($paybackRequest->amount <= $user->wallet  ) {
+                $user->update(['wallet' => $user->wallet - $paybackRequest->amount]);
+            }
         }
     }
 

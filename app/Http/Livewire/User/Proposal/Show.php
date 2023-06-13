@@ -45,7 +45,7 @@ class Show extends Component
         $payLink = new PayLinkService();
         $user = User::find($project->user_id);
 
-        $amountFromWallet  = $user->wallets()->where('can_withdraw',1)->sum('amount');
+        $amountFromWallet  = $user->wallet;
 
         if($amountFromWallet >= $this->proposal->price) {
             Wallet::create([
@@ -55,12 +55,7 @@ class Show extends Component
                 'reason_ar' => 'دفع لاجل تنفيذ مشروع',
             ]);
 
-            Wallet::create([
-               'user_id' => $project->user->id,
-                'amount' => -$this->proposal->price,// here exist minus before the number
-                'project_id' => $project->id,
-                'reason_ar' => 'سحب من المحفظة لدفع مبلغ لتنفيذ المشروع'
-            ]);
+            $project->user->update(['wallet' => $project->user->wallet - $this->proposal->price]);
 
             session()->flash('message', 'تم سحب قيمة المشروع من المحفظة');
             return redirect()->route('user.get_profile', \auth()->id());
