@@ -109,6 +109,11 @@
                 <li class="nav-item mx-4">
                     <a class="nav-link" href="/{{app()->getLocale()}}/user/my-projects">مشاريعي</a>
                 </li>
+
+                <li class="nav-item mx-4">
+                    <a class="nav-link" href="/{{app()->getLocale()}}/user/proposal-requests">طلبات تعديل العروض {{auth()->user()->proposalRequests->where('status', 'pending')->count()}}</a>
+                </li>
+
             @endif
             <li class="nav-item mx-4">
                 <a class="nav-link" href="/{{app()->getLocale()}}/user/projects">تصفح المشاريع</a>

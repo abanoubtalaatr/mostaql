@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Money;
 use App\Models\Notification;
 use App\Models\Proposal;
+use App\Models\ProposalEditRequest;
 use App\Models\Setting;
 use App\Models\Skill;
 use App\Models\Status;
@@ -42,14 +43,36 @@ class Edit extends Component
     public function store()
     {
         $this->validate();
-        $this->proposal->update([
-            'number_of_days' => $this->form['number_of_days'],
-            'price' => $this->form['price'],
-            'description' => $this->form['description'],
-            'dues' => $this->dues,
-        ]);
+//        $this->proposal->update([
+//            'number_of_days' => $this->form['number_of_days'],
+//            'price' => $this->form['price'],
+//            'description' => $this->form['description'],
+//            'dues' => $this->dues,
+//        ]);
 
-        session()->flash('proposal_created', 'تم تحديث عرضك');
+        $message = __('site.request_to_edit_proposal');
+        //create a new notification to the owner of project
+        createNotificationInDatabase($message, $message, $this->project->user, $this->project);
+
+        // check if this project has request to edit
+        $hasRequest = ProposalEditRequest::where('project_id', $this->project->id)->where('freelancer_id', auth()->id())->where('status', 'pending')->first();
+        if(!$hasRequest) {
+            ProposalEditRequest::create([
+                'project_id' => $this->project->id,
+                'proposal_id' => $this->proposal->id,
+                'freelancer_id' => $this->proposal->user->id,
+                'owner_id' => $this->project->user->id,
+                'number_of_days' => $this->form['number_of_days'],
+                'price' => $this->form['price'],
+                'description' => $this->form['description'],
+                'dues' => round($this->dues,2),
+            ]);
+
+            session()->flash('proposal_created', 'تم أرسال طلب تعديل العرض');
+        }else{
+            session()->flash('proposal_created', 'يوجد طلب تعديل عرض بالفعل لايمكنك ارسال عرض اخر الان');
+        }
+
         $this->emit('goBack');
     }
 

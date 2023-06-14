@@ -28,6 +28,18 @@ class Index extends Component
         $user = User::find(auth()->id());
 
 
+        if($user->wallet >= $package->price) {
+            \App\Models\PackageUser::create([
+                'user_id' => \auth()->id(),
+                'package_id' => $package->id,
+                'end_at' => \Carbon\Carbon::now()->addMonths($package->period),
+            ]);
+
+            $user->update(['wallet' => $user->wallet - $package->price]);
+
+            session()->flash('message', 'تم خصم قيمة الباقة من محفظتك');
+            return redirect()->to(route('user.get_profile', auth()->id()));
+        }
         if ($package) {
             $pay->pay($package->price, $user, 'payForPackage', $package, null, null);
         }

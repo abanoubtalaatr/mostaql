@@ -46,7 +46,7 @@
                            style="text-decoration: none" class="btn extra-green more mb-2">
                             تصفح المشروع
                         </a>
-                        <a href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}"
+                        <a href="/{{app()->getLocale()}}/user/projects/{{$proposal->project->id}}/proposal/{{$proposal->id}}/edit"
                            style="cursor: pointer" class="far fa-edit btn btn-info">
 
                         </a>

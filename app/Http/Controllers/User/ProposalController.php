@@ -23,4 +23,9 @@ class ProposalController extends Controller
     {
         return view('front.user.proposal.edit', compact('project', 'proposal'));
     }
+
+    public function proposalRequestEdit()
+    {
+        return view('front.user.proposal.requests');
+    }
 }

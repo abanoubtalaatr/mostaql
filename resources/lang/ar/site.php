@@ -401,7 +401,7 @@ return [
     'cant_accept_this_request' => 'لا يمكن قبول هذا الطلب',
     'refused_successfully' => 'تم الرفض بنجاح',
     'cant_refuse_this_request' => 'لا يمكن رفض هذا الطلب',
-    'accept' => 'قبول',
+    'accept' => ' تم القبول',
     'enter_verification_code' => 'ادخل كود التفعيل',
     'resend_verification_code' => 'أعاده ارسال كود التفعيل',
     'check_your_phone' => 'تفقد هاتفك',
@@ -470,5 +470,6 @@ return [
     'the_request_to_edit_project_has_been_accepted' => 'لقد تمت الموافقة علي طلب التعديل',
     'the_request_to_edit_project_has_been_rejected'=> 'لقد تم رفض طلب التعديل ',
     'amount_can_draw' => 'الرصيد القابل للسحب',
-    'amount_want_to_draw' => 'الرصيد المطلوب للحسب'
+    'amount_want_to_draw' => 'الرصيد المطلوب للحسب',
+    'request_to_edit_proposal' => 'طلب تعديل عرض'
 ];

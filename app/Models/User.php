@@ -30,6 +30,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function proposalRequests()
+    {
+        return $this->hasMany(ProposalEditRequest::class,'owner_id');
+    }
+
     //un read message for me
     public function chats()
     {

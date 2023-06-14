@@ -70,7 +70,7 @@ Route::group([
                     'package_id' => $package->id,
                     'end_at' => \Carbon\Carbon::now()->addMonths($package->period),
                 ]);
-
+                session()->flash('message', 'تم الاشتراك ف الباقة بنجاح');
                 return redirect()->route('user.get_profile', \auth()->id());
             }
             if ($project) {
@@ -102,13 +102,16 @@ Route::group([
 
                 $proposal->update(['status_id' => 12]);
                 $project->update(['status_id' => 2]);
-
+                session()->flash('message', 'تم دفع المبلغ');
                 return redirect()->route('user.get_profile', \auth()->id());
             }
             if($request->wallet==true) {
                $user = User::find(auth()->id());
                $user->update(['wallet' => $user->wallet + $request->amount]);
+                session()->flash('message', 'تم شحن المحفظة بنجاح');
+
                 return redirect()->route('user.get_profile', \auth()->id());
+
             }
 
             return 'success';
@@ -142,11 +145,6 @@ Route::group([
 
             Route::get('my-projects', [\App\Http\Controllers\User\ProjectController::class,'myProjects'])->name('my_projects');
 
-            Route::get('my-proposals', [\App\Http\Controllers\User\ProposalController::class, 'index'])->name('my_proposals');
-            Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class, 'show'])->name('show.proposal');
-            Route::get('projects/{project}/proposal/{proposal}/edit', [\App\Http\Controllers\User\ProposalController::class, 'editProposal']);
-
-            Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
             Route::get('ads', [UserAdController::class, 'index'])->name('ads');
             Route::get('ads/create', [UserAdController::class, 'create'])->name('create_ad');
             Route::get('ads/{ad}/edit', [UserAdController::class, 'edit'])->name('edit_ad');
@@ -169,6 +167,11 @@ Route::group([
 
             Route::post('recharge', [\App\Http\Controllers\User\WalletController::class,'recharge'])->name('recharge');
 
+            // proposals
+            Route::get('my-proposals', [\App\Http\Controllers\User\ProposalController::class, 'index'])->name('my_proposals');
+            Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class, 'show'])->name('show.proposal');
+            Route::get('projects/{project}/proposal/{proposal}/edit', [\App\Http\Controllers\User\ProposalController::class, 'editProposal']);
+            Route::get('proposal-requests', [\App\Http\Controllers\User\ProposalController::class,'proposalRequestEdit'])->name('proposal_requests_edit');
 
         });/*authenticated users*/
 
