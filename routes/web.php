@@ -63,7 +63,36 @@ Route::group([
             $package = \App\Models\Package::find($request->package);
             $project = \App\Models\Project::find($request->project);
 
+            // this for edit proposal amount
+            if ($request->note == 'EditProposal') {
 
+                //will calculate the price from the beings
+                // proposal will edit teh price and dues
+                // and project price
+                // also then update the status of request
+                $proposal = \App\Models\Proposal::find($request->proposal);
+                $total = $proposal->price + $request->amount;
+                $settings = \App\Models\Setting::first();
+                $proposal->update([
+                    'price' => $total,
+                    'dues' =>$total - ($total / $settings->platform_dues),
+                ]);
+
+                $project->update([
+                    'price' => $total,
+                ]);
+
+                $requestRow = \App\Models\ProposalEditRequest::where('owner_id', auth()->id())
+                    ->where('project_id', $project->id)
+                    ->where('proposal_id', $proposal->id)
+                    ->first();
+
+                $requestRow->update(['status' => 'accept']);
+
+                return redirect(route('user.proposal_requests_edit'));
+            }
+
+            // this for subscribe in package
             if ($package) {
                 \App\Models\PackageUser::create([
                     'user_id' => \auth()->id(),
@@ -72,7 +101,10 @@ Route::group([
                 ]);
                 session()->flash('message', 'تم الاشتراك ف الباقة بنجاح');
                 return redirect()->route('user.get_profile', \auth()->id());
+
             }
+
+            // pay for start with in the project
             if ($project) {
                 $proposal = \App\Models\Proposal::find($request->proposal);
                 $user = User::find($proposal->user->id);
@@ -96,7 +128,7 @@ Route::group([
                     'amount' => $request->amount,
                     'user_id' => $proposal->user->id,
                     'can_withdraw' => 0,
-                    'project_id' =>$project->id,
+                    'project_id' => $project->id,
                     'reason_ar' => 'حجز المبلغ لحين تنفيذ المشروع'
                 ]);
 
@@ -105,13 +137,13 @@ Route::group([
                 session()->flash('message', 'تم دفع المبلغ');
                 return redirect()->route('user.get_profile', \auth()->id());
             }
-            if($request->wallet==true) {
-               $user = User::find(auth()->id());
-               $user->update(['wallet' => $user->wallet + $request->amount]);
+            //this for recharge the wallet
+            if ($request->wallet == true) {
+                $user = User::find(auth()->id());
+                $user->update(['wallet' => $user->wallet + $request->amount]);
                 session()->flash('message', 'تم شحن المحفظة بنجاح');
 
                 return redirect()->route('user.get_profile', \auth()->id());
-
             }
 
             return 'success';
@@ -143,7 +175,7 @@ Route::group([
                 ->name('edit_project');
 
 
-            Route::get('my-projects', [\App\Http\Controllers\User\ProjectController::class,'myProjects'])->name('my_projects');
+            Route::get('my-projects', [\App\Http\Controllers\User\ProjectController::class, 'myProjects'])->name('my_projects');
 
             Route::get('ads', [UserAdController::class, 'index'])->name('ads');
             Route::get('ads/create', [UserAdController::class, 'create'])->name('create_ad');
@@ -160,18 +192,18 @@ Route::group([
             Route::get('packages', [\App\Http\Controllers\User\PackageController::class, 'index'])->name('packages');
             Route::get('contact', [UserContactController::class, 'index'])->name('contact_us');
 
-            Route::post('rating',[\App\Http\Controllers\User\RatingController::class, 'store'])->name('rating');
+            Route::post('rating', [\App\Http\Controllers\User\RatingController::class, 'store'])->name('rating');
 
-            Route::post('request-withdrawal', [\App\Http\Controllers\User\WalletController::class,'storeRequest'])
+            Route::post('request-withdrawal', [\App\Http\Controllers\User\WalletController::class, 'storeRequest'])
                 ->name('request_withdrawal');
 
-            Route::post('recharge', [\App\Http\Controllers\User\WalletController::class,'recharge'])->name('recharge');
+            Route::post('recharge', [\App\Http\Controllers\User\WalletController::class, 'recharge'])->name('recharge');
 
             // proposals
             Route::get('my-proposals', [\App\Http\Controllers\User\ProposalController::class, 'index'])->name('my_proposals');
             Route::get('proposals/{proposal}', [\App\Http\Controllers\User\ProposalController::class, 'show'])->name('show.proposal');
             Route::get('projects/{project}/proposal/{proposal}/edit', [\App\Http\Controllers\User\ProposalController::class, 'editProposal']);
-            Route::get('proposal-requests', [\App\Http\Controllers\User\ProposalController::class,'proposalRequestEdit'])->name('proposal_requests_edit');
+            Route::get('proposal-requests', [\App\Http\Controllers\User\ProposalController::class, 'proposalRequestEdit'])->name('proposal_requests_edit');
 
         });/*authenticated users*/
 
@@ -181,7 +213,7 @@ Route::group([
      *   Admin routes
      */
 
-    require __DIR__.'/admin.php';
+    require __DIR__ . '/admin.php';
 });
 
 

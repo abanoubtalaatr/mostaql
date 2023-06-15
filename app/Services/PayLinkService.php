@@ -37,7 +37,7 @@ class PayLinkService
 
         $postFields = [
             'amount' => $amount,
-            'callBackUrl' => route('user.payment', "&ur=$user->id&project=$projectId&package=$packageId&proposal=$proposalId&wallet=$wallet&amount=$amount"),
+            'callBackUrl' => route('user.payment', "&ur=$user->id&project=$projectId&package=$packageId&proposal=$proposalId&wallet=$wallet&amount=$amount&note=$note"),
             'cancelUrl' => route('user.cancel'),
             'clientEmail' => $user->email,
             'clientMobile' => $user->mobile,

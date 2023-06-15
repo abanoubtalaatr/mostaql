@@ -49,7 +49,7 @@
                         <hr>
                         <div>
                             @if($request->status =='pending')
-                                <button class="mb-2 btn btn-primary">
+                                <button class="mb-2 btn btn-primary" wire:click="acceptRequest({{$request->id}})">
                                     الموافقة
                                 </button>
                                 <button class="mb-2 btn btn-danger" wire:click="rejectRequest({{$request->id}})">

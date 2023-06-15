@@ -11,6 +11,7 @@ use App\Models\Proposal;
 use App\Models\ProposalEditRequest;
 use App\Models\Skill;
 use App\Models\User;
+use App\Services\PayLinkService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -32,9 +33,63 @@ class Requests extends Component
     public function rejectRequest(ProposalEditRequest $request)
     {
         $request->update(['status' => 'reject']);
-        $message = __('your_request_has_been_rejected');
+        $message = __('site.your_request_has_been_rejected');
 
-        createNotificationInDatabase($message, $message,$request->freelancer,$request->project);
+        createNotificationInDatabase($message, $message, $request->freelancer, $request->project);
+    }
+
+    public function acceptRequest(ProposalEditRequest $request)
+    {
+        // if the new price > old price either decrease from wallet or payment accross paylink
+        $willDecrease = $request->price - $request->proposal->price;
+
+        if ($request->price > $request->proposal->price) {
+            //check first if the project owner has enough money
+            $wallet = $request->project->user->wallet;
+            //decrease the  amount from
+            if ($willDecrease <= $wallet) {
+
+                $request->project->user->update(['wallet' => $request->project->user->wallet - $willDecrease]);
+                $message = __('site.your_request_to_edit_proposal_has_been_accepted');
+
+                createNotificationInDatabase($message, $message, $request->freelancer, $request->project);
+                $total = $request->price;
+
+                $settings = \App\Models\Setting::first();
+                $request->proposal->update([
+                    'price' => $total,
+                    'dues' =>$total - ($total / $settings->platform_dues),
+                    'description' => $request->description,
+                    'number_of_days' => $request->number_of_days,
+                ]);
+
+                $request->project->update([
+                    'price' => $total,
+                    'description_ar' => $request->description,
+                    'number_of_days' => $request->number_of_days,
+                ]);
+
+                $request->update(['status' => 'accept']);
+            } else {
+                //will redirect to pay
+                //after redirect from payment
+                $payLink = new PayLinkService();
+
+                return $payLink->pay($willDecrease, $request->project->user, 'EditProposal', null, $request->project, $request->proposal);
+            }
+        }else{
+            $request->proposal->update([
+                'description' => $request->description,
+                'number_of_days' => $request->number_of_days,
+            ]);
+
+            $request->project->update([
+                'description_ar' => $request->description,
+                'number_of_days' => $request->number_of_days,
+            ]);
+
+            $request->update(['status' => 'accept']);
+        }
     }
 
     public function getRecords()

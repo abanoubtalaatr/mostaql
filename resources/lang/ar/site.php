@@ -471,5 +471,6 @@ return [
     'the_request_to_edit_project_has_been_rejected'=> 'لقد تم رفض طلب التعديل ',
     'amount_can_draw' => 'الرصيد القابل للسحب',
     'amount_want_to_draw' => 'الرصيد المطلوب للحسب',
-    'request_to_edit_proposal' => 'طلب تعديل عرض'
+    'request_to_edit_proposal' => 'طلب تعديل عرض',
+    'your_request_to_edit_proposal_has_been_accepted' => 'تمت الموافقة علي تعديل العرض المقدم'
 ];

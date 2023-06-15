@@ -81,7 +81,7 @@
                                 </button>
                                 <button class="mx-2 mb-1 btn small-btn-border">
                                     <a href="javascript:void(0)">
-                                        {{\Carbon\Carbon::parse($project->created)->diffForHumans()}}
+                                        {{$project->created_at->diffForHumans()}}
                                         <i class="fas fa-clock"></i>
                                     </a>
                                 </button>
@@ -136,7 +136,7 @@
                 <hr>
                 <div class="modal-body text-center">
                     <img height="250" src="{{asset($ad->photo_url)}}" width="100%" alt="">
-                  <p>يمكنكم التواصل عن طريق الوسائل المتاحة التاليه</p>
+                  <p class="mt-3">يمكنكم التواصل عن طريق الوسائل المتاحة التاليه</p>
                     <div
                         class="row row-cols-3 row-cols-lg-3 text-center row-cols-md-3 row-cols-sm-3">
                         @if(!empty($ad->snap_chat))
