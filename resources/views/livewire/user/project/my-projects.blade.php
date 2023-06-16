@@ -1,10 +1,17 @@
 <div class="container mt-5 projects-card">
-    <div class="text-right">
+    <div class="text-right" style="display: flex;justify-content: space-between;align-items: center">
+        @if(isset(auth()->user()->user_type) && auth()->user()->user_type !='freelancer')
+            <h4>
+                <a  href="/{{app()->getLocale()}}/user/proposal-requests">
+                    طلبات تعديل العروض {{auth()->user()->proposalRequests->where('status', 'pending')->count()}}
+                </a>
+            </h4>
+        @endif
         <h4 class="card-title"> مشاريعي</h4>
     </div>
     @if(session()->has('success'))
         <div class="alert alert-success text-right" role="alert">
-          {{session()->get('success')}}
+            {{session()->get('success')}}
         </div>
     @endif
     <div class="row row-cols-1 row-cols-md-2 text-right">
