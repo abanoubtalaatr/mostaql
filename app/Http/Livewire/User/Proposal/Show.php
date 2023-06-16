@@ -68,7 +68,7 @@ class Show extends Component
                 'type' => $type
             ]);
 
-            $project->update(['status' => 2, 'paid' => 1]);
+            $project->update(['status_id' => 2, 'paid' => 1]);
             $this->proposal->update(['status_id' => 12]);
 
             $project->user->update(['wallet' => $project->user->wallet - $this->proposal->price]);
