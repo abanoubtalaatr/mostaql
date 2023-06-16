@@ -88,7 +88,7 @@
                         @method('post')
                         <div class="form-row text-right">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4"> الرقم</label>
+                                <label for="inputEmail4"> المبلغ المالي</label>
                                 <input name="amount" type="number" class="form-control" id="inputEmail4">
                                 @error('form.amount') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>
@@ -152,7 +152,7 @@
                             @method('post')
                             <div class="form-row text-right">
                                 <div class="form-group col-md-12">
-                                    <label for="inputEmail4"> الرقم</label>
+                                    <label for="inputEmail4"> المبلغ المالي</label>
                                     <input name="amount" type="number" class="form-control text-right" id="inputEmail4">
                                     @error('form.amount') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>

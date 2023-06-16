@@ -2,7 +2,7 @@
     <div class="text-right" style="display: flex;justify-content: space-between;align-items: center">
         @if(isset(auth()->user()->user_type) && auth()->user()->user_type !='freelancer')
             <h4>
-                <a  href="/{{app()->getLocale()}}/user/proposal-requests">
+                <a   href="/{{app()->getLocale()}}/user/proposal-requests">
                     طلبات تعديل العروض {{auth()->user()->proposalRequests->where('status', 'pending')->count()}}
                 </a>
             </h4>
