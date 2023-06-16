@@ -133,7 +133,7 @@ Route::group([
                 ]);
 
                 $proposal->update(['status_id' => 12]);
-                $project->update(['status_id' => 2]);
+                $project->update(['status_id' => 2,'paid' => 1]);
                 session()->flash('message', 'تم دفع المبلغ');
                 return redirect()->route('user.get_profile', \auth()->id());
             }
