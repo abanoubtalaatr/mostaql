@@ -52,8 +52,24 @@ class Show extends Component
                 'user_id' => $this->proposal->user->id,
                 'amount' => $this->proposal->price,
                 'project_id' => $project->id,
-                'reason_ar' => 'دفع لاجل تنفيذ مشروع',
+                'can_withdraw' => 0,
+                'reason_ar' => 'حجز المبلغ لحين تنفيذ المشروع'
             ]);
+
+            $title_ar = "تم قبول عرضك";
+            $content_ar = "تم قبول عرضك علي مشروع $project->title";
+            $user_id = $this->proposal->user_id;
+            $type = 'proposal';
+
+            Notification::create([
+                'title_ar' => $title_ar,
+                'content_ar' => $content_ar,
+                'user_id' => $user_id,
+                'type' => $type
+            ]);
+
+            $project->update(['status' => 2, 'paid' => 1]);
+            $this->proposal->update(['status_id' => 12]);
 
             $project->user->update(['wallet' => $project->user->wallet - $this->proposal->price]);
 

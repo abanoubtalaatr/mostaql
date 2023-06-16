@@ -40,7 +40,7 @@
                         {{\App\Models\Setting::first()->text_fo_accept_deal}}
                     </p>
                     @if(auth()->check())
-                        @if($proposal->project->user->id == auth()->id() && $proposal->project->status_id !=3 )
+                        @if($proposal->project->user->id == auth()->id() && $proposal->project->paid ==0 )
                             <button type="submit" class="btn extra-green mb-2" wire:click.prevent="pay">تنفيذ العمل وحجز
                                 المبلغ
                             </button>
