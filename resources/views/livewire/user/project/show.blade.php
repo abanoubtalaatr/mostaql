@@ -117,7 +117,7 @@
                 <div class="card">
                     <form wire:submit.prevent="addProposal" wire:disabled="disableTheForm">
                         <div class="text-right">
-                            <h4 class="card-title">{{$project->category->title_ar}}</h4>
+                            <h4 class="card-title">{{$project->title}}</h4>
                         </div>
                         <div class="card-body">
                             <h6 class="card-title">اضف عرضك الان</h6>
@@ -174,7 +174,7 @@
                             </div>
                             @if(auth()->user())
                                 @if($proposal)
-                                    <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}/proposal/{{$proposal->id}}/edit" type="button" class="btn extra-purple my-3">هل تريد تعديل عرضك علي هذا المشروع</a>
+                                    <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}/proposal/{{$proposal->id}}/edit" type="button" class="btn extra-purple my-3">تعديل</a>
                                 @else
                                     <button class="btn extra-purple my-3">اضف الان</button>
                                 @endif

@@ -1,7 +1,7 @@
 <div>
     <div class="packedges mt-0">
         <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-md-2"  style="direction: ltr !important;">
+            <div class="row row-cols-1 row-cols-md-2" style="direction: ltr !important;">
                 <div class="col mb-4 content-1">
                     <div class="card bg-transparent border-0">
                         <div class="card-body text-left">
@@ -30,6 +30,11 @@
     </div>
 
     <div class="container packedge-cards mt-5">
+        @if(isset($havePackage))
+            <div class="alert alert-danger text-right w-50 ml-auto">
+                أنت مشترك ف باقه حاليا
+            </div>
+        @endif
         <div class="row row-cols-1 py-5 row-cols-lg-4 row-cols-md-2" style="    flex-direction: row-reverse;">
             @foreach($packages as $package)
                 <div class="col text-center mb-4">

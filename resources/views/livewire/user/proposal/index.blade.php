@@ -42,7 +42,7 @@
                             اقرا المزيد
                         </button>
 
-                        <a href="/{{app()->getLocale()}}/user/projects/{{$proposal->id}}"
+                        <a href="/{{app()->getLocale()}}/user/projects/{{$proposal->project->id}}"
                            style="text-decoration: none" class="btn extra-green more mb-2">
                             تصفح المشروع
                         </a>

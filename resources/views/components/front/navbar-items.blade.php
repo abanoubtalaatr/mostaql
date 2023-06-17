@@ -131,7 +131,8 @@
                     </form>
                 </li>
             @endif
-            <a class="navbar-brand mb-3" href="#">Logo</a>
+
         </ul>
     </div>
+    <a class="navbar-brand mb-3 mt-3" href="#">Logo</a>
 </nav>

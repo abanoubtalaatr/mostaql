@@ -10,7 +10,7 @@ use function view;
 
 class Index extends Component
 {
-    public $packages;
+    public $packages, $havePackage;
 
     public function mount()
     {
@@ -18,6 +18,9 @@ class Index extends Component
 
         $currentPackageIdForUser = $user->activePackage() ? $user->activePackage()->id : 0;
 
+        if($currentPackageIdForUser != 0){
+            $this->havePackage = true;
+        }
         $this->packages = Package::where('id', '!=', $currentPackageIdForUser)->latest()->with('features')->get();
     }
 

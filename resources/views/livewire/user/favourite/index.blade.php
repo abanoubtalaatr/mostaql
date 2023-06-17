@@ -1,4 +1,4 @@
-<div class="container-fluid mycart mt-5">
+<div class="container-fluid mycart mt-5" style="direction: rtl">
     <div class="text-right">
         <h4 class="card-title">المشاريع المفضلة</h4>
     </div>
@@ -7,7 +7,7 @@
             <div class="col mb-4">
                 <div class="card bg-transparent">
                     <div class="card-body">
-                        <h6 class="card-title">{{$record->project->category->title_ar}}</h6>
+                        <h6 class="card-title">{{$record->project->title}}</h6>
                         <details class="my-3">
                             <summary>وصف المشروع</summary>
                             <p class="card-text mt-3">

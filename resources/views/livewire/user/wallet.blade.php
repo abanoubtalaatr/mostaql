@@ -31,7 +31,7 @@
                             ريال
                         </span>
                         <span class="d-inline-block">
-                        {{round($user->wallet,2)}}
+                        {{round($user->wallet,2) + round( $user->wallets()->where('can_withdraw', 0)->sum('amount'),2)}}
                         </span>
                     </h2>
 
@@ -56,7 +56,7 @@
                     <h5 class="card-title">الرصيد المتاح</h5>
                     <h2 class="card-title">
                         <span class="d-inline-block">ريال  </span>
-                        <span class="d-inline-block">{{round($user->wallet,2)}}</span>
+                        <span class="d-inline-block">{{round($user->wallet,2) +round( $user->wallets()->where('can_withdraw', 0)->sum('amount'),2)}}</span>
                     </h2>
                 </div>
             </div>
