@@ -163,7 +163,7 @@ Route::group([
                     $response  = Http::withHeaders([
                         'Authorization' => "Bearer $token"
                     ])->get('https://restapi.paylink.sa/api/getInvoice/'.$request->transactionNo);
-                    dd($response);
+                    dd($response['orderStatus']);
                     $user = User::find(auth()->id());
                     $user->update(['wallet' => $user->wallet + $request->amount]);
                     \App\Models\Wallet::create([
