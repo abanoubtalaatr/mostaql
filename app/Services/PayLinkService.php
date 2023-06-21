@@ -71,6 +71,16 @@ return            redirect($response['url']);
             'Content-Type' => 'application/json'
         ])->post('https://restapi.paylink.sa/api/auth', $data);
 
+        //demo
+//        $data = [
+//            'apiId' => "APP_ID_1123453311",
+//            'secretKey' => "0662abb5-13c7-38ab-cd12-236e58f43766"
+//        ];
+//
+//        $response = Http::withHeaders([
+//            'Content-Type' => 'application/json'
+//        ])->post('https://restpilot.paylink.sa/api/auth', $data);
+
         if ($response->ok()) {
             return $response['id_token'];
 

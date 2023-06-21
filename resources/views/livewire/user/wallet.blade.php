@@ -170,4 +170,24 @@
             </div>
         </div>
 
+        <h6 class="text-right"> سجل المعاملات المالية</h6>
+        <table class="table table-bordered table-striped" style="direction: rtl ">
+            <thead>
+            <tr class="text-right">
+                <th>السبب</th>
+                <th>المبلغ المالي</th>
+                <th>التاريخ</th>
+            </tr>
+            </thead>
+            <tbody class="text-right">
+            @foreach(auth()->user()->wallets as $wallet)
+                <tr>
+                    <td>{{ $wallet->reason_ar }}</td>
+                    <td>{{ $wallet->amount }}</td>
+                    <td>{{ $wallet->created_at->diffForHumans() }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
 </div>

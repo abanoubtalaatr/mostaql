@@ -73,6 +73,13 @@ Route::group([
                 $proposal = \App\Models\Proposal::find($request->proposal);
                 $total = $proposal->price + $request->amount;
                 $settings = \App\Models\Setting::first();
+
+                $updateWalletRow =  \App\Models\Wallet::where('user_id', $proposal->user->id)
+                    ->where('project_id', $project->id)->first();
+                if($updateWalletRow){
+                    $updateWalletRow->update(['amount' => $updateWalletRow->amount + $request->amount]);
+                }
+
                 $proposal->update([
                     'price' => $total,
                     'dues' =>$total - ($total / $settings->platform_dues),
@@ -139,8 +146,15 @@ Route::group([
             }
             //this for recharge the wallet
             if ($request->wallet == true) {
+                dd($request->all());
                 $user = User::find(auth()->id());
                 $user->update(['wallet' => $user->wallet + $request->amount]);
+                \App\Models\Wallet::create([
+                    'amount' => $request->amount,
+                    'user_id' => auth()->id(),
+                    'can_withdraw' => 1,
+                    'reason_ar' => 'شحن المحفظة'
+                ]);
                 session()->flash('message', 'تم شحن المحفظة بنجاح');
 
                 return redirect()->route('user.get_profile', \auth()->id());
