@@ -163,19 +163,24 @@ Route::group([
                     $response  = Http::withHeaders([
                         'Authorization' => "Bearer $token"
                     ])->get('https://restapi.paylink.sa/api/getInvoice/'.$request->transactionNo);
-                    dd($response['orderStatus']);
-                    $user = User::find(auth()->id());
-                    $user->update(['wallet' => $user->wallet + $request->amount]);
-                    \App\Models\Wallet::create([
-                        'amount' => $request->amount,
-                        'user_id' => auth()->id(),
-                        'can_withdraw' => 1,
-                        'reason_ar' => 'شحن المحفظة'
-                    ]);
-                    session()->flash('message', 'تم شحن المحفظة بنجاح');
+                    if($response['orderStatus'] != 'Pending'); {
+
+                        $user = User::find(auth()->id());
+                        $user->update(['wallet' => $user->wallet + $request->amount]);
+                        \App\Models\Wallet::create([
+                            'amount' => $request->amount,
+                            'user_id' => auth()->id(),
+                            'can_withdraw' => 1,
+                            'reason_ar' => 'شحن المحفظة'
+                        ]);
+                        session()->flash('message', 'تم شحن المحفظة بنجاح');
+
+                        return redirect()->route('user.get_profile', \auth()->id());
+                    }
                     // use the token to make authenticated requests to the Paylink API
                 }
 
+                session()->flash('message', 'فشل ف شحن المحفظة تأكد من كل شئ صحيح');
 
                 return redirect()->route('user.get_profile', \auth()->id());
             }
