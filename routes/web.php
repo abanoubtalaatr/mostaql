@@ -21,6 +21,7 @@ use App\Http\Livewire\User\Library\Show as UserShowLibrary;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -146,16 +147,35 @@ Route::group([
             }
             //this for recharge the wallet
             if ($request->wallet == true) {
-                dd($request->all());
-                $user = User::find(auth()->id());
-                $user->update(['wallet' => $user->wallet + $request->amount]);
-                \App\Models\Wallet::create([
-                    'amount' => $request->amount,
-                    'user_id' => auth()->id(),
-                    'can_withdraw' => 1,
-                    'reason_ar' => 'شحن المحفظة'
-                ]);
-                session()->flash('message', 'تم شحن المحفظة بنجاح');
+
+                $data = [
+                    'apiId' => "APP_ID_1681303723036",
+                    'secretKey' => "e6b717d3-62ff-4f8c-a451-4194c2c5d55a"
+                ];
+
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json'
+                ])->post('https://restapi.paylink.sa/api/auth', $data);
+
+                if ($response->ok()) {
+                    $token = $response['id_token'];
+
+                    $response  = Http::withHeaders([
+                        'Authorization' => "Bearer $token"
+                    ])->get('https://restpilot.paylink.sa/api/getInvoice/'.$request->transactionNo);
+                    dd($response);
+                    $user = User::find(auth()->id());
+                    $user->update(['wallet' => $user->wallet + $request->amount]);
+                    \App\Models\Wallet::create([
+                        'amount' => $request->amount,
+                        'user_id' => auth()->id(),
+                        'can_withdraw' => 1,
+                        'reason_ar' => 'شحن المحفظة'
+                    ]);
+                    session()->flash('message', 'تم شحن المحفظة بنجاح');
+                    // use the token to make authenticated requests to the Paylink API
+                }
+
 
                 return redirect()->route('user.get_profile', \auth()->id());
             }
