@@ -162,7 +162,7 @@ Route::group([
 dd($token);
                     $response  = Http::withHeaders([
                         'Authorization' => "Bearer $token"
-                    ])->get('https://restpilot.paylink.sa/api/getInvoice/'.$request->transactionNo);
+                    ])->get('https://restapi.paylink.sa/api/getInvoice/'.$request->transactionNo);
                     dd($response);
                     $user = User::find(auth()->id());
                     $user->update(['wallet' => $user->wallet + $request->amount]);
