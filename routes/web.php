@@ -159,7 +159,7 @@ Route::group([
 
                 if ($response->ok()) {
                     $token = $response['id_token'];
-dd($token);
+
                     $response  = Http::withHeaders([
                         'Authorization' => "Bearer $token"
                     ])->get('https://restapi.paylink.sa/api/getInvoice/'.$request->transactionNo);
