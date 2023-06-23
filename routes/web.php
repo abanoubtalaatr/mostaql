@@ -163,7 +163,9 @@ Route::group([
                     $response  = Http::withHeaders([
                         'Authorization' => "Bearer $token"
                     ])->get('https://restapi.paylink.sa/api/getInvoice/'.$request->transactionNo);
-                    if($response['orderStatus'] != 'Pending' || $response['orderStatus']!='pending' ); {
+
+
+                    if($response['orderStatus'] != 'Pending' || $response['orderStatus']!='pending' ) {
 
                         $user = User::find(auth()->id());
                         $user->update(['wallet' => $user->wallet + $request->amount]);
