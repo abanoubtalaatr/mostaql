@@ -70,7 +70,7 @@
         </div>
         <div class="text-center my-4">
             <button class="btn btn-info small-btn-border" data-toggle="modal" data-target="#fillWallet">
-شحن المحفظه            </button>
+شحن الرصيد            </button>
         </div>
 {{--    @endif--}}
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
@@ -89,7 +89,7 @@
                         <div class="form-row text-right">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4"> المبلغ المالي</label>
-                                <input name="amount" type="number" class="form-control" id="inputEmail4">
+                                <input name="amount" min="5" type="number" class="form-control" id="inputEmail4">
                                 @error('form.amount') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group col-md-6">
@@ -153,7 +153,7 @@
                             <div class="form-row text-right">
                                 <div class="form-group col-md-12">
                                     <label for="inputEmail4"> المبلغ المالي</label>
-                                    <input name="amount" type="number" class="form-control text-right" id="inputEmail4">
+                                    <input name="amount" min="5" type="number" class="form-control text-right" id="inputEmail4">
                                     @error('form.amount') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>

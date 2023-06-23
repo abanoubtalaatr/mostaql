@@ -66,123 +66,125 @@ Route::group([
 
             // this for edit proposal amount
             if ($request->note == 'EditProposal') {
+                $paylink = new \App\Services\PayLinkService();
+                $response = $paylink->getInvoice($request->transactionNo);
+                if($response) {
 
-                //will calculate the price from the beings
-                // proposal will edit teh price and dues
-                // and project price
-                // also then update the status of request
-                $proposal = \App\Models\Proposal::find($request->proposal);
-                $total = $proposal->price + $request->amount;
-                $settings = \App\Models\Setting::first();
+                    //will calculate the price from the beings
+                    // proposal will edit teh price and dues
+                    // and project price
+                    // also then update the status of request
+                    $proposal = \App\Models\Proposal::find($request->proposal);
+                    $total = $proposal->price + $request->amount;
+                    $settings = \App\Models\Setting::first();
 
-                $updateWalletRow =  \App\Models\Wallet::where('user_id', $proposal->user->id)
-                    ->where('project_id', $project->id)->first();
-                if($updateWalletRow){
-                    $updateWalletRow->update(['amount' => $updateWalletRow->amount + $request->amount]);
+                    $updateWalletRow = \App\Models\Wallet::where('user_id', $proposal->user->id)
+                        ->where('project_id', $project->id)->first();
+                    if ($updateWalletRow) {
+                        $updateWalletRow->update(['amount' => $updateWalletRow->amount + $request->amount]);
+                    }
+
+                    $proposal->update([
+                        'price' => $total,
+                        'dues' => $total - ($total / $settings->platform_dues),
+                    ]);
+
+                    $project->update([
+                        'price' => $total,
+                    ]);
+
+                    $requestRow = \App\Models\ProposalEditRequest::where('owner_id', auth()->id())
+                        ->where('project_id', $project->id)
+                        ->where('proposal_id', $proposal->id)
+                        ->first();
+
+                    $requestRow->update(['status' => 'accept']);
+
+                    return redirect(route('user.proposal_requests_edit'));
                 }
-
-                $proposal->update([
-                    'price' => $total,
-                    'dues' =>$total - ($total / $settings->platform_dues),
-                ]);
-
-                $project->update([
-                    'price' => $total,
-                ]);
-
-                $requestRow = \App\Models\ProposalEditRequest::where('owner_id', auth()->id())
-                    ->where('project_id', $project->id)
-                    ->where('proposal_id', $proposal->id)
-                    ->first();
-
-                $requestRow->update(['status' => 'accept']);
-
-                return redirect(route('user.proposal_requests_edit'));
+                session()->flash('error', 'الدفع فشل تأكد من كل شئ صحيح');
+                return redirect()->route('user.get_profile', \auth()->id());
             }
 
             // this for subscribe in package
             if ($package) {
-                \App\Models\PackageUser::create([
-                    'user_id' => \auth()->id(),
-                    'package_id' => $package->id,
-                    'end_at' => \Carbon\Carbon::now()->addMonths($package->period),
-                ]);
-                session()->flash('message', 'تم الاشتراك ف الباقة بنجاح');
-                return redirect()->route('user.get_profile', \auth()->id());
+                $paylink = new \App\Services\PayLinkService();
+                $response = $paylink->getInvoice($request->transactionNo);
+                if($response) {
+                    \App\Models\PackageUser::create([
+                        'user_id' => \auth()->id(),
+                        'package_id' => $package->id,
+                        'end_at' => \Carbon\Carbon::now()->addMonths($package->period),
+                    ]);
+                    session()->flash('message', 'تم الاشتراك ف الباقة بنجاح');
+                    return redirect()->route('user.get_profile', \auth()->id());
 
+                }
+                session()->flash('error', 'الدفع فشل تأكد من كل شئ صحيح');
+                return redirect()->route('user.get_profile', \auth()->id());
             }
 
             // pay for start with in the project
             if ($project) {
-                $proposal = \App\Models\Proposal::find($request->proposal);
-                $user = User::find($proposal->user->id);
+                $paylink = new \App\Services\PayLinkService();
+                $response = $paylink->getInvoice($request->transactionNo);
+                if($response) {
+                    $proposal = \App\Models\Proposal::find($request->proposal);
+                    $user = User::find($proposal->user->id);
 
 
-                $userProposal = User::find($proposal->user->id);
-                //        Mail::to($userProposal->email)->send(new ProposalEmail($project,'تم قبول عرضك علي مشروع'));
-                $title_ar = "تم قبول عرضك";
-                $content_ar = "تم قبول عرضك علي مشروع $project->title";
-                $user_id = $user->id;
-                $type = 'proposal';
+                    $userProposal = User::find($proposal->user->id);
+                    //        Mail::to($userProposal->email)->send(new ProposalEmail($project,'تم قبول عرضك علي مشروع'));
+                    $title_ar = "تم قبول عرضك";
+                    $content_ar = "تم قبول عرضك علي مشروع $project->title";
+                    $user_id = $user->id;
+                    $type = 'proposal';
 
-                Notification::create([
-                    'title_ar' => $title_ar,
-                    'content_ar' => $content_ar,
-                    'user_id' => $user_id,
-                    'type' => $type
-                ]);
+                    Notification::create([
+                        'title_ar' => $title_ar,
+                        'content_ar' => $content_ar,
+                        'user_id' => $user_id,
+                        'type' => $type
+                    ]);
 
-                \App\Models\Wallet::create([
-                    'amount' => $request->amount,
-                    'user_id' => $proposal->user->id,
-                    'can_withdraw' => 0,
-                    'project_id' => $project->id,
-                    'reason_ar' => 'حجز المبلغ لحين تنفيذ المشروع'
-                ]);
+                    \App\Models\Wallet::create([
+                        'amount' => $request->amount,
+                        'user_id' => $proposal->user->id,
+                        'can_withdraw' => 0,
+                        'project_id' => $project->id,
+                        'reason_ar' => 'حجز المبلغ لحين تنفيذ المشروع'
+                    ]);
 
-                $proposal->update(['status_id' => 12]);
-                $project->update(['status_id' => 2,'paid' => 1]);
-                session()->flash('message', 'تم دفع المبلغ');
+                    $proposal->update(['status_id' => 12]);
+                    $project->update(['status_id' => 2, 'paid' => 1]);
+                    session()->flash('message', 'تم دفع المبلغ');
+                    return redirect()->route('user.get_profile', \auth()->id());
+                }
+                session()->flash('error', 'الدفع فشل تأكد من كل شئ صحيح');
                 return redirect()->route('user.get_profile', \auth()->id());
             }
             //this for recharge the wallet
             if ($request->wallet == true) {
+                $paylink = new \App\Services\PayLinkService();
+                $response = $paylink->getInvoice($request->transactionNo);
 
-                $data = [
-                    'apiId' => "APP_ID_1681303723036",
-                    'secretKey' => "e6b717d3-62ff-4f8c-a451-4194c2c5d55a"
-                ];
+                if ($response) {
+                    $user = User::find(auth()->id());
+                    $user->update(['wallet' => $user->wallet + $request->amount]);
+                    \App\Models\Wallet::create([
+                        'amount' => $request->amount,
+                        'user_id' => auth()->id(),
+                        'can_withdraw' => 1,
+                        'reason_ar' => 'شحن المحفظة'
+                    ]);
+                    session()->flash('message', 'تم شحن المحفظة بنجاح');
 
-                $response = Http::withHeaders([
-                    'Content-Type' => 'application/json'
-                ])->post('https://restapi.paylink.sa/api/auth', $data);
+                    return redirect()->route('user.get_profile', \auth()->id());
 
-                if ($response->ok()) {
-                    $token = $response['id_token'];
-
-                    $response  = Http::withHeaders([
-                        'Authorization' => "Bearer $token"
-                    ])->get('https://restapi.paylink.sa/api/getInvoice/'.$request->transactionNo);
-
-
-                    if($response['orderStatus'] != 'Pending' || $response['orderStatus']!='pending' ) {
-
-                        $user = User::find(auth()->id());
-                        $user->update(['wallet' => $user->wallet + $request->amount]);
-                        \App\Models\Wallet::create([
-                            'amount' => $request->amount,
-                            'user_id' => auth()->id(),
-                            'can_withdraw' => 1,
-                            'reason_ar' => 'شحن المحفظة'
-                        ]);
-                        session()->flash('message', 'تم شحن المحفظة بنجاح');
-
-                        return redirect()->route('user.get_profile', \auth()->id());
-                    }
                     // use the token to make authenticated requests to the Paylink API
                 }
 
-                session()->flash('message', 'فشل ف شحن المحفظة تأكد من كل شئ صحيح');
+                session()->flash('error', 'فشل ف شحن المحفظة تأكد من كل شئ صحيح');
 
                 return redirect()->route('user.get_profile', \auth()->id());
             }

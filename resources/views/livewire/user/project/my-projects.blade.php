@@ -48,7 +48,7 @@
                         </div>
 
                         <p class="card-text my-4 content">
-                            <span class="hide more">{{$project->description_ar}}</span>
+                            <span class=" more">{{$project->description_ar}}</span>
                         </p>
 
                         <button class="btn extra-purple mb-2" onclick="readMore(this)">

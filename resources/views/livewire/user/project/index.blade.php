@@ -108,6 +108,27 @@
                             >
                                 اضف عرضك الان
                             </a>
+
+                            <button class="mx-2 mb-1 btn small-btn-border">
+                                <a href="javascript:void(0)">
+                                    <span> {{$project->proposals->count()}} </span>
+                                    عرض
+                                    <i class="fas fa-ticket-alt"></i>
+                                </a>
+                            </button>
+                            <p class="my-2 card-text case-of-project">
+                                <span> حاله المشروع : </span>
+                                @if($project->status_id == 1 || $project->status_id ==0)
+                                    <span>مرحله العروض</span>
+                                @endif
+                                @if($project->status_id == 2 )
+                                    <span>تحت التنفيذ</span>
+                                @endif
+                                @if($project->status_id == 3 )
+                                    <span>مكتمل</span>
+                                @endif
+                            </p>
+
                         </div>
                     </div>
                 </div>
@@ -136,7 +157,7 @@
                 <hr>
                 <div class="modal-body text-center">
                     <img height="250" src="{{asset($ad->photo_url)}}" width="100%" alt="">
-                  <p class="mt-3">يمكنكم التواصل عن طريق الوسائل المتاحة التاليه</p>
+                    <p class="mt-3">يمكنكم التواصل عن طريق الوسائل المتاحة التاليه</p>
                     <div
                         class="row row-cols-3 row-cols-lg-3 text-center row-cols-md-3 row-cols-sm-3">
                         @if(!empty($ad->snap_chat))

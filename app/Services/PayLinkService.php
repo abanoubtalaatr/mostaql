@@ -8,20 +8,33 @@ use App\Models\Proposal;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class PayLinkService
 {
+
+    protected $appId;
+    protected $paylinkUrl;
+    protected $secretKey;
+
+    public function __construct()
+    {
+        $this->appId = env('PAYLINK_APP_ID');
+        $this->secretKey = env('PAYLINK_SECKRET_KEY');
+        $this->paylinkUrl = env('PAYLINK_URL');
+    }
 
     public function pay($amount, User $user, $note = 'payForProject', $package, $project, $proposal)
     {
         $url = env('PAYLINK_URL');
         $token = $this->authRequest();
+
         $projectId = 'test';
         $packageId = 'test';
         $proposalId = 'test';
-        $wallet =false;
-        if($note =='wallet') {
-            $wallet =true;
+        $wallet = false;
+        if ($note == 'wallet') {
+            $wallet = true;
         }
         if ($project) {
             $projectId = $project->id;
@@ -55,7 +68,7 @@ class PayLinkService
 
         if ($response->ok()) {
 
-return            redirect($response['url']);
+            return redirect($response['url']);
         }
     }
 
@@ -63,8 +76,8 @@ return            redirect($response['url']);
     {
 
         $data = [
-            'apiId' => "APP_ID_1681303723036",
-            'secretKey' => "e6b717d3-62ff-4f8c-a451-4194c2c5d55a"
+            'apiId' => $this->appId,
+            'secretKey' => $this->secretKey
         ];
 
         $response = Http::withHeaders([
@@ -88,6 +101,22 @@ return            redirect($response['url']);
         } else {
             dd('error');
             // handle the error
+        }
+    }
+
+
+    public function getInvoice($transactionNo)
+    {
+        $token = $this->authRequest();
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer $token"
+        ])->get('https://restapi.paylink.sa/api/getInvoice/' . $transactionNo);
+
+        if ($response['orderStatus'] != 'Pending') {
+            return true;
+        } else {
+            return false;
         }
     }
 }

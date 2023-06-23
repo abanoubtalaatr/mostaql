@@ -14,7 +14,8 @@ if (!function_exists('createNotificationInDatabase')) {
             'title_ar' => $title_ar,
             'content_ar' => $content_ar,
             'user_id' => $user_id,
-            'type' => $type
+            'type' => $type,
+            'link' => route('project.show',$project->id)
         ]);
     }
 }
