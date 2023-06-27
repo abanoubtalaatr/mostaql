@@ -30,16 +30,34 @@
                                    class="btn extra-green px-2 py-1">عرض</a>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <div class="mx-2 mt-1 d-flex">
+                                <div class="mx-2 mt-1 d-flex " style="align-items: center">
                                     @for ($i = 1; $i <= $user->averageRates(); $i++)
-                                        <img src="{{asset('images/Star 1.png')}}" alt="">
+                                        <img width="15" height="15" src="{{asset('images/Star 1.png')}}" alt="">
                                     @endfor
-                                    <strong>{{$user->first_name.' '. $user->last_name}}.</strong>
+                                    <strong class="mx-2">{{$user->first_name.' '. $user->last_name}}.</strong>
                                 </div>
                                 <div>
                                     <img width="50" height="50" class="rounded-circle" src="{{$user->avatar}}" alt="">
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="">
+                            <ul class="d-flex justify-content-between">
+                                <li>
+                                    <a href="javascript:void(0)">{{$user->job_title}}</a>
+                                    <i class="fas fa-briefcase"></i>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">{{$user->city->name_ar}}</a>
+                                    <i class="fas fa-home"></i>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">{{$user->country->value}}</a>
+                                    <i class="fas fa-home"></i>
+                                </li>
+
+                            </ul>
                         </div>
                         <p class="card-text mt-2 txt-lines">
                             {{$user->description}}

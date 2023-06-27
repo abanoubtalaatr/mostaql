@@ -55,6 +55,9 @@ class Show extends Component
         $this->user = $this->project->user;
         $this->userType = auth()->user() ? auth()->user()->user_type : '';
         $this->checkShowButtonDeliverProject();
+        if($project->status_id == 2 || $project->status_id ==3) {
+            $this->showAddProposal = false;
+        }
     }
 
     public function checkShowButtonDeliverProject()

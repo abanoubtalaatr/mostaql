@@ -48,11 +48,18 @@
                     <div class="row row-cols-2 text-right mx-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-2">
                         <h6 class="my-2">{{$project->created_at->diffForHumans()}}</h6>
                         <h6 class="my-2">تاريخ النشر</h6>
-                        <h6 class="my-2">{{$project->price}}</h6>
+                        <h6 class="my-2">
+                            <span class="d-inline-block">ريال</span>
+                            {{$project->price}}
+                        </h6>
                         <h6 class="my-2">الميزانية</h6>
-                        <h6 class="my-2">{{$project->number_of_days}}</h6>
+                        <h6 class="my-2">
+                            <span class="d-inline-block">أيام</span>
+                            <span class="mx-1">{{$project->number_of_days}}</span>
+
+                        </h6>
                         <h6 class="my-2">مدة التنفيذ</h6>
-                        <h6 class="my-2">{{$project->proposals->count()}}</h6>
+                        <h6 class="my-2">{{$project->proposals->count()}} </h6>
                         <h6 class="my-2">عدد العروض</h6>
                     </div>
                 </div>
@@ -239,7 +246,7 @@
                         <div class="details-propsal-of-usrr">
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0)">مدينه الرياض</a>
+                                    <a href="javascript:void(0)">{{$proposal->user->city->name_ar}}</a>
                                     <i class="fas fa-home"></i>
                                 </li>
                                 <li>

@@ -3,26 +3,37 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Setting;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Illuminate\Support\Arr;
 use App\Http\Livewire\Traits\ValidationTrait;
+use Livewire\WithFileUploads;
 
 class Settings extends Component
 {
     use ValidationTrait;
+    use WithFileUploads;
 
-    public $form, $page_title, $settings;
+    public $form, $page_title, $settings, $picture;
 
     public function mount()
     {
         $this->page_title = __('messages.settings');
         $this->settings = Setting::first();
+
         $this->form = Arr::except($this->settings->toArray(), ['id', 'created_at', 'updated_at']);
+
     }
 
     public function update()
     {
+        if ($this->picture) {
+            $this->form['logo'] = $this->picture->storeAs(date('Y/m/d'), Str::random(50) . '.' . $this->picture->extension(), 'public');
+        }
+
         $this->settings->update($this->form);
+
+
         return redirect()->to(route('admin.settings'))->with('success_message', __('site.saved'));
     }
 
@@ -44,7 +55,8 @@ class Settings extends Component
             'taxes' => 'integer',
             'platform_dues' => 'integer',
             'text_fo_accept_deal' => 'nullable',
-            'packages_is_active' => 'nullable'
+            'packages_is_active' => 'nullable',
+            'logo' => 'nullable',
         ];
     }
 

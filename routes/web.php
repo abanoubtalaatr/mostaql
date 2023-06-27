@@ -102,7 +102,7 @@ Route::group([
 
                     return redirect(route('user.proposal_requests_edit'));
                 }
-                session()->flash('error', 'الدفع فشل تأكد من كل شئ صحيح');
+                session()->flash('error', 'عملية غير ناجحه . تاكد من ادخال البيانات بشكل صحيح');
                 return redirect()->route('user.get_profile', \auth()->id());
             }
 
@@ -120,7 +120,7 @@ Route::group([
                     return redirect()->route('user.get_profile', \auth()->id());
 
                 }
-                session()->flash('error', 'الدفع فشل تأكد من كل شئ صحيح');
+                session()->flash('error', 'عملية غير ناجحه . تاكد من ادخال البيانات بشكل صحيح');
                 return redirect()->route('user.get_profile', \auth()->id());
             }
 
@@ -160,7 +160,7 @@ Route::group([
                     session()->flash('message', 'تم دفع المبلغ');
                     return redirect()->route('user.get_profile', \auth()->id());
                 }
-                session()->flash('error', 'الدفع فشل تأكد من كل شئ صحيح');
+                session()->flash('error', 'عملية غير ناجحه . تاكد من ادخال البيانات بشكل صحيح');
                 return redirect()->route('user.get_profile', \auth()->id());
             }
             //this for recharge the wallet

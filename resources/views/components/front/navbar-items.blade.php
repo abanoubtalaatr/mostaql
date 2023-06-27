@@ -134,5 +134,7 @@
 
         </ul>
     </div>
-    <a class="navbar-brand mb-3 mt-3" href="#">Logo</a>
+    <a class="navbar-brand mb-3 mt-3" href="#">
+        <img class="rounded-circle" src="{{url('uploads/pics/'). '/'.\App\Models\Setting::first()->logo}}">
+    </a>
 </nav>

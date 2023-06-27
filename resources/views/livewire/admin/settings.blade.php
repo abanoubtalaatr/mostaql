@@ -115,6 +115,25 @@
                     </div>
                 </div>
 
+
+
+                <div class="row">
+                    <div class="custom-file-upload">
+                        @if($picture)
+                            <img  style='max-width:100%'  src="{{$picture->temporaryUrl()}}" alt="">
+                        @else
+                            @isset($settings)
+                                <img style='max-width:100%' src="{{url('uploads/pics/'.$settings->logo)}}" alt="">
+                            @endisset
+                        @endif
+                        <img src="{{asset('frontAssets')}}/imgs/wallet/upload.svg" alt="">
+                        <span>@lang('validation.attributes.picture')</span>
+                        <input wire:model='picture' class='form-control @error('logo') is-invalid @enderror' type="file"/>
+                        @error('logo') <p class="text-danger">{{$message}}</p> @enderror
+                    </div>
+                </div>
+
+
                 <div class="btns text-center">
                     <button type='submit' class="button btn-red big">@lang('site.save')</button>
                 </div>
