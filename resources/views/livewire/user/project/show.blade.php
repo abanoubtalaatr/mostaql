@@ -221,7 +221,7 @@
                                            href="/{{app()->getLocale()}}/user/proposals/{{$proposal->id}}"
                                         >تفاصيل العرض</a
                                         >
-                                        @if(auth()->check() && auth()->id() == $proposal->user->id)
+                                        @if(auth()->check() && auth()->id() == $proposal->user->id && $project->status_id !=3 )
                                             <a class="dropdown-item"
                                                href="/{{app()->getLocale()}}/user/projects/{{$proposal->project->id}}/proposal/{{$proposal->id}}/edit">
                                                 تعديل العرض

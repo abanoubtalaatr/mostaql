@@ -101,13 +101,15 @@
                             <button class="btn extra-purple mb-2" onclick="readMore(this)">
                                 اقرا المزيد
                             </button>
-                            <a
-                                href="/{{app()->getLocale()}}/user/projects/{{$project->id}}"
-                                style="text-decoration: none"
-                                class="btn extra-green more mb-2"
-                            >
-                                اضف عرضك الان
-                            </a>
+                            @if($project->status_id !=3)
+                                <a
+                                    href="/{{app()->getLocale()}}/user/projects/{{$project->id}}"
+                                    style="text-decoration: none"
+                                    class="btn extra-green more mb-2"
+                                >
+                                    اضف عرضك الان
+                                </a>
+                            @endif
 
                             <button class="mx-2 mb-1 btn small-btn-border">
                                 <a href="javascript:void(0)">
