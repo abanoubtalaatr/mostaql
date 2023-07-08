@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\PaybackRequest;
 
 use App\Models\User;
 use App\Models\Wallet;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use App\Models\PaybackRequest;
 
@@ -14,9 +15,10 @@ class Index extends Component
 
     public $transaction_id;
 
-    public function mount()
+    public function mount(Request $request)
     {
         $this->page_title = __('site.payback_requests');
+        $this->status = $request->query('status');
     }
 
     public function payNow(PaybackRequest $paybackRequest)

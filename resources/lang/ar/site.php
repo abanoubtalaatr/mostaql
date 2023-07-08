@@ -472,5 +472,9 @@ return [
     'amount_can_draw' => 'الرصيد القابل للسحب',
     'amount_want_to_draw' => 'الرصيد المطلوب للحسب',
     'request_to_edit_proposal' => 'طلب تعديل عرض',
-    'your_request_to_edit_proposal_has_been_accepted' => 'تمت الموافقة علي تعديل العرض المقدم'
+    'your_request_to_edit_proposal_has_been_accepted' => 'تمت الموافقة علي تعديل العرض المقدم',
+    'active_users' => 'المستخدمين المفعلين',
+    'inactive_users' => 'المستخدمين الغير مفعلين',
+    'payback_requests_paid' => 'طلبات السحب المدفوعة',
+    'payback_requests_unpaid' => 'طلبات السحب الغير مدفوعة'
 ];

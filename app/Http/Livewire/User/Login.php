@@ -13,11 +13,10 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public $username, $password, $remember_me, $error_message = '',$deActiveReason;
+    public $username, $password, $remember_me, $error_message = '',$deActiveReason, $code;
 
     public function login()
     {
-
         $this->validate();
         // if user enter email or mobile , then check if verified or not in two cases
         if (auth('users')->attempt(['email' => $this->username, 'password' => $this->password], $this->remember_me)) {
@@ -72,6 +71,16 @@ class Login extends Component
     }
 
 
+    public function changeUsername()
+    {
+        if (substr($this->username, 0, 1) === "5") {
+            $this->code = "+966";
+        }
+        if (substr($this->username, 0, 1) === "0") {
+            $this->code = "+20";
+        }
+
+    }
     public function sendVerficationEmail($user)
     {
         $verificationUrl = URL::temporarySignedRoute(

@@ -69,17 +69,31 @@
             @endcan
             @can('Manage users')
                 <li>
-                    <a href="{{route('admin.users.index')}}">
+                    <a href="{{route('admin.users.index', ['status' => 'active'])}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
-                        @lang('site.users')
+                        @lang('site.active_users')
                     </a>
                 </li>
             @endcan
             @can('Manage users')
                 <li>
-                    <a href="{{route('admin.payback_requests')}}">
+                    <a href="{{route('admin.users.index', ['status' => 'inactive'])}}">
                         <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
-                        @lang('site.payback_requests')
+                        @lang('site.inactive_users')
+                    </a>
+                </li>
+            @endcan
+            @can('Manage users')
+                <li>
+                    <a href="{{route('admin.payback_requests',['status' => 'paid'])}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.payback_requests_paid')
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('admin.payback_requests',['status' => 'not_paid'])}}">
+                        <img src="{{asset('frontAssets')}}/assets_{{app()->getLocale()}}/imgs/home/tasks.svg" alt="">
+                        @lang('site.payback_requests_unpaid')
                     </a>
                 </li>
             @endcan

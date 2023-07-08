@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\User\User;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class Index extends Component
@@ -10,11 +11,12 @@ class Index extends Component
     public $search;
     public $results;
     public $perPage = 10;
+    public $status ;
 
 
-    public function mount()
+    public function mount(Request $request)
     {
-
+        $this->status = $request->query('status');
     }
 
     public function loadMore()

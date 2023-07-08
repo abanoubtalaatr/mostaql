@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,9 +19,10 @@ class Index extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public function mount()
+    public function mount(Request $request)
     {
         $this->page_title = __('site.users');
+        $this->status = $request->query('status');
     }
 
     public function getRecords()

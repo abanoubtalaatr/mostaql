@@ -30,14 +30,14 @@
 
             <div class="row">
 
-                <div class="form-group col-3">
-                    <label for="status-select">@lang('site.status')</label>
-                    <select wire:model='status' id='status-select' class="form-control  contact-input">
-                        <option value>@lang('site.status')</option>
-                        <option value="paid">@lang('site.paid')</option>
-                        <option value="not_paid">@lang('site.not_paid')</option>
-                    </select>
-                </div>
+{{--                <div class="form-group col-3">--}}
+{{--                    <label for="status-select">@lang('site.status')</label>--}}
+{{--                    <select wire:model='status' id='status-select' class="form-control  contact-input">--}}
+{{--                        <option value>@lang('site.status')</option>--}}
+{{--                        <option value="paid">@lang('site.paid')</option>--}}
+{{--                        <option value="not_paid">@lang('site.not_paid')</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
 
             </div>
 

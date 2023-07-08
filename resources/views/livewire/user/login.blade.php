@@ -25,7 +25,12 @@
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col-md-12 my-2">
                         <label for="">رقم الجوال</label>
-                        <input wire:model.defer="username" type="tel" class="form-control text-right">
+                        <input  type="text"  wire:model.defer="username"  wire:change="changeUsername"class="form-control text-right">
+                        <div class="input-group-prepend">
+
+                            <span class="input-group-text" id="">{{$code ??'+966'}}</span>
+
+                        </div>
                         @error('username') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
