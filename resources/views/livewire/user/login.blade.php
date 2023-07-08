@@ -26,7 +26,14 @@
                     <div class="col-md-12 my-2">
                         <label for="">رقم الجوال</label>
                         <input  type="text"  wire:model.defer="username"  wire:change="changeUsername"class="form-control text-right">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend" 
+
+style="
+ position: absolute;
+left: 15px;
+top: 35px;
+padding:2px "
+>
 
                             <span class="input-group-text" id="">{{$code ??'+966'}}</span>
 
