@@ -79,7 +79,7 @@
                     <div class="mt-3">
                         <a class="text-white" href="/{{app()->getLocale()}}/user/profile/{{$user->id}}">
                             <span>{{$user? $user->first_name:''}} {{$user->last_name}}</span>
-                            @if($user->activePackage()->hasFeature(7))
+                                @if($user->activePackage() && $user->activePackage()->hasFeature(7))
                                 <img class="verified-account"
                                      style="width: 15px !important; height: 15px !important"
                                      src="{{asset('images/certi.svg')}}" alt="">
