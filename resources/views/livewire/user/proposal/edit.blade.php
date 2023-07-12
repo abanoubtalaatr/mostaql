@@ -72,9 +72,11 @@
                     <div class="mt-3">
                         <a class="text-white" href="/{{app()->getLocale()}}/user/profile/{{$user->id}}">
                             <span>{{$user? $user->first_name:''}} {{$user->last_name}}</span>
-                            <img class="verified-account"
-                                 style="width: 15px !important; height: 15px !important"
-                                 src="{{asset('images/certi.svg')}}" alt="">
+                            @if($user->activePackage()->hasFeature(7))
+                                <img class="verified-account"
+                                     style="width: 15px !important; height: 15px !important"
+                                     src="{{asset('images/certi.svg')}}" alt="">
+                            @endif
                         </a>
                         <img width="50" height="50" class="rounded-circle" src="{{$user?$user->avatar:""}}" alt="">
                     </div>
@@ -87,81 +89,82 @@
 
         </div>
         <div class="col-md-8 mb-4">
-                <div class="card">
-                    <form wire:submit.prevent="store" wire:disabled="disableTheForm">
-                        <div class="text-right">
-                            <h4 class="card-title">{{$project->category->title_ar}}</h4>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">اضف عرضك الان</h6>
-                            <hr>
-                            <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-2"
-                                 style="direction: rtl">
-                                <div class="col-lg-4 col-md-12 my-2">
-                                    <label for="">مدة التسليم</label>
-                                    <input wire:model.defer="form.number_of_days" type="text"
-                                           class="form-control text-right">
-                                    @error('form.number_of_days') <span
-                                        class="error text-danger">{{ $message }}</span> @enderror
+            <div class="card">
+                <form wire:submit.prevent="store" wire:disabled="disableTheForm">
+                    <div class="text-right">
+                        <h4 class="card-title">{{$project->category->title_ar}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">اضف عرضك الان</h6>
+                        <hr>
+                        <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-2"
+                             style="direction: rtl">
+                            <div class="col-lg-4 col-md-12 my-2">
+                                <label for="">مدة التسليم</label>
+                                <input wire:model.defer="form.number_of_days" type="text"
+                                       class="form-control text-right">
+                                @error('form.number_of_days') <span
+                                    class="error text-danger">{{ $message }}</span> @enderror
 
-                                </div>
-                                <div class="col-lg-4 my-2" style="position: relative">
-                                    <label for="">قيمة العرض</label>
-                                    <div class="full-card">
-                                        <input wire:model.defer="form.price" wire:change="setPlatformDues" type="text"
-                                               class="form-control text-right">
-                                        <span class="small-left-card">ريال</span>
-
-
-                                    </div>
-                                    <small class="mobile-sc-2">
-                                        <span class="d-inline-block">{{$dues}}</span> ريال مستحقاتك بعد خصم عمولة الموقع</small>
-                                    @error('form.price') <span class="error text-danger">{{ $message }}</span> @enderror
-                                </div>
-
-                                <div class="col-lg-4 col-sm-12 my-2 mobile-sc">
-                                    <label for="">مستحقاتك</label>
-                                    <div class="full-card">
-                                        <input wire:model.defer="dues" type="text" disabled=""
-                                               class="form-control text-right"
-                                               style="cursor: not-allowed" value="0 ريال">
-                                        <span class="small-left-card disabled">ريال</span>
-                                    </div>
-                                    <small class="mobile-sc">بعد خصم عمولة موقع </small>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">
-                                    <label for="">تفاصيل العرض</label>
-                                    <textarea wire:model.defer="form.description" class="form-control text-right" id=""
-                                              rows="3"></textarea>
-                                    @error('form.description') <span
-                                        class="error text-danger">{{ $message }}</span> @enderror
-
-                                </div>
-                                {{--                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">--}}
-                                {{--                                    <label for="">اضافه ملفات</label>--}}
-                                {{--                                    <input type="file" wire:model.defer="form.file" class="form-control-file">--}}
-                                {{--                                    @error('form.file') <span class="error text-danger">{{ $message }}</span> @enderror--}}
-
-                                {{--                                </div>--}}
                             </div>
-                            @if(auth()->user())
-                                @if($proposal)
-                                    <button class="btn extra-purple my-3">تعديل</button>
-                                @else
-                                    <button class="btn extra-purple my-3">اضف الان</button>
-                                @endif
-                            @else
-                                <a href="/{{app()->getLocale()}}/user/login">
-                                    <div class="alert alert-danger">
-                                        سجل دخول اولا لتتمكن من اضافة عرض
-                                    </div>
-                                </a>
-                                {{--                                <h6 class="text-danger"></h6>--}}
-                            @endif
+                            <div class="col-lg-4 my-2" style="position: relative">
+                                <label for="">قيمة العرض</label>
+                                <div class="full-card">
+                                    <input wire:model.defer="form.price" wire:change="setPlatformDues" type="text"
+                                           class="form-control text-right">
+                                    <span class="small-left-card">ريال</span>
+
+
+                                </div>
+                                <small class="mobile-sc-2">
+                                    <span class="d-inline-block">{{$dues}}</span> ريال مستحقاتك بعد خصم عمولة
+                                    الموقع</small>
+                                @error('form.price') <span class="error text-danger">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div class="col-lg-4 col-sm-12 my-2 mobile-sc">
+                                <label for="">مستحقاتك</label>
+                                <div class="full-card">
+                                    <input wire:model.defer="dues" type="text" disabled=""
+                                           class="form-control text-right"
+                                           style="cursor: not-allowed" value="0 ريال">
+                                    <span class="small-left-card disabled">ريال</span>
+                                </div>
+                                <small class="mobile-sc">بعد خصم عمولة موقع </small>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 my-2">
+                                <label for="">تفاصيل العرض</label>
+                                <textarea wire:model.defer="form.description" class="form-control text-right" id=""
+                                          rows="3"></textarea>
+                                @error('form.description') <span
+                                    class="error text-danger">{{ $message }}</span> @enderror
+
+                            </div>
+                            {{--                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">--}}
+                            {{--                                    <label for="">اضافه ملفات</label>--}}
+                            {{--                                    <input type="file" wire:model.defer="form.file" class="form-control-file">--}}
+                            {{--                                    @error('form.file') <span class="error text-danger">{{ $message }}</span> @enderror--}}
+
+                            {{--                                </div>--}}
                         </div>
-                    </form>
-                </div>
+                        @if(auth()->user())
+                            @if($proposal)
+                                <button class="btn extra-purple my-3">تعديل</button>
+                            @else
+                                <button class="btn extra-purple my-3">اضف الان</button>
+                            @endif
+                        @else
+                            <a href="/{{app()->getLocale()}}/user/login">
+                                <div class="alert alert-danger">
+                                    سجل دخول اولا لتتمكن من اضافة عرض
+                                </div>
+                            </a>
+                            {{--                                <h6 class="text-danger"></h6>--}}
+                        @endif
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

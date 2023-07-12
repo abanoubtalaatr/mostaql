@@ -13,9 +13,11 @@
                             </div>
                             <p class="mt-2">
                                 {{$user->first_name. ' '. $user->last_name}}
-                                <img class="verified-account"
-                                     style="width: 15px !important; height: 15px !important"
-                                     src="{{asset('images/certi.svg')}}" alt="">
+                                @if($user->activePackage()->hasFeature(7))
+                                    <img class="verified-account"
+                                         style="width: 15px !important; height: 15px !important"
+                                         src="{{asset('images/certi.svg')}}" alt="">
+                                @endif
                             </p>
 
                             <ul class="d-flex justify-content-center">
@@ -67,7 +69,7 @@
         </div>
     @endif
     @if(session()->has('message'))
-    <div class="alert alert-success text-right my-2">{{session()->get('message')}}</div>
+        <div class="alert alert-success text-right my-2">{{session()->get('message')}}</div>
     @endif
     @if(session()->has('error'))
         <div class="alert alert-danger text-right my-2">{{session()->get('error')}}</div>

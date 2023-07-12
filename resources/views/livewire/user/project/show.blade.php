@@ -79,9 +79,11 @@
                     <div class="mt-3">
                         <a class="text-white" href="/{{app()->getLocale()}}/user/profile/{{$user->id}}">
                             <span>{{$user? $user->first_name:''}} {{$user->last_name}}</span>
-                            <img class="verified-account"
-                                 style="width: 15px !important; height: 15px !important"
-                                 src="{{asset('images/certi.svg')}}" alt="">
+                            @if($user->activePackage()->hasFeature(7))
+                                <img class="verified-account"
+                                     style="width: 15px !important; height: 15px !important"
+                                     src="{{asset('images/certi.svg')}}" alt="">
+                            @endif
                         </a>
                         <img width="50" height="50" class="rounded-circle" src="{{$user?$user->avatar:""}}" alt="">
                     </div>
@@ -181,7 +183,8 @@
                             </div>
                             @if(auth()->user())
                                 @if($proposal)
-                                    <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}/proposal/{{$proposal->id}}/edit" type="button" class="btn extra-purple my-3">تعديل</a>
+                                    <a href="/{{app()->getLocale()}}/user/projects/{{$project->id}}/proposal/{{$proposal->id}}/edit"
+                                       type="button" class="btn extra-purple my-3">تعديل</a>
                                 @else
                                     <button class="btn extra-purple my-3">اضف الان</button>
                                 @endif
