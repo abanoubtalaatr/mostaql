@@ -15,25 +15,39 @@
             <form wire:submit.prevent="login" class="text-right px-3">
                 @if($deActiveReason)
                     <div class="row row-cols-1 row-cols-md-2 text-right" style="direction: rtl;">
-                        @if(isset($deActiveReason)) <span class="error text-danger"> السبب :{{ $deActiveReason }}</span>  @endif
+                        @if(isset($deActiveReason)) <span
+                            class="error text-danger"> السبب :{{ $deActiveReason }}</span>  @endif
                     </div>
                 @endif
                 <div class="row row-cols-1 row-cols-md-2 text-right" style="direction: rtl;">
                     @if(isset($error_message)) <span class="error text-danger">{{ $error_message }}</span>  @endif
                 </div>
-
+                <div class=" row row-cols-1 row-cols-md-2 text-right">
+                    <div class="col-md-12 my-2">
+                        <label for="">الجنسيه</label>
+                        <select wire:model.defer="country_id" wire:change="getCode" id=""
+                                class="form-control text-right">
+                            <option selected="">...اختار</option>
+                            @foreach($countries as $country)
+                                <option value="{{$country->id}}">{{$country->value}}</option>
+                            @endforeach
+                        </select>
+                        @error('form.country_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col-md-12 my-2">
                         <label for="">رقم الجوال</label>
-                        <input  type="text"  wire:model.defer="username"  wire:change="changeUsername"class="form-control text-right">
-                        <div class="input-group-prepend" 
+                        <input type="text" wire:model.defer="username" wire:change="changeUsername"
+                               class="form-control text-right">
+                        <div class="input-group-prepend"
 
-style="
+                             style="
  position: absolute;
 left: 15px;
 top: 35px;
 padding:2px "
->
+                        >
 
                             <span class="input-group-text" id="">{{$code ??'+966'}}</span>
 
@@ -59,7 +73,7 @@ padding:2px "
                         <button class="btn extra-green">تسجيل دخول</button>
                     </div>
                     <div class="col-md-6 mb-2 text-right">
-{{--                        <p class="card-text">ساعدني</p>--}}
+                        {{--                        <p class="card-text">ساعدني</p>--}}
                         <a class="nav-link join-us-login" href="/{{app()->getLocale()}}/user/register">
                             ليس لدي حساب بعد
                         </a>

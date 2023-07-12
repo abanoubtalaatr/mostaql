@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\User;
 
 use App\Mail\VerifyEmail;
+use App\Models\Country;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,18 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public $username, $password, $remember_me, $error_message = '',$deActiveReason, $code;
+    public $username, $password, $remember_me, $error_message = '', $deActiveReason, $code, $country_id;
+
+    public function mount()
+    {
+        $this->countries = Country::query()->get();
+    }
+
+    public function getCode()
+    {
+        $country = Country::query()->find($this->country_id);
+        $this->code = $country->code ?? '+966';
+    }
 
     public function login()
     {
@@ -81,6 +93,7 @@ class Login extends Component
         }
 
     }
+
     public function sendVerficationEmail($user)
     {
         $verificationUrl = URL::temporarySignedRoute(

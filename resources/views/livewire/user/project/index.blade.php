@@ -161,7 +161,7 @@
                     <img height="250" src="{{asset($ad->photo_url)}}" width="100%" alt="">
                     <p class="mt-3">يمكنكم التواصل عن طريق الوسائل المتاحة التاليه</p>
                     <div
-                        class="row row-cols-3 row-cols-lg-3 text-center row-cols-md-3 row-cols-sm-3">
+                        class="row row-cols-6 p-0 mr-5 row-cols-lg-6 text-center row-cols-md-6 row-cols-sm-6">
                         @if(!empty($ad->snap_chat))
                             <div class="col mb-1">
                                 <div class="card bg-transparent border-0">
