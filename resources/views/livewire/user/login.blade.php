@@ -24,7 +24,7 @@
                 </div>
                 <div class=" row row-cols-1 row-cols-md-2 text-right">
                     <div class="col-md-12 my-2">
-                        <label for="">الجنسيه</label>
+                        <label for="">الدولة</label>
                         <select wire:model.defer="country_id" wire:change="getCode" id=""
                                 class="form-control text-right">
                             <option selected="">...اختار</option>
