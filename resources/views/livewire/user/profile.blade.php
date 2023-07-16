@@ -13,7 +13,7 @@
                             </div>
                             <p class="mt-2">
                                 {{$user->first_name. ' '. $user->last_name}}
-                                @if($user->activePackage()->hasFeature(7))
+                                @if($user->activePackage() && $user->activePackage()->hasFeature(7))
                                     <img class="verified-account"
                                          style="width: 15px !important; height: 15px !important"
                                          src="{{asset('images/certi.svg')}}" alt="">
